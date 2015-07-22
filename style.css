@@ -1,0 +1,35 @@
+*{
+    padding: 0;
+    margin:0;
+}
+
+html {
+    font-size: 3.3%;
+    font-family: "方正兰亭黑", "微软雅黑", sans-serif;
+}
+
+ul{
+    list-style: none;
+}
+
+input,select,textarea{
+    -webkit-appearance: none;
+    outline: none;
+    border:0;
+}
+
+a,b,i,h1,h2,h3,h4,h5,h6{
+    text-decoration: none;
+    text-shadow: none;
+    font-weight: normal;
+    font-style:normal;
+}
+
+.f36{font-size: 36rem;}
+.f32{font-size: 32rem;}
+.f28{font-size: 28rem;}
+.f24{font-size: 24rem;}
+
+.di{
+    display: inline-block;
+}

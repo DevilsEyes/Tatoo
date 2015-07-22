@@ -1,6 +1,13 @@
 define(["mmRouter",
     "jQjsonp",
-    "Layer"
+    "Layer",
+    "css!./home.css"
 ],function(){
-    layer.msg('success');
+    avalon.router.get("/home",init);
+
+    function init(){
+        vm$root.url='pages/home/home.html';
+        vm$root.isLoading = false;
+    }
+
 });

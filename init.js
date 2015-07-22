@@ -3,17 +3,19 @@ g$id = '';
 g$isMobile = false;
 g$isWX = false;
 g$code = '';
+g$storeInfo = {};
+vm$root = {};
 
 
-//g$baseUrl = 'http://192.168.2.3/V1.0.0';  //±¾µØ²âÊÔ
-//g$baseUrl = 'http://123.57.42.13/V1.0.0/';     //ÍâÍø²âÊÔ
-g$baseUrl = 'http://api.mzg.so/V1.0.0';      //ÕıÊ½·şÎñÆ÷
+//g$baseUrl = 'http://192.168.2.3/V1.0.0';  //æœ¬åœ°æµ‹è¯•
+//g$baseUrl = 'http://123.57.42.13/V1.0.0/';     //å¤–ç½‘æµ‹è¯•
+g$baseUrl = 'http://api.mzg.so/V1.0.0';      //æ­£å¼æœåŠ¡å™¨
 
 
 
 (function () {
 
-    //»ñÈ¡Ò³ÃæÉÏµÄ²ÎÊı
+    //è·å–é¡µé¢ä¸Šçš„å‚æ•°
     var args = window.location.search.substring(1);
     var str='';
     args = args.split("&");
@@ -28,10 +30,10 @@ g$baseUrl = 'http://api.mzg.so/V1.0.0';      //ÕıÊ½·şÎñÆ÷
 
     g$id = g$params.storeId;
 
-    //ÊÇ·ñÒÆ¶¯¶ËÅĞ¶Ï
+    //æ˜¯å¦ç§»åŠ¨ç«¯åˆ¤æ–­
     g$isMobile = navigator.userAgent.match(/mobile/i) != null;
 
-    //ÒÆ¶¯¶ËÏÔÊ¾ÉèÖÃ
+    //ç§»åŠ¨ç«¯æ˜¾ç¤ºè®¾ç½®
         if(g$isMobile){
             var m = document.createElement("META");
             m.setAttribute("name","viewport");
@@ -39,7 +41,7 @@ g$baseUrl = 'http://api.mzg.so/V1.0.0';      //ÕıÊ½·şÎñÆ÷
             document.head.appendChild(m);
         }
 
-    //ÊÇ·ñÎ¢ĞÅÅĞ¶Ï
+    //æ˜¯å¦å¾®ä¿¡åˆ¤æ–­
         g$isWX = false;
 
         function onBridgeReady() {
@@ -56,7 +58,7 @@ g$baseUrl = 'http://api.mzg.so/V1.0.0';      //ÕıÊ½·şÎñÆ÷
             onBridgeReady();
         }
 
-    //URL±àÂë½âÂëËã·¨
+    //URLç¼–ç è§£ç ç®—æ³•
     var enCodeUni = function(str){
         var nstr =[];
         for(var i=0;i<str.length;i++){
@@ -74,7 +76,7 @@ g$baseUrl = 'http://api.mzg.so/V1.0.0';      //ÕıÊ½·şÎñÆ÷
         return str;
     };
 
-    //Î¢ĞÅÖĞ»ñÈ¡code
+    //å¾®ä¿¡ä¸­è·å–code
     if(g$isWX){   //if(isWX||location.href.match(/page_invite/i)){
 
         if (typeof(g$params.state)=='undefined'&&typeof(g$params.code)=='undefined'){

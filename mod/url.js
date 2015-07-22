@@ -10,7 +10,7 @@ define(["mmRouter",
             location.hash = "#!/home";
         }
 
-        //ªÒ»°openid
+        //Ëé∑Âèñopenid
         function getOpenId(){
             if (g$isWX&&g$code) {
 
@@ -29,55 +29,50 @@ define(["mmRouter",
                 });
             }
         }
-        getOpenId();
 
-        //ªÒ»°µÍ∆Ã–≈œ¢
+        //Ëé∑ÂèñÂ∫óÈì∫‰ø°ÊÅØ
         function getStoreInfo() {
+            vm$root.isLoading = true;
             $.jsonp({
                 url: g$baseUrl + "/Store/info/?storeId=" + g$id + '&full=true',
                 callbackParameter: "callback",
                 success: function (obj) {
                     obj = $.parseJSON(obj);
-                    console.dir(obj);
                     if (obj.code == 0) {
-                        var us = obj.data.storeInfo.sector;
+
+                        g$storeInfo = obj.data.storeInfo;
+
+                        var us = g$storeInfo.sector;
                         if (us == 10) {
-                            us = '√¿º◊';
+                            us = 'ÁæéÁî≤';
                         }
                         else if (us == 20) {
-                            us = '√¿∑¢';
+                            us = 'ÁæéÂèë';
                         }
                         else if (us == 30) {
-                            us = 'Œ∆…Ì';
+                            us = 'Á∫πË∫´';
                         }
                         else if (us == 40) {
-                            us = '…„”∞';
+                            us = 'ÊëÑÂΩ±';
                         }
-
-                        g$storeInfo = {
-                            avater: obj.data.userInfo.avatar,
-                            phone: obj.data.userInfo.phonenum,
-                            strSector: us,
-                            wxNum: obj.data.userInfo.wxNum,
-                            nickname: obj.data.userInfo.nickname,
-                            intro: obj.data.userInfo.faith,
-                            storeId: obj.data.userInfo.userId,
-                            role: obj.data.userInfo.role
-                        };
+                        else{
+                            us = 'Áà±Â•Ω';
+                        }
+                        g$storeInfo.strSector = us;
 
                     }
                     else {
-                        location.hash = "#!/Login";
+                        layer.msg(obj.msg, {time: 1000});
                     }
 
                 },
                 error: function () {
-                    layer.msg("ƒ˙µƒÕ¯¬Á∫√œÒ≤ªÃ´∏¯¡¶≈∂", {time: 1000});
+                    layer.msg("ÊÇ®ÁöÑÁΩëÁªúÂ•ΩÂÉè‰∏çÂ§™ÁªôÂäõÂì¶", {time: 1000});
                     window.hash = "#!/Login";
                 }
             })
         }
-        getStoreInfo();
+
 
         function Refresh() {
             var Page = this.query.page;
@@ -92,6 +87,26 @@ define(["mmRouter",
 
         avalon.router.error(Page_ERROR);
         avalon.router.get("/Refresh", Refresh);
+
+        vm$root = avalon.define({
+            $id: "root",
+            url:'',
+            isLoading:false
+        });
+
+        vm$root.$watch("isLoading",function(value){
+            if(value){
+                layer.load(2,{shade: [0.1, '#000']});
+            }
+            else{
+                layer.closeAll('loading');
+            }
+        });
+
+
+        getOpenId();
+        getStoreInfo();
+
         avalon.history.start({
             basepath: "/avalon"
         });

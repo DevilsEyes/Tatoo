@@ -35,5 +35,8 @@ require.config({
 });
 
 require(["jquery", "avalon"], function($, avalon) {
-    require(["url","css!./include/Layer/skin/layer.css"]);
+    require(["url",
+        "css!./include/Layer/skin/layer.css",
+        "css!./style.css"
+    ]);
 });
