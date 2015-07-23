@@ -1,5 +1,5 @@
 #home_main{
-    color: white;
+    color:#f0e9dc;
     background-color:#383431;
 }
 
@@ -25,34 +25,160 @@
     z-index: 1;
 }
 
+#home_main .info{
+    z-index: 1;
+    padding:90px 0 0 20px;
+    width: calc( 100% - 20px );
+}
+
 #home_main .like{
+    margin-left:10px;
+    display: inline-block;
     color:#322f2c;
-    padding: 5px 20px 5px 40px;
+    padding: 5px 15px 5px 40px;
     background-color: #f0b270;
     border-radius: 999px;
 }
 
 #home_main .like>img{
     position: absolute;
-    margin-left:-25px;
+    margin:-3px 0 0 -26px;
     width: 20px;
 }
 
+#home_main .row{
+    border-left:1px solid #6f5f5c;
+    margin-left: 33px;
+}
+
 #home_main .Sy{
+    margin:15px 29px;
     width: 10px;
     height: 10px;
     background-color: #f0b270;
     border-radius: 5px;
-    box-shadow: 0 0 10px 0 rgba(240,178,112,0.75);
+    box-shadow: 0 0 10px 1px rgb(240,178,112);
+}
+
+#home_main .Ly{
+    margin:-18px 33px;
+    width: 1px;
+    height: 60px;
+    background-color:#f0b270;
+}
+
+#home_main .Iu{
+    width: calc( 100% - 95px );
+    margin-left:24px;
+}
+
+#home_main .Iu>h2{
+    float: right;
+    margin:5px 10px 0 0;
+}
+
+#home_main .Iu>h1{
+    margin:0 0 15px 0;
+}
+
+#home_main .Iu>p{
+    margin:0 0 15px 0;
+}
+
+#home_main .Iu>img{
+    width:14px;
+    margin-right:13px;
 }
 
 #home_main .banner>img{
     width: 100%;
 }
 
-#home_main .other{
-    padding-top:300px;
+#home_main .avatar{
+    vertical-align: top;
+    width: 60px;
+    height:60px;
+    border-radius: 999px;
+    border:solid 3px rgba(240,178,112,0.6);
 }
+
+#home_main .Lg{
+    margin-left:33px;
+    width: 1px;
+    background-color:#6f5f5c;
+}
+
+#home_main .other{
+    padding:300px 0 0 20px;
+}
+
+#home_main .other img{
+    width: 38px;
+    margin:0 38px 0 -20px;
+    vertical-align: bottom;
+    position: absolute;
+}
+
+#home_main .other .wx>div>p{
+    vertical-align: top;
+    margin: 10px 0 20px 60px;
+}
+
+#home_main .Sg{
+    position: absolute;
+    margin:15px -4px;
+    width: 7px;
+    height: 7px;
+    background-color: #6f5f5c;
+    border-radius: 5px;
+}
+
+#home_main .faith{
+    background-color: #49413e;
+    border-radius: 4px;
+    padding: 10px;
+    margin:0 20px 0 32px;
+    width: calc( 100% - 75px );
+}
+
+#home_main .faith>a{
+    display: block;
+    margin-top:8px;
+    color:#6ba0bb;
+}
+
+#home_main .address{
+    padding-top: 18px;
+}
+
+#home_main .address>div{
+    background-color: #49413e;
+    border-radius: 4px;
+    padding:8px 10px 6px 10px;
+    margin:2px 20px 0 32px;
+    width: calc( 100% - 75px );
+    height:22px;
+}
+
+#home_main .address>div>p{
+    display: inline-block;
+    color:#f0b270;
+    vertical-align: middle;
+}
+
+#home_main .address>div>div{
+    display: inline-block;
+    color:#f0e9dc;
+    background-color: #a26b61;
+    border-radius: 4px;
+    margin-top: -2px;
+    padding: 4px;
+    width:60px;
+    text-align: center;
+    vertical-align: middle;
+    float: right;
+}
+
 
 #home_main .up .bg{
     width: 100%;
