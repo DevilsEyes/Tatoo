@@ -3,9 +3,14 @@
   <component name="Encoding">
     <file url="file://$PROJECT_DIR$/LoaderMap.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/init.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/mod/ex.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/mod/url.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pages/address/address.css" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pages/address/main.js" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pages/home/home.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/pages/home/main.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pages/pdetail/main.js" charset="UTF-8" />
+    <file url="file://$PROJECT_DIR$/pages/pdetail/pdetail.css" charset="UTF-8" />
     <file url="file://$PROJECT_DIR$/style.css" charset="UTF-8" />
   </component>
 </project>

@@ -1,64 +1,95 @@
-<div ms-controller="home" id="page_home">
-    <div id="home_main">
+<div ms-controller="home" id="page_home" ms-visible="nowPage=='home'">
+
         <div class="up">
             <div class="header">
                 <div class="banner">
-                    <img  src="./imgs/def_banner.jpg?1"/>
+                    <img ms-src="banner"/>
+
                     <div class="gra"></div>
                 </div>
                 <div class="info">
                     <div class="like">
-                        <img src="./imgs/icon_liked.png">
+                        <div></div>
                         <span class="f24">赞 1000</span>
                     </div>
                     <div class="Sy"></div>
                     <div class="Ly"></div>
                     <div>
-                        <img class="avatar" src="./imgs/def_avatar.jpg">
+                        <img class="avatar" ms-src="avatar">
 
-                        <div class="di Iu">
-                            <h2 class="f24">访问量：10000</h2>
-                            <h1 class="f32">用户名称</h1>
-                            <p class="f28">职业</p>
+                        <div class="i-b Iu">
+                            <h2 class="f24">访问量：{{visitCount}}</h2>
+
+                            <h1 class="f32">{{nickname}}</h1>
+
+                            <p class="f28">{{strSector}}</p>
                             <img src="./imgs/icon_renqi.png">
                             <span class="f28">排名: 千里之外</span>
                         </div>
                     </div>
-                    <div class="Lg" style="margin-top:-33px;height:58px;"></div>
+                    <div class="Lg" style="margin-top:-40px;height:58px;"></div>
                 </div>
             </div>
 
             <div class="other">
                 <div class="row wx">
                     <img src="./imgs/icon_wechat.png">
-                    <div class="di">
-                        <p class="f28">weixinhao</p>
+
+                    <div class="i-b">
+                        <p class="f28">{{wxNum|f$null}}</p>
                     </div>
                 </div>
 
-                <div class="row">
+                <div ms-if="faith!=''" class="row">
                     <div class="Sg"></div>
                     <div class="faith">
-                        <p class="f28">五年人像摄影经验，后期能力强，喜欢旅游。
-                            承接个人照/ 闺蜜照/婚纱照/儿童照/宠物照, 有意请微信联系预约！</p>
-                        <a class="f24">查看全文</a>
+                        <p class="f28">{{faith}}</p>
                     </div>
+                    <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
                 </div>
 
                 <div class="row address">
                     <img src="./imgs/icon_address.png">
-                    <div>
-                        <p class="f28">位置</p>
-                        <div class="f24">查看</div>
+
+                    <div ms-if="address!=''">
+                        <p class="f28">{{address}}</p>
+
+                        <a href="#!/address" class="f24">查看</a>
+                    </div>
+                    <div ms-if="address==''">
+                        <p class="f28">无</p>
                     </div>
                 </div>
-                <p>a<br><br><br><br><br><br><br><br><br><br>a</p>
             </div>
-
-        </div>
-        <div id="pbl">
-
         </div>
 
-    </div>
+        <div class="do">
+            <ul id="pbl">
+                <li ms-repeat="productList">
+                    <a ms-href="#!/pdetail?code={{el._id}}">
+                        <img ms-src="{{el.images[0]}}?imageView2/0/w/320"/>
+
+                        <div>
+                            <p class="f28">{{el.title}}</p>
+                            <span class="f28">{{el.images.length}}张</span>
+                        </div>
+                    </a>
+                </li>
+            </ul>
+            <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
+        </div>
+
+        <footer>
+
+            <a>
+                <img src="./imgs/icon_footer_wechat.png">
+                <span class="f36">微信咨询</span>
+            </a>
+
+            <a>
+                <div class="f36">预约TA</div>
+            </a>
+
+        </footer>
+
 </div>

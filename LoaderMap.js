@@ -7,6 +7,7 @@ require.config({
         jQmd5:"include/jQuery/jquery.md5",
 
         Layer:"include/Layer/layer",
+        Wookman:'include/WookmanV1.4.8/jquery.wookmark.min.js',
 
         text:"include/require/text",
         css:"include/require/css",
@@ -14,7 +15,8 @@ require.config({
         mmRouter:"include/avalon/mmRouter",
         mmHistory:"include/avalon/mmHistory",
 
-        url:"mod/url"
+        url:"mod/url",
+        ex:"mod/ex"
     },
 
     priority:["text","css"],
@@ -26,6 +28,8 @@ require.config({
         jQjsonp:["jquery"],
         jQmd5:["jquery"],
 
+        Wookman:["jquery"],
+
         iScroll:["jquery"],
 
         Plupload:["jquery"],
@@ -35,7 +39,8 @@ require.config({
 });
 
 require(["jquery", "avalon"], function($, avalon) {
-    require(["url",
+    require(["ex",
+        "url",
         "css!./include/Layer/skin/layer.css",
         "css!./style.css"
     ]);

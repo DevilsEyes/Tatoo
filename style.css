@@ -8,6 +8,10 @@ html {
     font-family: "方正兰亭黑", "微软雅黑", sans-serif;
 }
 
+body{
+    background-color: #f7f7f7;
+}
+
 ul{
     list-style: none;
 }
@@ -18,7 +22,7 @@ input,select,textarea{
     border:0;
 }
 
-a,b,i,h1,h2,h3,h4,h5,h6{
+a,a:link,a:visited,a:active,b,i,h1,h2,h3,h4,h5,h6{
     text-decoration: none;
     text-shadow: none;
     font-weight: normal;
@@ -30,6 +34,22 @@ a,b,i,h1,h2,h3,h4,h5,h6{
 .f28{font-size: 28rem;}
 .f24{font-size: 24rem;}
 
-.di{
+.i-b{
     display: inline-block;
+}
+
+.p-a{
+    position: absolute;
+}
+
+.icon-back{
+    display:inline-block;
+    width: 30px;
+    height: 30px;
+    background: url(imgs/icon_back.png) center no-repeat;
+    background-size: 30px;
+}
+
+.blank{
+    width:100%;
 }

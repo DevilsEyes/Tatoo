@@ -1,0 +1,38 @@
+<div ms-controller="pdetail" id="page_pdetail">
+
+    <div ms-repeat="proList" ms-visible="nowPage=='pdetail'+el._id" class="pdetail">
+        <header>
+            <a href="#!/home" class="icon-back p-a"></a>
+        </header>
+        <div class="up">
+            <img class="wimg" ms-src="{{el.imgs[0]}}?imageView2/0/w/640"/>
+            <h2 class="f32">{{el.title}}</h2>
+            <p class="f32">{{el.desc}}</p>
+            <div>
+                <img src="./imgs/icon_tag.png">
+                <div id="tagAr" ms-each="el.tag">
+                    <span class="f24">{{el}}</span>
+                </div>
+            </div>
+        </div>
+
+        <a href="#!/home" class="card">
+            <img class="avatar" ms-src="avatar">
+            <div>
+                <div>
+                    <h3 class="f28">{{nickname}}</h3>
+                    <h4 class="f24">微信号: {{wxNum|f$null}}</h4>
+                </div>
+            </div>
+            <div class="icon-back p-a"></div>
+        </a>
+
+        <div class="other" ms-each="el.imgs">
+            <img class="wimg" ms-if="!$first" ms-src="{{el}}?imageView2/0/w/640"/>
+        </div>
+
+
+    </div>
+
+
+</div>
