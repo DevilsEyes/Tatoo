@@ -1,0 +1,102 @@
+<div ms-controller="bill" id="page_bill" ms-visible="nowPage=='bill'">
+
+    <div id="step1" ms-visible="step=='step1'">
+
+        <!--<header>-->
+            <!--<b class="f36">纹身大咖</b>-->
+        <!--</header>-->
+        <!--<div class="blank" style="height:45px;"></div>-->
+        <!--{{obj|html}}-->
+        <div class="rbbox rbbox1">
+            <img class="avatar" ms-src="avatar">
+
+            <div class="info">
+                <h1 class="f32">纹身大咖：{{nickname}}</h1>
+
+                <h1 class="f32">向您发起微信收款</h1>
+
+                <h2 class="f36">{{amount|f$current}}</h2>
+            </div>
+        </div>
+
+        <div class="rbbox" ms-visible="!ph$have">
+            <div class="oneBar">
+                <div class="f28">+86</div>
+                <input type="tel" class="f32 textInput" ms-duplex="phonenum" id="i-phonenum" placeholder="填写您的手机号"
+                       maxlength="11"/>
+            </div>
+            <div class="oneBar">
+                <div class="f28 btn-getVec" ms-click="vec$get" ms-class-un="phonenum.length!=11||vec$rem>0" ms-visible="vec$rem==0">获取验证码</div>
+                <div class="f28 btn-getVec" ms-click="vec$get" ms-class-un="phonenum.length!=11||vec$rem>0" ms-visible="vec$rem!=0">剩余{{vec$rem}}秒</div>
+                <input type="tel" class="f32 textInput" ms-duplex="vec" id="i-vec" placeholder="填写验证码" maxlength="6"/>
+            </div>
+        </div>
+
+        <div class="rbbox" id="phHave" ms-visible="ph$have">
+            <div>
+                <p class="f28">当前账号:+86 {{phonenum}}</p>
+                <p class="f24">*交易短信通知会发送到这个手机号码</p>
+            </div>
+            <div class="f24" ms-click="ph$change">切换<br/>账号</div>
+        </div>
+
+        <div class="f36 btn-normal" ms-click="tab($event,'step2')">去结算</div>
+
+    </div>
+
+
+    <div id="step2" ms-visible="step=='step2'">
+        <!--<header>-->
+            <!--<b class="f36">纹身大咖</b>-->
+        <!--</header>-->
+        <!--<div class="blank" style="height:45px;"></div>-->
+
+        <div class="subHead">
+            <div class="icon-back-gray p-a" ms-click="tab($event,'step1')"></div>
+            <p class="f28" ms-click="tab($event,'step1')">返回</p>
+        </div>
+
+        <div class="nmbox">
+            <img class="avatar" ms-src="avatar">
+
+            <div class="info">
+                <h1 class="f32">纹身大咖：{{nickname}}</h1>
+
+                <h1 class="f32">向您发起微信收款</h1>
+
+                <h2 class="f36">{{amount|f$current}}</h2>
+            </div>
+
+            <div class="amount"><span class="f28">实付金额</span><span class="f36">{{amount|f$current}}</span></div>
+        </div>
+
+        <div class="nmbox">
+            <div class="oneBar">
+                <img src="./imgs/wxpay.png"/>
+                <label for="channal_wx_pub">
+                    <span class="f32">微信支付(推荐)</span>
+                    <input id="channal_wx_pub" class="icheck" type="radio" value="channal_wx_pub" name="iCheck"
+                           ms-duplex="channal">
+                </label>
+            </div>
+        </div>
+
+        <div class="f36 btn-normal" ms-click="putBill">去支付</div>
+
+    </div>
+
+    <div id="stepfail" ms-visible="step=='stepfail'">
+
+        <!--<header>-->
+            <!--<b class="f36">纹身大咖</b>-->
+        <!--</header>-->
+        <!--<div class="blank" style="height:45px;"></div>-->
+
+        <div class="hImg"></div>
+        <h1 class="f32 tip">支付没有完成哦，请尝试重新支付</h1>
+
+        <div class="f36 btn-normal" ms-click="payBill">重新支付</div>
+
+    </div>
+
+</div>

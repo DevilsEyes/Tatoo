@@ -1,0 +1,52 @@
+<div ms-controller="comment" id="page_comment" ms-visible="nowPage=='comment'">
+
+    <div id="step1" ms-visible="step=='step1'">
+
+        <!--<header>-->
+            <!--<b class="f36">纹身大咖</b>-->
+        <!--</header>-->
+        <!--<div class="blank" style="height:45px;"></div>-->
+
+        <div class="hImg"></div>
+
+        <div class="wbox">
+
+            <h1 class="f32 tip">您的好评是对我的肯定！</h1>
+            <img class="avatar" ms-src="avatar">
+
+            <h2 class="f32 tip">{{nickname}}</h2>
+
+            <div class="starAr">
+                <span class="f32">给商家评分:</span>
+
+                <div class="star" ms-class-light="stars>=1" ms-click="star$click($event,1)"></div>
+                <div class="star" ms-class-light="stars>=2" ms-click="star$click($event,2)"></div>
+                <div class="star" ms-class-light="stars>=3" ms-click="star$click($event,3)"></div>
+                <div class="star" ms-class-light="stars>=4" ms-click="star$click($event,4)"></div>
+                <div class="star" ms-class-light="stars>=5" ms-click="star$click($event,5)"></div>
+            </div>
+
+            <textarea class="f36" placeholder="留下您宝贵的建议和意见" ms-duplex="textComment" maxlength="200">
+
+            </textarea>
+
+            <div class="f36 btn-normal" ms-click="putComment">发表评价</div>
+
+        </div>
+
+    </div>
+
+    <div id="step2" ms-visible="step=='step2'">
+
+        <header>
+            <b class="f36">纹身大咖</b>
+        </header>
+        <div class="blank" style="height:45px;"></div>
+
+        <div class="hImg"></div>
+
+        <img src="./imgs/2Dcode.png"/>
+
+    </div>
+
+</div>

@@ -8,6 +8,12 @@ require.config({
 
         Layer:"include/Layer/layer",
         Wookman:'include/WookmanV1.4.8/jquery.wookmark.min.js',
+        fastclick:'include/fastClick/fastclick.js',
+        icheck:'include/icheck/icheck.min.js',
+        iScroll:'include/iScroll/iscroll.js',
+        pingpp:'include/pingpp/pingpp_pay.js',
+
+        //wxsdk:'include/wxsdk/wxsdk.js',
 
         text:"include/require/text",
         css:"include/require/css",
@@ -16,7 +22,8 @@ require.config({
         mmHistory:"include/avalon/mmHistory",
 
         url:"mod/url",
-        ex:"mod/ex"
+        ex:"mod/ex",
+        wx:'mod/wx'
     },
 
     priority:["text","css"],
@@ -29,12 +36,8 @@ require.config({
         jQmd5:["jquery"],
 
         Wookman:["jquery"],
-
         iScroll:["jquery"],
-
-        Plupload:["jquery"],
-        Qiniu:["jquery","Plupload"]
-
+        icheck:["jquery"]
     }
 });
 
@@ -42,6 +45,14 @@ require(["jquery", "avalon"], function($, avalon) {
     require(["ex",
         "url",
         "css!./include/Layer/skin/layer.css",
-        "css!./style.css"
+        "css!./include/Layer/skin/layer.ex.css",
+        "css!./include/icheck/red.css",
+        "css!./style.css",
+        "pingpp",
+        "wx",
+        "fastclick"
+        //"mod/test.js"
     ]);
+
+
 });

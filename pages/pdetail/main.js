@@ -1,7 +1,7 @@
 define(["mmRouter",
     "jQjsonp",
     "Layer",
-    'Wookman',
+    "iScroll",
     "css!./pdetail.css"
 ], function () {
 
@@ -35,22 +35,40 @@ define(["mmRouter",
                     if (obj.code == 0) {
                         var productInfo = obj.data.productInfo;
 
-                        vm_pdetail.proList.push({
-                            _id:productInfo._id,
+                        var newPro = {
+                            _id: productInfo._id,
                             title: productInfo.title,
                             desc: setVar(productInfo.description, 'string'),
-                            tag: setVar(productInfo.tag,'string').split('#'),
+                            tag: setVar(productInfo.tag, 'string').split('#'),
                             imgs: productInfo.images,
-                            length:productInfo.images.length
-                        });
+                            length: productInfo.images.length,
+                            iscroll: null
+                        };
+
+                        vm_pdetail.proList.push(newPro);
 
                         console.log('proList:');
                         console.dir(vm_pdetail.proList);
 
                         avalon.scan(document.body);
-                        $('.pdetail').css('min-height',$(window).height());
+                        $('.pdetail').css('min-height', $(window).height());
+                        console.dir(newPro.tag);
+                        if(newPro.tag.length>1){
+                            setTimeout(function () {
 
+                                var pd = vm_pdetail.proList[vm_pdetail.proList.length - 1];
 
+                                var id = pd._id;
+
+                                var newIsc = new IScroll('.pdt'+id+' #tagAr',{
+                                    scrollX:true,
+                                    scrollY:false
+                                });
+
+                                pd.iscroll = newIsc;
+
+                            }, 1000);
+                        }
                     }
                     else {
                         layer.msg(obj.msg);
@@ -73,7 +91,7 @@ define(["mmRouter",
 
             vm_pdetail.getProInfo(code);
         }
-        window.scrollTo(0,0);
+        window.scrollTo(0, 0);
         vm$root.isLoading = false;
     }
 

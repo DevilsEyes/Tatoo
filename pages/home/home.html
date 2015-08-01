@@ -2,29 +2,32 @@
 
         <div class="up">
             <div class="header">
+                <div id="addOne" class="f32">+1</div>
                 <div class="banner">
                     <img ms-src="banner"/>
 
                     <div class="gra"></div>
                 </div>
+                <h2 class="f24 p-a vc">访问量：{{visitCount}}</h2>
                 <div class="info">
-                    <div class="like">
+                    <div class="like" ms-class-av="!like$bool" ms-click="like$click">
                         <div></div>
-                        <span class="f24">赞 1000</span>
+                        <span class="f24">赞 {{likeCount}}</span>
                     </div>
                     <div class="Sy"></div>
                     <div class="Ly"></div>
                     <div>
-                        <img class="avatar" ms-src="avatar">
+                        <div class="avatar">
+                            <img ms-src="avatar">
+                        </div>
 
-                        <div class="i-b Iu">
-                            <h2 class="f24">访问量：{{visitCount}}</h2>
+                        <div class="p-a i-b Iu row">
 
-                            <h1 class="f32">{{nickname}}</h1>
+                            <h1 class="f32 p-a">{{nickname}}</h1>
 
-                            <p class="f28">{{strSector}}</p>
-                            <img src="./imgs/icon_renqi.png">
-                            <span class="f28">排名: 千里之外</span>
+                            <p class="f28 p-a">{{strSector}}</p>
+                            <img class="p-a" src="./imgs/icon_renqi.png">
+                            <span class="f28 p-a">排名:{{rank}}</span>
                         </div>
                     </div>
                     <div class="Lg" style="margin-top:-40px;height:58px;"></div>
@@ -52,9 +55,8 @@
                     <img src="./imgs/icon_address.png">
 
                     <div ms-if="address!=''">
-                        <p class="f28">{{address}}</p>
-
                         <a href="#!/address" class="f24">查看</a>
+                        <p class="p-a f28">{{address}}</p>
                     </div>
                     <div ms-if="address==''">
                         <p class="f28">无</p>
@@ -77,16 +79,17 @@
                 </li>
             </ul>
             <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
+            <a class="f32 btn-normal" href="">我也要开通微名片</a>
         </div>
 
         <footer>
 
-            <a>
+            <a ms-click="wx$zx">
                 <img src="./imgs/icon_footer_wechat.png">
                 <span class="f36">微信咨询</span>
             </a>
 
-            <a>
+            <a href="#!/appoint/">
                 <div class="f36">预约TA</div>
             </a>
 

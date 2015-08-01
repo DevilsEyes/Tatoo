@@ -9,15 +9,14 @@
 
 #page_home .banner{
     width:100%;
-    height:200px;
     overflow: hidden;
     position: absolute;
 }
 
 #page_home .gra{
-    top:100px;
     width:100%;
-    height:100px;
+    height:77px;
+    margin-top: -77px;
     background-image: url(../../imgs/bg_gra.png);
     background-repeat: repeat-x;
     background-size: contain;
@@ -49,9 +48,20 @@
     background-size: 20px;
 }
 
-#page_home .like:active{
+#page_home .like.av:active{
     color:#f0e9dc;
     background-color: #6f5f5c;
+}
+
+#page_home #addOne{
+    position: absolute;
+    top:90px;
+    left:90px;
+    opacity: 1;
+    color:#000;
+    transition:all 0.5s;
+    z-index:999;
+    display: none;
 }
 
 #page_home .like:active>div{
@@ -80,25 +90,37 @@
     background-color:#f0b270;
 }
 
-#page_home .Iu{
-    width: calc( 100% - 95px );
-    margin:10px 0 0 24px;
+#page_home .vc{
+    z-index: 2;
+    right: 10px;
+    top: 191px;
 }
 
-#page_home .Iu>h2{
-    float: right;
-    margin:5px 10px 0 0;
+#page_home .Iu{
+    height:93px;
+    margin: 10px 0 0 -33px;
+    padding: 0 0 18px 59px;
+    z-index: -1;
 }
 
 #page_home .Iu>h1{
-    margin:0 0 15px 0;
+    width: 200px;
+    top:0;
 }
 
 #page_home .Iu>p{
-    margin:0 0 15px 0;
+    width: 200px;
+    top:30px;
+}
+
+#page_home .Iu>span{
+    width: 100px;
+    top:60px;
+    left:80px;
 }
 
 #page_home .Iu>img{
+    top:60px;
     width:14px;
     margin-right:13px;
 }
@@ -109,10 +131,16 @@
 
 #page_home .avatar{
     vertical-align: top;
+    display: inline-block;
     width: 60px;
     height:60px;
-    border-radius: 999px;
+    border-radius: 50%;
     border:solid 3px rgba(240,178,112,0.6);
+    overflow: hidden;
+}
+#page_home .avatar>img{
+    width: 60px;
+    height:60px;
 }
 
 #page_home .Lg{
@@ -148,9 +176,8 @@
 
 #page_home .faith{
     background-color: #49413e;
-    border-radius:4px 4px 0 0;
+    border-radius:4px;
     padding: 10px;
-    height:68px;
     margin:0 20px 0 32px;
     width: calc( 100% - 75px );
     overflow: hidden;
@@ -176,18 +203,19 @@
     border-radius: 4px;
     padding:8px 10px 6px 10px;
     margin:2px 20px 0 32px;
-    width: calc( 100% - 75px );
     height:22px;
+    width: calc( 100% - 75px );
 }
 
 #page_home .address>div>p{
-    display: inline-block;
-    width: calc( 100% - 75px );
+    display: block;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
     color:#f0b270;
     vertical-align: middle;
+    margin-top:2px;
+    width: 40%;
 }
 
 #page_home .address>div>a{
@@ -228,7 +256,7 @@
     width: 100%;
     color:#f0e9dc;
     border-radius: 0 0 4px 4px;
-    background-color: #49413e;
+    background-color: #6f5f5c;
 }
 
 #page_home #pbl p{
@@ -250,6 +278,25 @@
     text-align: center;
     color: #8D8D8D;
 }
+
+#page_home .btn-normal {
+    display: block;
+    border-radius: 999px;
+    border: solid 2px #ffbb77;
+    background-color: #ffbb77;
+    color: white;
+    text-align: center;
+    margin: 40px 20px;
+    padding: 10px;
+    width: calc(100% - 64px);
+}
+
+#page_home .btn-normal:active{
+    border: solid 2px #f0e9dc;
+    background-color: #6f5f5c;
+    color: white;
+}
+
 
 #page_home footer{
     position: fixed;
@@ -286,4 +333,10 @@
     padding:5px 0;
     background-color: #e38f71;
     border-radius: 4px;
+    color: #282624;
 }
+
+#page_home footer>a:nth-child(2)>div:active{
+    background-color: #8d6151;
+}
+

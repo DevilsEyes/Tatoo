@@ -1,0 +1,16 @@
+#page_nf404 .hImg{
+    margin:10px 20px;
+    padding-bottom: 60px;
+    width: calc( 100% - 40px );
+    height:150px;
+    background: url(../../imgs/img_notfound.png) no-repeat center;
+    background-size:50%;
+    border-bottom: solid 1px #d8d8d8;
+}
+
+#page_nf404 .tip{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    color: #797979;
+}

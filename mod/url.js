@@ -3,9 +3,27 @@ define(["mmRouter",
         "Layer",
         "pages/home/main",
         "pages/address/main",
-        "pages/pdetail/main"
+        "pages/pdetail/main",
+        "pages/bill/main",
+        "pages/comment/main",
+        "pages/appoint/main",
+        "pages/nf404/main"
     ],
     function () {
+
+        window.to404 = function(msg,code){
+            vm$root.isLoading = false;
+
+            vm$nf404.msg = msg;
+
+            if(typeof(code)!='undefined'){
+                location.hash = '#!/nf404/?code=' + code;
+            }
+            else{
+                location.hash = '#!/nf404/';
+            }
+            avalon.scan(document.body);
+        };
 
         function Page_ERROR() {
             console.log("Get Url Error!:\n  "+ location.hash);
@@ -14,7 +32,7 @@ define(["mmRouter",
 
         //获取openid
         function getOpenId(){
-            if (g$isWX&&g$code) {
+            if (g$isWX&&g$params.code) {
 
                 $.jsonp({
                     url: g$baseUrl + "/Weixin/Public/accessToken",
@@ -26,9 +44,13 @@ define(["mmRouter",
                         var obj = $.parseJSON(obj);
                         if (obj.code == 0) {
                             window.g$openId = obj.data.openid;
+                            check.openId = true;
                         }
                     }
                 });
+            }else{
+                g$openId = '0NyPMs7crBm9X-llnNzAWJeSiUjM';
+                check.openId = true;
             }
         }
 
@@ -36,11 +58,19 @@ define(["mmRouter",
         function getStoreInfo() {
             vm$root.isLoading = true;
             $.jsonp({
-                url: g$baseUrl + "/Store/info/?storeId=" + g$id + '&full=true',
+                url: g$baseUrl + "/Store/info/?_method=GET",
+                data:{
+                    storeId:g$id,
+                    full:true
+                },
                 callbackParameter: "callback",
-                async: false,
                 success: function (obj) {
                     obj = $.parseJSON(obj);
+
+                    console.log('获取店铺信息');
+                    console.dir(obj);
+                    console.log('');
+
                     if (obj.code == 0) {
 
 
@@ -63,42 +93,26 @@ define(["mmRouter",
                             us = '爱好';
                         }
                         g$storeInfo.strSector = us;
-
-                        avalon.history.start({
-                            basepath: "/avalon"
-                        });
-
-                        console.dir(g$storeInfo);
+                        check.storeInfo = true;
 
                         avalon.scan(document.body);
 
                     }
                     else {
-                        layer.msg(obj.msg, {time: 1000});
+                        check.storeInfo = true;
+                        to404(obj.msg);
                     }
 
                 },
                 error: function () {
-                    layer.msg("您的网络好像不太给力哦", {time: 1000});
-                    window.hash = "#!/Login";
+                    layer.msg("您的网络好像不太给力哦");
                 }
             })
         }
 
 
-        function Refresh() {
-            var Page = this.query.page;
-            var Query = location.hash.substr(17 + (Page.length));
-            var Hash = "#!/" + Page;
-            if (Query.length > 0) {
-                Hash += "?" + Query;
-            }
-            console.log(Hash);
-            location.hash = Hash;
-        }
 
         avalon.router.error(Page_ERROR);
-        avalon.router.get("/Refresh", Refresh);
 
         window.vm$root = avalon.define({
             $id: "root",
@@ -122,7 +136,7 @@ define(["mmRouter",
                     avalon.scan(document.body);
 
                     if(!search.match(page+code)){
-                        ele.code.push(page+code)
+                        ele.code.push(page+code);
                         return true;
                     }
 
@@ -135,7 +149,6 @@ define(["mmRouter",
                         url:'pages/'+page+'/'+page+'.html',
                         code:[page+code]
                     });
-                    console.dir(vm$root.allPage);
                     avalon.scan(document.body);
 
                     return true;
@@ -152,9 +165,28 @@ define(["mmRouter",
                 layer.closeAll('loading');
             }
         });
+        vm$root.isLoading = true;
 
         getOpenId();
         getStoreInfo();
+
+        check.timer = setInterval(function(){
+
+            if(check.openId&&check.storeInfo&&check.wx){
+                avalon.history.start({
+                    basepath: "/avalon"
+                });
+
+                if(g$isWX){
+                    wxInit();
+                }
+                clearInterval(check.timer);
+            }
+
+        },50);
+
+
+
 
     }
 );

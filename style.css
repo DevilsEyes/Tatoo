@@ -3,15 +3,6 @@
     margin:0;
 }
 
-html {
-    font-size: 3.2%;
-    font-family: "方正兰亭黑", "微软雅黑", sans-serif;
-}
-
-body{
-    background-color: #f7f7f7;
-}
-
 ul{
     list-style: none;
 }
@@ -20,6 +11,15 @@ input,select,textarea{
     -webkit-appearance: none;
     outline: none;
     border:0;
+    font-size: 3.2%;
+    font-family: "方正兰亭黑", "微软雅黑", sans-serif;
+}
+
+input::-webkit-input-placeholder,textarea::-webkit-input-placeholder{
+    font-size: 3.2%;
+    font-size: 32rem;
+    color: #bfbfbf;
+    font-family: "方正兰亭黑", "微软雅黑", sans-serif;
 }
 
 a,a:link,a:visited,a:active,b,i,h1,h2,h3,h4,h5,h6{
@@ -27,6 +27,16 @@ a,a:link,a:visited,a:active,b,i,h1,h2,h3,h4,h5,h6{
     text-shadow: none;
     font-weight: normal;
     font-style:normal;
+}
+
+html {
+    font-size: 3.2%;
+    font-family: "方正兰亭黑", "微软雅黑", sans-serif;
+    -webkit-appearance:none;
+}
+
+body{
+    background-color: #f3f3f3;
 }
 
 .f36{font-size: 36rem;}
@@ -48,6 +58,14 @@ a,a:link,a:visited,a:active,b,i,h1,h2,h3,h4,h5,h6{
     height: 30px;
     background: url(imgs/icon_back.png) center no-repeat;
     background-size: 30px;
+}
+
+.icon-back-gray{
+    display:inline-block;
+    width: 18px;
+    height: 18px;
+    background: url(imgs/icon_back_gray.png) center no-repeat;
+    background-size: contain;
 }
 
 .blank{

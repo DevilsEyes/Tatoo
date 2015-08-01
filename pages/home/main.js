@@ -15,7 +15,7 @@ define(["mmRouter",
     var vm_home = avalon.define({
         $id: 'home',
 
-        offSetY:0,
+        offSetY: 0,
 
         nickname: '',
         avatar: '',
@@ -23,26 +23,79 @@ define(["mmRouter",
         strSector: '',
         visitCount: '',
         wxNum: '',
-        faith: '',
         address: '',
+        rank:0,
 
+        likeCount:1000,
+        like$bool: false,
+        like$click:function(){
+            var vm = vm_home;
+            if(vm.like$bool){
+                return;
+            }
+            else{
+                vm.like$bool = true;
+                $.jsonp({
+                    url: g$baseUrl + '/Store/like/?_method=PUT',
+                    data:{
+                        storeId:g$id
+                    },
+                    callbackParameter: "callback",
+                    success:function(obj){
+                        obj = $.parseJSON(obj);
+                        if(obj.code==0){
+                            vm.likeCount++;
+                            $('#page_home #addOne').show();
+                            setTimeout(function(){$('#page_home #addOne').css({
+                                top:'70px',
+                                opacity: '0',
+                                color:'#322f2c'
+                            })},0);
+                        }
+                        else{
+                            layer.msg(obj.msg)
+                        }
+                    },
+                    error:function(){
+                        layer.msg('您的网络连接不太顺畅哦！');
+                    }
+                });
+
+
+            }
+
+        },
+
+        faith: '',
         faith$bool: false,
-        faith$mH: 68,
+        faith$mH: 50,
         faith$toggle: function () {
             vm_home.faith$bool = !vm_home.faith$bool;
             if (vm_home.faith$bool) {
                 $('#page_home .faith').height($('#page_home .faith>p').height());
                 $('#page_home .faith + a').text('收起');
             } else {
-                $('#page_home .faith').height(68);
+                $('#page_home .faith').height(50);
                 $('#page_home .faith + a').text('查看全文');
             }
         },
 
         productList: [],
-        pro$msg:'正在加载更多...',
+        pro$msg: '正在加载更多...',
         pro$loading: false,
-        pro$over: false
+        pro$over: false,
+
+        wx$zx: function () {
+            layer.open({
+                skin:'tatoo',
+                title: '店主微信号',
+                content: '<h2>' + g$storeInfo.userInfo.wxNum + '</h2><p>长按上面文字复制</p>',
+                shade:0.3,
+                shadeClose:true,
+                closeBtn:false,
+                btn:[]
+            });
+        }
 
     });
 
@@ -58,7 +111,6 @@ define(["mmRouter",
                 latestIndex: vm_home.productList.length != 0 ? vm_home.productList.length : null,
                 limit: limit,
                 count: true
-
             },
             callbackParameter: "callback",
             success: function (obj) {
@@ -72,11 +124,10 @@ define(["mmRouter",
                 if (obj.data.count == vm_home.productList.length) {
                     vm_home.pro$over = true;
                     clearInterval(timerLoadMore);
-                    if(obj.data.count==0){
+                    if (obj.data.count == 0) {
                         vm_home.pro$msg = '掌柜的太忙了！还没有上传作品！';
                         vm_home.pro$loading = true;
-                        $('#page_home .do').height($(window).height() - $('#page_home .up').height() -80 );
-                        $('#page_home .do').css('background-color','#383431');
+                        $('#page_home .do').css('background-color', '#383431');
                     }
                 }
             }
@@ -85,22 +136,22 @@ define(["mmRouter",
 
     //瀑布流
     var pbl = {
-        Set:function () {
+        Set: function () {
             $('#pbl li').wookmark({
                 container: $('#pbl'),
-                autoResize: true,
                 offset: 10,
                 outerOffset: 15,
                 itemWidth: '48%',
                 flexibleWidth: '48%',
-                resizeDelay: 100
+                resizeDelay: 100,
+                autoResize: true
             });
-            pbl.Refresh();
+            $('#pbl img').load(function(){pbl.Refresh();});
         },
-        Refresh:function(){
-            setTimeout(function(){
+        Refresh: function () {
+            setTimeout(function () {
                 $('#pbl').trigger('refreshWookmark');
-            },100);
+            }, 10);
         }
     };
 
@@ -117,27 +168,30 @@ define(["mmRouter",
     }, 100);
 
     //记录拉动距离
-    var timerHomeOSY = setInterval(function(){
-        if(vm$root.nowPage == 'home'){
+    var timerHomeOSY = setInterval(function () {
+        if (vm$root.nowPage == 'home') {
             vm_home.offSetY = window.pageYOffset;
         }
-    },100);
+    }, 100);
 
     //初始化
     function init() {
+        var vm = vm_home;
 
-        if(vm$root.checkPage('home')){
+        if (vm$root.checkPage('home')) {
 
-            vm_home.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
-            vm_home.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm_home.banner = setVar(g$storeInfo.topBanner, 'string', './imgs/def_banner.jpg');
-            vm_home.strSector = setVar(g$storeInfo.strSector, 'string');
-            vm_home.visitCount = setVar(g$storeInfo.visitCount, 'int');
-            vm_home.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
-            vm_home.faith = setVar(g$storeInfo.userInfo.faith, 'string');
+            vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
+            vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
+            vm.banner = setVar(g$storeInfo.topBanner, 'string', './imgs/def_banner.jpg');
+            vm.strSector = setVar(g$storeInfo.strSector, 'string');
+            vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
+            vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
+            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string');
+            vm.likeCount = setVar(g$storeInfo.like,'string','0');
+            vm.rank = setVar(g$storeInfo.hotRankCounty, 'string','千里之外');
 
-            if (g$storeInfo.userInfo.company!=null&&g$storeInfo.userInfo.company!=0) {
-                vm_home.address = setVar(g$storeInfo.userInfo.company.address, 'string');
+            if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
+                vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
             }
 
             avalon.scan(document.body);
@@ -145,18 +199,27 @@ define(["mmRouter",
             //延迟调用，设置参数
             setTimeout(function () {
                 var h = $('#page_home .faith>p').height();
-                if (h < 68) {
+                $('#page_home .faith').height(50);
+                if (h < 50) {
                     $('#page_home .faith').height(h);
                 }
                 avalon.vmodels.home.faith$mH = h;
 
                 loadProduct();
-            },100);
+            }, 100);
 
         }
         pbl.Refresh();
-        window.scrollTo(0,vm_home.offSetY);
+        window.scrollTo(0, vm.offSetY);
         vm$root.isLoading = false;
+
+        g$WX.title=setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
+        wx.ready(function () {
+            wx.onMenuShareAppMessage(g$WX);
+            wx.onMenuShareTimeline(g$WX);
+            wx.onMenuShareQQ(g$WX);
+            wx.onMenuShareWeibo(g$WX);
+        })
     }
 
 });

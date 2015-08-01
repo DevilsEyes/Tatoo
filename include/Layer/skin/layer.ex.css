@@ -1,0 +1,34 @@
+body .tatoo.layui-layer{
+    border-radius: 10px;
+    padding: 0;
+}
+
+body .tatoo .layui-layer-title {
+    border-radius: 4px 4px 0 0;
+    background-color: #6f5f5c;
+    color:#f0e9dc;
+    width: 100%;
+    padding: 0;
+    text-align: center;
+    border: none;
+}
+
+body .tatoo .layui-layer-content{
+    text-align: center;
+    padding: 30px;
+    background-color: #f0e9dc;
+    border-radius: 0 0 4px 4px;
+}
+
+body .tatoo .layui-layer-content h2{
+    padding: 10px;
+}
+
+body .tatoo .layui-layer-content p{
+    color: #aaa;
+}
+
+body .tatoo .layui-layer-btn{
+    margin:0;
+    padding: 0;
+}
