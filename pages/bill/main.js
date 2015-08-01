@@ -143,13 +143,18 @@ define(["mmRouter",
 
             var vm = vm_bill;
             var charge = pay$charge;
-            vm$root.isLoading = false;
+
 
             pingpp.createPayment(charge, function (result, error) {
                 if (result == "success") {
-                    layer.msg("支付成功");
-                    location.hash = '#!/comment/?code=' + vm.billId;
+                    setTimeout(function(){
+                        layer.msg("支付成功");
+                        location.hash = '#!/comment/?code=' + vm.billId;
+                        vm$root.isLoading = false;
+                    },2000);
+
                 } else if (result == "fail") {
+                    vm$root.isLoading = false;
                     layer.msg("支付失败");
                     //alert(error.extra + '请截图联系客服');
                     vm.step = 'stepfail';
@@ -157,6 +162,7 @@ define(["mmRouter",
 
                 } else if (result == "cancel") {
 
+                    vm$root.isLoading = false;
                     layer.msg("支付被取消");
                     vm.step = 'stepfail';
                     $('#page_bill #stepfail h1').text('支付被取消了，请尝试重新支付')

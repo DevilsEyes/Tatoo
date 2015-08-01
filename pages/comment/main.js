@@ -101,7 +101,7 @@ define(["mmRouter",
                         layer.msg('订单尚未支付');
                         location.hash = "#!/bill/?code=" + code;
                     }
-                    else if(obj.data.isComment==true){
+                    else if(obj.data.isComment==1){
                         layer.msg('订单已评价');
                         vm_comment.step = 'step2';
                     }

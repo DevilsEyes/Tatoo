@@ -182,13 +182,20 @@ define(["mmRouter",
 
             vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm.banner = setVar(g$storeInfo.topBanner, 'string', './imgs/def_banner.jpg');
+            vm.banner = setVar(g$storeInfo.topBanner, 'string');
             vm.strSector = setVar(g$storeInfo.strSector, 'string');
             vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
             vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
             vm.faith = setVar(g$storeInfo.userInfo.faith, 'string');
-            vm.likeCount = setVar(g$storeInfo.like,'string','0');
-            vm.rank = setVar(g$storeInfo.hotRankCounty, 'string','千里之外');
+            vm.likeCount = setVar(g$storeInfo.like,'int','0');
+            vm.rank = setVar(g$storeInfo.hotRankCountry, 'string');
+
+            if(vm.banner==''){
+                vm.banner = './imgs/def_banner.jpg';
+            }
+            else{
+                vm.banner += '?imageView2/1/w/320/h/200';
+            }
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
