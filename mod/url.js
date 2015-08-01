@@ -78,19 +78,19 @@ define(["mmRouter",
 
                         var us = g$storeInfo.sector;
                         if (us == 10) {
-                            us = '美甲师';
+                            us = '美甲';
                         }
                         else if (us == 20) {
-                            us = '美发师';
+                            us = '美发';
                         }
                         else if (us == 30) {
-                            us = '纹身师';
+                            us = '纹身';
                         }
                         else if (us == 40) {
-                            us = '摄影师';
+                            us = '摄影';
                         }
                         else{
-                            us = '爱好者';
+                            us = '爱好';
                         }
                         g$storeInfo.strSector = us;
                         check.storeInfo = true;

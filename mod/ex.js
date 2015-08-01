@@ -9,7 +9,7 @@ define(function(){
         if(typeof(value)!='undefined'){
             v = true;
         }
-        if(typeof(p)!='undefined'&&p!=null){
+        if(typeof(p)!='undefined'||p==null){
             if(p!=0){
                 if(s){
                     switch (type){

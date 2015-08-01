@@ -13,7 +13,7 @@ check = {
 };
 
 
-//g$baseUrl = 'http://192.168.199.166/WenShen/V1.0.0';  //本地测试
+//g$baseUrl = 'http://192.168.2.13/WenShen/V1.0.0';  //本地测试
 //g$baseUrl = 'http://123.57.42.13/WenShen/V1.0.0';     //外网测试
 g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
 

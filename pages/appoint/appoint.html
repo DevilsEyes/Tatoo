@@ -46,8 +46,25 @@
 
         </div>
         <div class="f-line">
+            <div class="f28 f-label">服务方式</div>
+            <div class="f28 f-text">
+                <label for="icheck1">
+                    <input id="icheck1" class="icheck" type="radio" value="0" name="serv">
+                    <span class="f32">到店</span>
+                </label>
+                <label for="icheck2" ms-visible="serviceToHome">
+                    <input id="icheck2" class="icheck" type="radio" value="1" name="serv">
+                    <span class="f32">上门</span>
+                </label>
+            </div>
+        </div>
+        <div class="f-line" ms-visible="serv">
             <div class="f28 f-label">门店地址</div>
             <div class="f28 f-text">{{address|f$null}}</div>
+        </div>
+        <div class="f-line" ms-visible="!serv">
+            <div class="f28 f-label">上门地址</div>
+            <textarea class="f28 f-text" ms-duplex="orderAddress" placeholder="填写上门地址" maxlength="64"></textarea>
         </div>
         <div class="f-line">
             <div class="f28 f-label">预约内容</div>
