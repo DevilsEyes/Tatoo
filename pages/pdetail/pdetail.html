@@ -7,7 +7,7 @@
         <div class="up">
             <img class="wimg" ms-src="{{el.imgs[0]}}?imageView2/0/w/640"/>
             <h2 class="f32">{{el.title}}</h2>
-            <p class="f32" ms-if="el.desc.length>0">{{el.desc}}</p>
+            <p class="f32" ms-if="el.desc.length>0">{{el.desc|html}}</p>
             <div ms-if="el.tag.length>1">
                 <img src="./imgs/icon_tag.png">
                 <div id="tagAr">

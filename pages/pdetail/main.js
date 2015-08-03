@@ -38,7 +38,7 @@ define(["mmRouter",
                         var newPro = {
                             _id: productInfo._id,
                             title: productInfo.title,
-                            desc: setVar(productInfo.description, 'string'),
+                            desc: setVar(productInfo.description, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>'),
                             tag: setVar(productInfo.tag, 'string').split('#'),
                             imgs: productInfo.images,
                             length: productInfo.images.length,

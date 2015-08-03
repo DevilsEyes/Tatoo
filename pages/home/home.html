@@ -46,7 +46,7 @@
                 <div ms-if="faith!=''" class="row">
                     <div class="Sg"></div>
                     <div class="faith">
-                        <p class="f28">{{faith}}</p>
+                        <p>{{faith|html}}</p>
                     </div>
                     <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
                 </div>
@@ -79,7 +79,7 @@
                 </li>
             </ul>
             <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
-            <a class="f32 btn-normal" href="">我也要开通微名片</a>
+            <a class="f32 btn-normal" href="http://www.wenshendaka.com/">我也要开通微名片</a>
         </div>
 
         <footer>

@@ -147,19 +147,24 @@ define(["mmRouter",
 
             pingpp.createPayment(charge, function (result, error) {
                 if (result == "success") {
-                    layer.msg("支付成功");
-                    location.hash = '#!/comment/?code=' + vm.billId;
+                    setTimeout(function () {
+                        layer.msg("支付成功");
+                        location.hash = '#!/comment/?code=' + vm.billId;
+                        vm$root.isLoading = false;
+                    }, 2000);
+
                 } else if (result == "fail") {
+                    vm$root.isLoading = false;
                     layer.msg("支付失败");
                     //alert(error.extra + '请截图联系客服');
                     vm.step = 'stepfail';
-                    $('#page_bill #stepfail h1').text('支付失败了，请尝试重新支付');
 
                 } else if (result == "cancel") {
-
+                    vm$root.isLoading = false;
                     layer.msg("支付被取消");
                     vm.step = 'stepfail';
                     $('#page_bill #stepfail h1').text('支付被取消了，请尝试重新支付')
+
                 }
             });
         }
@@ -210,7 +215,7 @@ define(["mmRouter",
                 if (obj.code == 0) {
 
                     //判定订单是否需要支付，是否已经评价
-                    if(obj.data.isComment==true){
+                    if (obj.data.isComment == true) {
                         location.hash = "#!/comment/?code=" + code;
                     }
                     else if (obj.data.status > 25) {

@@ -117,6 +117,7 @@
     width: 100px;
     top:60px;
     left:80px;
+    white-space: nowrap;
 }
 
 #page_home .Iu>img{
@@ -174,12 +175,15 @@
     border-radius: 5px;
 }
 
+/*这里强制使用像素作为单位，以确保分割位置为整行*/
 #page_home .faith{
     background-color: #49413e;
     border-radius:4px;
     padding: 10px;
     margin:0 20px 0 32px;
     width: calc( 100% - 75px );
+    font-size: 14px;
+    line-height:20px;
     overflow: hidden;
     transition: height 0.5s;
 }

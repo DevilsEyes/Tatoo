@@ -14,26 +14,17 @@ define(["mmRouter",
         address: '',
         faith: '',
 
-        serviceToHome: false,
-
         name: '',
         phonenum: '',
         remark: '',
-        orderAddress: '',
 
         date: 0,
         time: 0,
-
-        serv: true,
 
         vec: '',
         vec$rem: 0,
         vec$get: function () {
             var vm = vm_appoint;
-            //if(vm_bill.phonenum==vm_bill.ph$old){
-            //vm_bill.vec$sended = true;
-            //return;
-            //}
             if (vm.phonenum.length != 11) {//||vm_bill.vec$sended){
                 return;
             }
@@ -95,10 +86,6 @@ define(["mmRouter",
                 layer.msg('请选择预约时间');
                 return;
             }
-            if (vm.serv == false && vm.orderAddress.length < 1) {
-                layer.msg('请填写上门地址');
-                return;
-            }
 
             vm$root.isLoading = true;
             $.jsonp({
@@ -107,7 +94,7 @@ define(["mmRouter",
                     storeId:g$id,
                     remark:vm.remark,
                     orderTime:Date.parse(new Date(vm.date + ' ' + vm.time)),
-                    servicePlace:vm.serv?10:20,
+                    servicePlace:10,
                     orderAddress: vm.serv?null:vm.orderAddress,
                     orderFrom:g$isWX?21:22,
                     customerInfo:{
@@ -207,23 +194,6 @@ define(["mmRouter",
 
     };
 
-    //初始化CheckBox
-    function checkBoxInit() {
-        $('.icheck').ready(function () {
-            $('.icheck').iCheck({
-                checkboxClass: 'icheckbox_square-red',
-                radioClass: 'iradio_square-red',
-                increaseArea: '20%' // optional
-            });
-            $('.icheck#icheck1').iCheck('check');
-            $('.icheck#icheck1').on('ifClicked', function () {
-                vm_appoint.serv = true;
-            });
-            $('.icheck#icheck2').on('ifClicked', function () {
-                vm_appoint.serv = false;
-            });
-        });
-    }
 
     //初始化
     function init() {
@@ -233,7 +203,6 @@ define(["mmRouter",
             vm_appoint.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm_appoint.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
             vm_appoint.faith = setVar(g$storeInfo.userInfo.faith, 'string');
-            vm_appoint.serviceToHome = setVar(g$storeInfo.serviceToHome, 'bool');
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm_appoint.address = setVar(g$storeInfo.userInfo.company.address, 'string');
@@ -241,11 +210,9 @@ define(["mmRouter",
 
             setTimeout(function () {
                 initTime();
-                checkBoxInit();
             }, 100);
 
             avalon.scan(document.body);
-
 
         }
         $(document).attr("title", "纹身大咖");

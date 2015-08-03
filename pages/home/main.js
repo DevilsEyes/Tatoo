@@ -24,39 +24,41 @@ define(["mmRouter",
         visitCount: '',
         wxNum: '',
         address: '',
-        rank:0,
+        rank: 0,
 
-        likeCount:1000,
+        likeCount: 1000,
         like$bool: false,
-        like$click:function(){
+        like$click: function () {
             var vm = vm_home;
-            if(vm.like$bool){
+            if (vm.like$bool) {
                 return;
             }
-            else{
+            else {
                 vm.like$bool = true;
                 $.jsonp({
                     url: g$baseUrl + '/Store/like/?_method=PUT',
-                    data:{
-                        storeId:g$id
+                    data: {
+                        storeId: g$id
                     },
                     callbackParameter: "callback",
-                    success:function(obj){
+                    success: function (obj) {
                         obj = $.parseJSON(obj);
-                        if(obj.code==0){
+                        if (obj.code == 0) {
                             vm.likeCount++;
                             $('#page_home #addOne').show();
-                            setTimeout(function(){$('#page_home #addOne').css({
-                                top:'70px',
-                                opacity: '0',
-                                color:'#322f2c'
-                            })},0);
+                            setTimeout(function () {
+                                $('#page_home #addOne').css({
+                                    top: '70px',
+                                    opacity: '0',
+                                    color: '#322f2c'
+                                })
+                            }, 0);
                         }
-                        else{
+                        else {
                             layer.msg(obj.msg)
                         }
                     },
-                    error:function(){
+                    error: function () {
                         layer.msg('您的网络连接不太顺畅哦！');
                     }
                 });
@@ -87,13 +89,13 @@ define(["mmRouter",
 
         wx$zx: function () {
             layer.open({
-                skin:'tatoo',
+                skin: 'tatoo',
                 title: '店主微信号',
                 content: '<h2>' + g$storeInfo.userInfo.wxNum + '</h2><p>长按上面文字复制</p>',
-                shade:0.3,
-                shadeClose:true,
-                closeBtn:false,
-                btn:[]
+                shade: 0.3,
+                shadeClose: true,
+                closeBtn: false,
+                btn: []
             });
         }
 
@@ -146,7 +148,9 @@ define(["mmRouter",
                 resizeDelay: 100,
                 autoResize: true
             });
-            $('#pbl img').load(function(){pbl.Refresh();});
+            $('#pbl img').load(function () {
+                pbl.Refresh();
+            });
         },
         Refresh: function () {
             setTimeout(function () {
@@ -182,13 +186,24 @@ define(["mmRouter",
 
             vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm.banner = setVar(g$storeInfo.topBanner, 'string', './imgs/def_banner.jpg');
+            vm.banner = setVar(g$storeInfo.topBanner, 'string');
             vm.strSector = setVar(g$storeInfo.strSector, 'string');
             vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
             vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
-            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string');
-            vm.likeCount = setVar(g$storeInfo.like,'string','0');
-            vm.rank = setVar(g$storeInfo.hotRankCounty, 'string','千里之外');
+            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>');
+            for (var i = 0; i < g$storeInfo.userInfo.faith.length; i++) {
+                if (i == 16) {
+                    console.log(g$storeInfo.userInfo.faith.charCodeAt(i));
+                }
+            }
+            vm.likeCount = setVar(g$storeInfo.like, 'int', '0');
+            vm.rank = setVar(g$storeInfo.hotRankCountry, 'string');
+            if (vm.banner == '') {
+                vm.banner = './imgs/def_banner.jpg';
+            }
+            else {
+                vm.banner += '?imageView2/1/w/320/h/200';
+            }
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
@@ -213,7 +228,7 @@ define(["mmRouter",
         window.scrollTo(0, vm.offSetY);
         vm$root.isLoading = false;
 
-        g$WX.title=setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
+        g$WX.title = setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
         wx.ready(function () {
             wx.onMenuShareAppMessage(g$WX);
             wx.onMenuShareTimeline(g$WX);
