@@ -202,7 +202,7 @@ define(["mmRouter",
 
             vm_appoint.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm_appoint.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm_appoint.faith = setVar(g$storeInfo.userInfo.faith, 'string');
+            vm_appoint.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>');
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm_appoint.address = setVar(g$storeInfo.userInfo.company.address, 'string');

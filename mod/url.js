@@ -154,7 +154,19 @@ define(["mmRouter",
                     return true;
                 }
             },
-            isLoading:false
+            isLoading:false,
+
+            wx$zx: function () {
+                layer.open({
+                    skin: 'tatoo',
+                    title: '店主微信号',
+                    content: '<h2>' + g$storeInfo.userInfo.wxNum + '</h2><p>长按上面文字复制</p>',
+                    shade: 0.3,
+                    shadeClose: true,
+                    closeBtn: false,
+                    btn: []
+                });
+            }
         });
 
         vm$root.$watch("isLoading",function(value){

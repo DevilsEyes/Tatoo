@@ -85,20 +85,7 @@ define(["mmRouter",
         productList: [],
         pro$msg: '正在加载更多...',
         pro$loading: false,
-        pro$over: false,
-
-        wx$zx: function () {
-            layer.open({
-                skin: 'tatoo',
-                title: '店主微信号',
-                content: '<h2>' + g$storeInfo.userInfo.wxNum + '</h2><p>长按上面文字复制</p>',
-                shade: 0.3,
-                shadeClose: true,
-                closeBtn: false,
-                btn: []
-            });
-        }
-
+        pro$over: false
     });
 
     //加载作品
