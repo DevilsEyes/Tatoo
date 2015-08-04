@@ -45,8 +45,6 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
         m.setAttribute("name", "viewport");
         m.setAttribute("content", "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no");
         document.head.appendChild(m);
-
-
     }
 
     //是否微信判断

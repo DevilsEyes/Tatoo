@@ -6,12 +6,6 @@ define(["mmRouter",
 ], function () {
     avalon.router.get("/home/", init);
 
-    //点赞还没做！
-    //访问量还没做！
-    //排名是什么东东？
-    //微信咨询
-    //预约TA(新页面)
-
     var vm_home = avalon.define({
         $id: 'home',
 
@@ -109,6 +103,9 @@ define(["mmRouter",
                     vm_home.productList = vm_home.productList.concat(obj.data.list);
                     avalon.scan(document.body);
                     pbl.Set();
+                    setTimeout(function () {
+
+                    }, 100);
                 }
                 if (obj.data.count == vm_home.productList.length) {
                     vm_home.pro$over = true;
@@ -135,8 +132,19 @@ define(["mmRouter",
                 resizeDelay: 100,
                 autoResize: true
             });
-            $('#pbl img').load(function () {
+
+            var imgLoad = imagesLoaded('#pbl');
+
+            imgLoad.on('always', function (instance) {
                 pbl.Refresh();
+                $('.isload').removeClass('isload');
+            });
+
+            imgLoad.on('progress', function (instance, image) {
+                var $li = $(image.img.parentNode.parentNode);
+                //$li.show();
+                //$li.removeClass('isload');
+                image.img.parentNode.className = image.isLoaded ? '' : 'broken';
             });
         },
         Refresh: function () {
@@ -149,9 +157,11 @@ define(["mmRouter",
     //下拉继续加载
     var timerLoadMore = setInterval(function () {
         if (vm$root.nowPage == 'home' && vm_home.pro$over == false && vm_home.pro$loading == false) {
-            var h = $(window).height();
+            var h = $(document).height();
+            var r = $(window).height();
             var y = window.pageYOffset;
-            if (y > h - 300) {
+            //console.log(h-r,y);
+            if (y > h - 200 - r) {
                 vm_home.pro$loading = true;
                 loadProduct();
             }
@@ -165,6 +175,7 @@ define(["mmRouter",
         }
     }, 100);
 
+
     //初始化
     function init() {
         var vm = vm_home;
@@ -177,12 +188,7 @@ define(["mmRouter",
             vm.strSector = setVar(g$storeInfo.strSector, 'string');
             vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
             vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
-            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>');
-            for (var i = 0; i < g$storeInfo.userInfo.faith.length; i++) {
-                if (i == 16) {
-                    console.log(g$storeInfo.userInfo.faith.charCodeAt(i));
-                }
-            }
+            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g, '&nbsp;').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br/>');
             vm.likeCount = setVar(g$storeInfo.like, 'int', '0');
             vm.rank = setVar(g$storeInfo.hotRankCountry, 'string');
             if (vm.banner == '') {
@@ -196,7 +202,9 @@ define(["mmRouter",
                 vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
             }
 
+
             avalon.scan(document.body);
+
 
             //延迟调用，设置参数
             setTimeout(function () {
@@ -208,6 +216,7 @@ define(["mmRouter",
                 avalon.vmodels.home.faith$mH = h;
 
                 loadProduct();
+
             }, 100);
 
         }

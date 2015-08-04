@@ -14,7 +14,6 @@ require.config({
         pingpp:'include/pingpp/pingpp_pay.js',
 
         //wxsdk:'include/wxsdk/wxsdk.js',
-
         text:"include/require/text",
         css:"include/require/css",
 
@@ -34,6 +33,7 @@ require.config({
 
         jQjsonp:["jquery"],
         jQmd5:["jquery"],
+        imageloaded:["jquery"],
 
         Wookman:["jquery"],
         iScroll:["jquery"],
@@ -50,7 +50,8 @@ require(["jquery", "avalon"], function($, avalon) {
         "css!./style.css",
         "pingpp",
         "wx",
-        "fastclick"
+        "fastclick",
+        "include/imagesLoaded/jQuery.imageload.js"
         //"mod/test.js"
     ]);
 

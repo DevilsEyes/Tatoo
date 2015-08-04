@@ -1,5 +1,6 @@
 define(function(){
 
+    //赋值用
     window.setVar = function(p,type,value){
         var s = false;
         var v = false;
@@ -63,6 +64,7 @@ define(function(){
         }
     };
 
+    //avalon过滤器
     avalon.filters.f$null =  function(str) {
         if(str!=0){
             return str;
@@ -85,6 +87,19 @@ define(function(){
         }
     };
 
+    //图片加载错误 事件绑定在html中
+    window.imgError = function(obj,type){
+        switch (type){
+            case 'banner':
+                avalon.vmodels.home.banner = './imgs/def_banner.jpg';
+                break;
+            case 'avatar':
+                avalon.vmodels.home.avatar = './imgs/def_avatar.jpg';
+                break;
+        }
+    };
+
+    //测试用指令
     //打印3层以内的Object
     window.$print = function(obj){
         var str='';

@@ -36,6 +36,7 @@ html {
 }
 
 body{
+    min-width: 320px;
     background-color: #f3f3f3;
 }
 
@@ -70,6 +71,10 @@ body{
 
 .blank{
     width:100%;
+}
+
+.isload{
+    visibility: hidden;
 }
 
 

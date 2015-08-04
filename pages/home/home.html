@@ -1,98 +1,100 @@
 <div ms-controller="home" id="page_home" ms-visible="nowPage=='home'">
 
-        <div class="up">
-            <div class="header">
-                <div id="addOne" class="f32">+1</div>
-                <div class="banner">
-                    <img ms-src="banner"/>
+    <div class="up">
+        <div class="header">
+            <div id="addOne" class="f32">+1</div>
+            <div class="banner">
+                <img ms-src="banner" onerror="imgError(this,'banner')"/>
 
-                    <div class="gra"></div>
+                <div class="gra"></div>
+            </div>
+            <h2 class="f24 p-a vc">访问量：{{visitCount}}</h2>
+
+            <div class="info">
+                <div class="like" ms-class-av="!like$bool" ms-click="like$click">
+                    <div></div>
+                    <span class="f24">赞 {{likeCount}}</span>
                 </div>
-                <h2 class="f24 p-a vc">访问量：{{visitCount}}</h2>
-                <div class="info">
-                    <div class="like" ms-class-av="!like$bool" ms-click="like$click">
-                        <div></div>
-                        <span class="f24">赞 {{likeCount}}</span>
+                <div class="Sy"></div>
+                <div class="Ly"></div>
+                <div>
+                    <div class="avatar">
+                        <img ms-src="avatar" onerror="imgError(this,'avatar')"/>
                     </div>
-                    <div class="Sy"></div>
-                    <div class="Ly"></div>
+
+                    <div class="p-a i-b Iu row">
+
+                        <h1 class="f32">{{nickname}}</h1>
+
+                        <p class="f28">{{strSector}}</p>
+
+                        <span class="f28"><img src="./imgs/icon_renqi.png">排名:{{rank}}</span>
+                    </div>
+                </div>
+                <div class="Lg" style="margin-top:-40px;height:58px;"></div>
+            </div>
+        </div>
+
+        <div class="other">
+            <div class="row wx">
+                <img src="./imgs/icon_wechat.png">
+
+                <div class="i-b">
+                    <p class="f28">{{wxNum|f$null}}</p>
+                </div>
+            </div>
+
+            <div ms-if="faith!=''" class="row">
+                <div class="Sg"></div>
+                <div class="faith">
+                    <p>{{faith|html}}</p>
+                </div>
+                <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
+            </div>
+
+            <div class="row address">
+                <img src="./imgs/icon_address.png">
+
+                <div ms-if="address!=''">
+                    <a href="#!/address" class="f24">查看</a>
+
+                    <p class="p-a f28">{{address}}</p>
+                </div>
+                <div ms-if="address==''">
+                    <p class="f28">无</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="do">
+        <ul id="pbl">
+            <li ms-repeat="productList" class="isload">
+                <a ms-href="#!/pdetail?code={{el._id}}">
+                    <img ms-src="{{el.images[0]}}?imageView2/0/w/320" onerror="imgError(this,'pbl')"/>
+
                     <div>
-                        <div class="avatar">
-                            <img ms-src="avatar">
-                        </div>
-
-                        <div class="p-a i-b Iu row">
-
-                            <h1 class="f32 p-a">{{nickname}}</h1>
-
-                            <p class="f28 p-a">{{strSector}}</p>
-                            <img class="p-a" src="./imgs/icon_renqi.png">
-                            <span class="f28 p-a">排名:{{rank}}</span>
-                        </div>
+                        <p class="f28">{{el.title}}</p>
+                        <span class="f28">{{el.images.length}}张</span>
                     </div>
-                    <div class="Lg" style="margin-top:-40px;height:58px;"></div>
-                </div>
-            </div>
+                </a>
+            </li>
+        </ul>
+        <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
+        <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要开通微名片</a>
+    </div>
 
-            <div class="other">
-                <div class="row wx">
-                    <img src="./imgs/icon_wechat.png">
+    <footer>
 
-                    <div class="i-b">
-                        <p class="f28">{{wxNum|f$null}}</p>
-                    </div>
-                </div>
+        <a ms-click="wx$zx">
+            <img src="./imgs/icon_footer_wechat.png">
+            <span class="f36">微信咨询</span>
+        </a>
 
-                <div ms-if="faith!=''" class="row">
-                    <div class="Sg"></div>
-                    <div class="faith">
-                        <p>{{faith|html}}</p>
-                    </div>
-                    <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
-                </div>
+        <a href="#!/appoint/">
+            <div class="f36">预约TA</div>
+        </a>
 
-                <div class="row address">
-                    <img src="./imgs/icon_address.png">
-
-                    <div ms-if="address!=''">
-                        <a href="#!/address" class="f24">查看</a>
-                        <p class="p-a f28">{{address}}</p>
-                    </div>
-                    <div ms-if="address==''">
-                        <p class="f28">无</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="do">
-            <ul id="pbl">
-                <li ms-repeat="productList">
-                    <a ms-href="#!/pdetail?code={{el._id}}">
-                        <img ms-src="{{el.images[0]}}?imageView2/0/w/320"/>
-
-                        <div>
-                            <p class="f28">{{el.title}}</p>
-                            <span class="f28">{{el.images.length}}张</span>
-                        </div>
-                    </a>
-                </li>
-            </ul>
-            <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
-            <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要开通微名片</a>
-        </div>
-
-        <footer>
-
-            <a ms-click="wx$zx">
-                <img src="./imgs/icon_footer_wechat.png">
-                <span class="f36">微信咨询</span>
-            </a>
-
-            <a href="#!/appoint/">
-                <div class="f36">预约TA</div>
-            </a>
-
-        </footer>
+    </footer>
 
 </div>
