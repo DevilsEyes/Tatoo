@@ -7,6 +7,7 @@ define(["mmRouter",
         "pages/bill/main",
         "pages/comment/main",
         "pages/appoint/main",
+        "pages/invite/main",
         "pages/nf404/main"
     ],
     function () {

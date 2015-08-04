@@ -1,4 +1,4 @@
-#page_appoint header{
+#page_invite header{
     background-color: #383431;
     position: fixed;
     top:0;
@@ -9,39 +9,43 @@
     z-index: 999;
 }
 
-#page_appoint header>b{
+#page_invite header>b{
     display: block;
     margin-top: 10px;
 }
 
-#page_appoint .icon-back{
+#page_invite .icon-back{
     left:7px;
     margin-top: 7px;
     float: left;
     vertical-align: middle;
 }
 
-#page_appoint .oneBox{
+#page_invite .oneBox{
     margin-bottom: 10px;
     background-color: white;
     border-bottom: solid 1px #e2e2e2;
 }
 
-#page_appoint .avatar+div{
+#page_invite .oneBox.title{
+    min-height: 90px;
+}
+
+#page_invite .avatar+div{
     padding: 10px 0 0 0;
     margin: 0 20px 10px 110px;
 }
 
-#page_appoint h1{
+#page_invite h1{
     color:#888;
 }
 
-#page_appoint p{
+#page_invite p{
     padding-top: 10px;
     color:#1a1a1a;
 }
 
-#page_appoint .avatar{
+#page_invite .avatar{
     vertical-align: top;
     display: inline-block;
     margin:10px 15px;
@@ -50,18 +54,18 @@
     border-radius: 50%;
     overflow: hidden;
 }
-#page_appoint .avatar>img{
+#page_invite .avatar>img{
     width: 70px;
     height:70px;
 }
 
-#page_appoint .f-line{
+#page_invite .f-line{
     background-color: white;
     border-top: solid 1px #e2e2e2;
     width:100%;
 }
 
-#page_appoint .f-label{
+#page_invite .f-label{
     vertical-align: top;
     display: inline-block;
     width:80px;
@@ -69,7 +73,7 @@
     padding:10px 5px 10px 20px;
 }
 
-#page_appoint .f-text{
+#page_invite .f-text{
     width: calc( 100% - 120px );
     vertical-align: top;
     padding:10px 5px 10px 0;
@@ -77,32 +81,32 @@
     color:#1a1a1a;
 }
 
-#page_appoint .f-text>label{
-margin:0 10px 0 0;
+#page_invite .f-text>label{
+    margin:0 10px 0 0;
 }
 
-#page_appoint .timeAr{
+#page_invite .timeAr{
     width: calc( 100% - 120px );
     vertical-align: top;
     display: inline-block;
     color:#1a1a1a;
 }
 
-#page_appoint select:first-child{
+#page_invite select:first-child{
     border-bottom: solid 1px #e2e2e2;
 }
 
-#page_appoint select{
+#page_invite select{
     padding:10px 0;
     margin-left: -5px;
     display: block;
 }
 
-#page_appoint select>option:first-child{
+#page_invite select>option:first-child{
     color:#797979;
 }
 
-#page_appoint .btn-getVec {
+#page_invite .btn-getVec {
     background-color: #fec418;
     color: white;
     position: absolute;
@@ -115,12 +119,12 @@ margin:0 10px 0 0;
     right: 9px;
 }
 
-#page_appoint .btn-getVec.un {
+#page_invite .btn-getVec.un {
     background-color: #dddddd;
     color: #aaaaaa;
 }
 
-#page_appoint .btn-normal {
+#page_invite .btn-normal {
     border-radius: 999px;
     border: solid 2px #ffbb77;
     background-color: transparent;
@@ -131,8 +135,44 @@ margin:0 10px 0 0;
     width: calc(100% - 64px);
 }
 
-#page_appoint .btn-normal:active{
+#page_invite .btn-normal:active{
     border: solid 2px #ffbb77;
     background-color: #ffbb77;
     color: white;
+}
+
+#page_invite .oneBox .oneBar > * {
+    vertical-align: middle;
+}
+
+#page_invite .oneBox .oneBar > img {
+    margin: 8px 20px;
+    width: 36px;
+    height: 36px;
+}
+
+#page_invite .oneBox .oneBar > label > div {
+    margin:15px 20px;
+    float: right;
+}
+
+#page_invite #stepFail .hImg{
+    margin:10px 20px;
+    padding-bottom: 60px;
+    width: calc( 100% - 40px );
+    height:150px;
+    background: url(../../imgs/img_payfail.png) no-repeat center;
+    background-size:50%;
+    border-bottom: solid 1px #d8d8d8;
+}
+
+#page_invite #stepFail .tip{
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    color: #797979;
+}
+
+#page_invite #stepSuccess .hImg{
+    width:100%;
 }

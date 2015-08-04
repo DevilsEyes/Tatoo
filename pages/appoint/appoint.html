@@ -6,7 +6,7 @@
 
     <div class="blank" style="height:45px;"></div>
     <div class="oneBox">
-        <div class="avatar">
+        <div class="avatar p-a">
             <img ms-src="avatar"/>
         </div>
         <div>
@@ -45,9 +45,9 @@
             </div>
 
         </div>
-        <div class="f-line" ms-visible="!serv">
-            <div class="f28 f-label">上门地址</div>
-            <textarea class="f28 f-text" ms-duplex="orderAddress" placeholder="填写上门地址" maxlength="64"></textarea>
+        <div class="f-line">
+            <div class="f28 f-label">门店地址</div>
+            <div class="f28 f-text">{{address|f$null}}</div>
         </div>
         <div class="f-line">
             <div class="f28 f-label">预约内容</div>

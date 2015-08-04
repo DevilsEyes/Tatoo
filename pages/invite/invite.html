@@ -1,0 +1,122 @@
+<div ms-controller="invite" id="page_invite" ms-visible="nowPage=='invite'">
+
+
+    <div id="step1" ms-visible="step=='step1'">
+        <header>
+            <b class="f36">预约</b>
+        </header>
+
+        <div class="blank" style="height:45px;"></div>
+        <div class="oneBox title">
+            <div class="avatar p-a">
+                <img ms-src="avatar"/>
+            </div>
+            <div>
+                <h1 class="f32">{{nickname}}</h1>
+
+                <p class="f28" ms-if="deposit=0">{{faith|html}}</p>
+
+                <p class="f36" ms-if="deposit>0">定金：{{deposit|f$current}}</p>
+            </div>
+        </div>
+
+        <div class="oneBox">
+            <div class="f-line">
+                <div class="f28 f-label">姓名</div>
+                <input class="f28 f-text" type="text" ms-duplex="name" placeholder="填写姓名" maxlength="8">
+            </div>
+            <div class="f-line">
+                <div class="f28 f-label">手机号</div>
+                <input class="f28 f-text" type="tel" ms-duplex="phonenum" placeholder="填写手机号" maxlength="11">
+            </div>
+            <div class="f-line" ms-visible="phonenum!=ph$old">
+                <div class="f28 btn-getVec" ms-click="vec$get" ms-class-un="phonenum.length!=11||vec$rem>0"
+                     ms-visible="vec$rem==0">获取验证码
+                </div>
+                <div class="f28 btn-getVec" ms-class-un="phonenum.length!=11||vec$rem>0" ms-visible="vec$rem!=0">
+                    剩余{{vec$rem}}秒
+                </div>
+                <div class="f28 f-label">验证码</div>
+                <input class="f28 f-text" type="tel" ms-duplex="vec" placeholder="填写验证码" maxlength="6">
+            </div>
+        </div>
+
+        <div class="oneBox">
+            <div class="f-line">
+                <div class="f28 f-label">服务时间</div>
+                <div class="timeAr">
+                    <select id="date" class="f32" ms-duplex="date">
+                        <option value=0 disabled="true">预约日期</option>
+                    </select>
+                    <select id="time" class="f32" ms-duplex="time">
+                        <option value=0 disabled="true">预约时间</option>
+                    </select>
+                </div>
+            </div>
+            <div class="f-line">
+                <div class="f28 f-label">门店地址</div>
+                <div class="f28 f-text">{{address|f$null}}</div>
+            </div>
+            <div class="f-line">
+                <div class="f28 f-label">预约内容</div>
+                <textarea class="f28 f-text" ms-duplex="remark" placeholder="预约内容" maxlength="64"></textarea>
+            </div>
+        </div>
+
+        <div class="f36 btn-normal" ms-click="postOrder" ms-if="deposit=0">提交</div>
+        <div class="f36 btn-normal" ms-click="tab($event,'step2')" ms-if="deposit>0">支付定金</div>
+
+    </div>
+
+    <div id="step2" ms-visible="step=='step2'">
+        <header>
+            <a ms-click="tab($event,'step1')" class="icon-back p-a"></a>
+            <b class="f36">预约</b>
+        </header>
+
+        <div class="blank" style="height:45px;"></div>
+        <div class="oneBox title">
+            <div class="avatar p-a">
+                <img ms-src="avatar"/>
+            </div>
+
+            <div class="info">
+                <h1 class="f32">{{nickname}}</h1>
+
+                <h2 class="f36">{{deposit|f$current}}</h2>
+            </div>
+
+        </div>
+
+        <div class="oneBox">
+            <div class="oneBar">
+                <img src="./imgs/wxpay.png"/>
+                <label for="channal_wx_pub">
+                    <span class="f32">微信支付(推荐)</span>
+                    <input id="channal_wx_pub" class="icheck" type="radio" value="channal_wx_pub" name="iCheck"
+                           ms-duplex="channal">
+                </label>
+            </div>
+        </div>
+
+        <div class="f36 btn-normal" ms-click="postOrder">去支付</div>
+
+    </div>
+
+    <div id="stepFail" ms-visible="step=='stepFail'">
+
+        <div class="hImg"></div>
+        <h1 class="f32 tip">支付没有完成哦，请尝试重新支付</h1>
+
+        <div class="f36 btn-normal" ms-click="payOrder">重新支付</div>
+
+    </div>
+
+    <div id="stepSuccess" ms-visible="step=='stepSuccess'">
+
+        <img class="hImg" src="./imgs/paySuccess.png"/>
+
+    </div>
+
+
+</div>
