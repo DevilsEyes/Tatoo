@@ -85,6 +85,10 @@ define(["mmRouter",
     //加载作品
     function loadProduct() {
 
+        window.timerLoadMore = null;
+        if (timerLoadMore) {
+            clearInterval(timerLoadMore);
+        }
         var limit = 6;//一次加载6个
 
         $.jsonp({
@@ -99,15 +103,18 @@ define(["mmRouter",
             success: function (obj) {
                 obj = $.parseJSON(obj);
                 if (obj.code == 0) {
-                    vm_home.pro$loading = false;
+                    if(obj.data.list.length==0){
+                        vm_home.pro$over = true;
+                        vm_home.pro$loading = true;
+                    }
                     vm_home.productList = vm_home.productList.concat(obj.data.list);
                     avalon.scan(document.body);
                     pbl.Set();
-                    setTimeout(function () {
-
-                    }, 100);
                 }
-                if (obj.data.count == vm_home.productList.length) {
+                console.log(obj.data.count,vm_home.productList.length);
+                console.dir(vm_home.productList);
+                vm_home.pro$loading = false;
+                if (obj.data.count <= vm_home.productList.length) {
                     vm_home.pro$over = true;
                     clearInterval(timerLoadMore);
                     if (obj.data.count == 0) {
@@ -115,6 +122,20 @@ define(["mmRouter",
                         vm_home.pro$loading = true;
                         $('#page_home .do').css('background-color', '#383431');
                     }
+                } else {
+                    //下拉继续加载
+                    window.timerLoadMore = setInterval(function () {
+                        if (vm$root.nowPage == 'home' && vm_home.pro$over == false && vm_home.pro$loading == false) {
+                            var h = $(document).height();
+                            var r = $(window).height();
+                            var y = window.pageYOffset;
+                            //console.log(h-r,y);
+                            if (y > h - 300 - r) {
+                                vm_home.pro$loading = true;
+                                loadProduct();
+                            }
+                        }
+                    }, 100);
                 }
             }
         })
@@ -122,51 +143,45 @@ define(["mmRouter",
 
     //瀑布流
     var pbl = {
+        ex:null,
         Set: function () {
-            $('#pbl li').wookmark({
+
+            // Destroy the old handler
+            //$('#pbl li').css('opacity', 0);
+            //if (pbl.ex) {
+            //    pbl.ex.wookmarkInstance.clear();
+            //}
+
+            pbl.ex = $('#pbl li').wookmark({
                 container: $('#pbl'),
                 offset: 10,
                 outerOffset: 15,
                 itemWidth: '48%',
-                flexibleWidth: '48%',
-                resizeDelay: 100,
-                autoResize: true
+                flexibleWidth: '48%'
+                //resizeDelay: 100,
+                //autoResize: true
             });
 
             var imgLoad = imagesLoaded('#pbl');
 
             imgLoad.on('always', function (instance) {
-                pbl.Refresh();
-                $('.isload').removeClass('isload');
+                //pbl.Refresh();
+                $('#pbl li').css('opacity', 1);
             });
 
-            imgLoad.on('progress', function (instance, image) {
-                var $li = $(image.img.parentNode.parentNode);
-                //$li.show();
-                //$li.removeClass('isload');
-                image.img.parentNode.className = image.isLoaded ? '' : 'broken';
-            });
+            //imgLoad.on('progress', function (instance, image) {
+            //    var $li = $(image.img.parentNode.parentNode);
+            //    //$li.show();
+            //    //$li.removeClass('isload');
+            //    image.img.parentNode.className = image.isLoaded ? '' : 'broken';
+            //});
         },
         Refresh: function () {
             setTimeout(function () {
                 $('#pbl').trigger('refreshWookmark');
-            }, 10);
+            }, 300);
         }
     };
-
-    //下拉继续加载
-    var timerLoadMore = setInterval(function () {
-        if (vm$root.nowPage == 'home' && vm_home.pro$over == false && vm_home.pro$loading == false) {
-            var h = $(document).height();
-            var r = $(window).height();
-            var y = window.pageYOffset;
-            //console.log(h-r,y);
-            if (y > h - 200 - r) {
-                vm_home.pro$loading = true;
-                loadProduct();
-            }
-        }
-    }, 100);
 
     //记录拉动距离
     var timerHomeOSY = setInterval(function () {

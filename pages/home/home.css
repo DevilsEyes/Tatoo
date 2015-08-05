@@ -246,6 +246,14 @@
     position: relative;
 }
 
+#page_home #pbl li{
+    /*opacity:0;*/
+    -webkit-transition:height 0.3s ease-out;
+    -moz-transition:height 0.3s ease-out;
+    -o-transition:height 0.3s ease-out;
+    transition:height 0.3s ease-out;
+}
+
 #page_home #pbl img{
     border-radius: 4px 4px 0 0;
     width: 100%;

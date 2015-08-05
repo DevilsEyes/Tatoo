@@ -73,9 +73,9 @@ body{
     width:100%;
 }
 
-.isload{
-    visibility: hidden;
-}
+/*.isload{*/
+    /*opacity: 0;*/
+/*}*/
 
 
 footer{
