@@ -69,6 +69,7 @@ define(["mmRouter",
                     obj = $.parseJSON(obj);
 
                     console.log('获取店铺信息');
+                    console.log('storeId:'+g$id);
                     console.dir(obj);
                     console.log('');
 
@@ -77,7 +78,7 @@ define(["mmRouter",
 
                         g$storeInfo = obj.data.storeInfo;
 
-                        var us = g$storeInfo.sector;
+                        var us = g$storeInfo.userInfo.sector;
                         if (us == 10) {
                             us = '美甲师';
                         }

@@ -69,16 +69,17 @@
 
     <div class="do">
         <ul id="pbl">
-            <li ms-repeat="productList" class="isload">
-                <a ms-href="#!/pdetail?code={{el._id}}">
-                    <img ms-src="{{el.images[0]}}?imageView2/0/w/320" onerror="imgError(this,'pbl')"/>
+            <!--用于avalon-->
+            <!--<li ms-repeat="productList" class="isload">-->
+                <!--<a ms-href="#!/pdetail?code={{el._id}}">-->
+                    <!--<img ms-src="{{el.images[0]}}?imageView2/0/w/320" onerror="imgError(this,'pbl')"/>-->
 
-                    <div>
-                        <p class="f28">{{el.title}}</p>
-                        <span class="f28">{{el.images.length}}张</span>
-                    </div>
-                </a>
-            </li>
+                    <!--<div>-->
+                        <!--<p class="f28">{{el.title}}</p>-->
+                        <!--<span class="f28">{{el.images.length}}张</span>-->
+                    <!--</div>-->
+                <!--</a>-->
+            <!--</li>-->
         </ul>
         <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
         <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要开通微名片</a>

@@ -72,13 +72,16 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?'
                 + 'appid=' + appId + '&redirect_uri=' + REURI + '&response_type=code&scope=snsapi_base&state=' + state + '#wechat_redirect';
         }
-        else if (g$params.state) {
+        else if(typeof(g$params.state) == 'undefined' &&g$params.code){
+            getParams();
+        }
+        else if (g$params.state&&g$params.code) {
             //2nd
             var newurl = deCodeUni(g$params.state).split('#');
             var newsrc = location.origin + location.pathname + newurl[0] + '&code=' + g$params.code + '#' + newurl[1];
 
-            history.pushState(null, document.title, newsrc);
-            getParams();
+            location.href = newsrc;
+            //history.pushState(null, document.title, newsrc);
         }
     }
     else {

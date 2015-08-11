@@ -117,3 +117,21 @@
     -o-transform:rotate(180deg);
 }
 
+
+#page_pdetail .btn-normal {
+    display: block;
+    border-radius: 999px;
+    border: solid 2px #ffbb77;
+    background-color: #ffbb77;
+    color: white;
+    text-align: center;
+    margin: 40px 20px;
+    padding: 10px;
+    width: calc(100% - 64px);
+}
+
+#page_pdetail .btn-normal:active{
+    border: solid 2px #f0e9dc;
+    background-color: #6f5f5c;
+    color: white;
+}

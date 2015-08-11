@@ -1,4 +1,4 @@
-define(["jQjsonp"],function(){
+define(["jQjsonp"], function () {
 
     window.g$WX = {
         title: '',
@@ -13,93 +13,25 @@ define(["jQjsonp"],function(){
         fail: function (res) {
         }
     };
+    //g$WX.title=setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
 
-    window.wxInit = function(){
+    window.wxInit = function () {
+        //alert('wxconfig');
         wx.config(wxConfig);
-
-        g$WX.title=setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
-        wx.ready(function () {
-            wx.onMenuShareAppMessage({
-                title: '',
-                desc: '',
-                link: '',
-                imgUrl: '',
-                trigger: function(res) {
-                },
-                success: function(res) {
-                },
-                cancel: function(res) {
-                },
-                fail: function(res) {
-                }
-            });
-
-
-            // 2.2 监听“分享到朋友圈”按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareTimeline({
-                title: '',
-                link: '',
-                imgUrl: '',
-                trigger: function(res) {
-                },
-                success: function(res) {
-                },
-                cancel: function(res) {
-                },
-                fail: function(res) {
-                }
-            });
-
-
-            // 2.3 监听“分享到QQ”按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareQQ({
-                title: '',
-                desc: '',
-                link: '',
-                imgUrl: '',
-                trigger: function(res) {
-                },
-                complete: function(res) {
-                },
-                success: function(res) {
-                },
-                cancel: function(res) {
-                },
-                fail: function(res) {
-                }
-            });
-
-
-            // 2.4 监听“分享到微博”按钮点击、自定义分享内容及分享结果接口
-            wx.onMenuShareWeibo({
-                title: '',
-                desc: '',
-                link: '',
-                imgUrl: '',
-                trigger: function(res) {
-                },
-                complete: function(res) {
-                },
-                success: function(res) {
-                },
-                cancel: function(res) {
-                },
-                fail: function(res) {
-                }
-            });
-        })
     };
 
     // 获取微信sign
     var getWxSign = function () {
-        var wxUrl = encodeURIComponent(location.host);
+        var wxUrl = encodeURIComponent(location.href.split('#')[0]);
+
+        t$.alert('wxUrl');
 
         $.jsonp({
             url: g$baseUrl + "/Weixin/Public/token/?_method=GET",
-            data:{
-                url:wxUrl
+            data: {
+                url: wxUrl
             },
-            callbackParameter:"callback",
+            callbackParameter: "callback",
             success: function (obj) {
                 obj = $.parseJSON(obj);
                 console.dir(obj);
@@ -107,30 +39,38 @@ define(["jQjsonp"],function(){
                     timestamp = obj.data.timestamp,
                     nonceStr = obj.data.noncestr,
                     signature = obj.data.signature;
-                window.wxConfig = {
-                    debug: false,
-                        appId: appId,
-                        timestamp: timestamp,
-                        nonceStr: nonceStr,
-                        signature: signature,
-                        jsApiList: [
+                t$.alert(al$print(obj));
+                wx.config({
+                    debug: true,
+                    appId: appId,
+                    timestamp: timestamp,
+                    nonceStr: nonceStr,
+                    signature: signature,
+                    jsApiList: [
                         'onMenuShareTimeline',
                         'onMenuShareAppMessage',
                         'onMenuShareQQ',
                         'onMenuShareWeibo'
                     ]
-                };
+                });
+                wx.ready(function () {
+                    //alert('wxready');
+                    wx.onMenuShareAppMessage(g$WX);
+                    wx.onMenuShareTimeline(g$WX);
+                    wx.onMenuShareQQ(g$WX);
+                    wx.onMenuShareWeibo(g$WX);
+                });
                 check.wx = true;
             },
-            error:function(){
+            error: function () {
             }
         });
     };
 
-    if(g$isWX){
+    if (g$isWX) {
         getWxSign();
     }
-    else{
+    else {
         check.wx = true;
     }
 
