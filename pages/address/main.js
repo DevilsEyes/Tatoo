@@ -27,7 +27,7 @@ define(["mmRouter",
                 avalon.scan(document.body);
             }
             else{
-                location.hash = '#!/home'
+                location.hash = '#!/home';
                 return;
             }
 

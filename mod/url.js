@@ -34,7 +34,6 @@ define(["mmRouter",
         //获取openid
         function getOpenId(){
             if (g$isWX&&g$params.code) {
-
                 $.jsonp({
                     url: g$baseUrl + "/Weixin/Public/accessToken",
                     callbackParameter: "callback",
@@ -42,15 +41,28 @@ define(["mmRouter",
                         code: g$params.code
                     },
                     success: function (obj) {
-                        var obj = $.parseJSON(obj);
+                        obj = $.parseJSON(obj);
                         if (obj.code == 0) {
+                            if(typeof(obj.data.errmsg)!='undefined'){
+                                if(obj.data.errmsg.match('invalid code')){
+
+                                    var page = location.hash.split('/')[1];
+                                    var code = location.hash.split('code=')[1];
+
+                                    var str = '#!/refresh/?page=' + page;
+                                    if(typeof(code)!='undefined'){
+                                        str += '&code=' + code;
+                                    }
+
+                                    location.hash = str;
+                                }
+                            }
                             window.g$openId = obj.data.openid;
                             check.openId = true;
                         }
                     }
                 });
             }else{
-                g$openId = '0NyPMs7crBm9X-llnNzAWJeSiUjM';
                 check.openId = true;
             }
         }
@@ -113,6 +125,19 @@ define(["mmRouter",
         }
 
 
+        avalon.router.get("/refresh/",function(){
+            var code = this.query.code;
+            var page = this.query.page;
+            g$params.code=null;
+
+            var str = location.origin + location.pathname + '?' + g$params.toStr() + '#!/' + page + '/';
+
+            if(typeof(code)!='undefined'){
+                str += '?code=' + code;
+            }
+
+            location.href = str;
+        });
 
         avalon.router.error(Page_ERROR);
 
@@ -190,10 +215,6 @@ define(["mmRouter",
                 avalon.history.start({
                     basepath: "/avalon"
                 });
-
-                if(g$isWX){
-                    wxInit();
-                }
                 clearInterval(check.timer);
             }
 

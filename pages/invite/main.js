@@ -409,6 +409,12 @@ define(["mmRouter",
         $(document).attr("title", "纹身大咖");
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
+
+        g$WX.set({
+            title:setVar(g$storeInfo.userInfo.nickname, 'string') + '向您发起了邀约',
+            imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+            desc:'亲，为了更好的为您服务，简单补充一下您的预约信息吧。'
+        });
     }
 
 });

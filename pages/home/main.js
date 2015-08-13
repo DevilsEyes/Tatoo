@@ -274,15 +274,12 @@ define(["mmRouter",
         window.scrollTo(0,vm.offSetY);
         vm$root.isLoading = false;
 
-        g$WX.title = setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片';
-        g$WX.imgUrl = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-        g$WX.desc = setVar(g$storeInfo.userInfo.faith, 'string');
-        wx.ready(function () {
-            wx.onMenuShareAppMessage(g$WX);
-            wx.onMenuShareTimeline(g$WX);
-            wx.onMenuShareQQ(g$WX);
-            wx.onMenuShareWeibo(g$WX);
+        g$WX.set({
+            title : setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
+            imgUrl : setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+            desc : '我的作品都在里面，进来看看吧'
         });
+
     }
 
 

@@ -233,6 +233,12 @@ define(["mmRouter",
                     else {
                         vm.phonenum = '';
                     }
+
+                    g$WX.set({
+                        title:setVar(g$storeInfo.userInfo.nickname, 'string') + '向您发起收款',
+                        imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+                        desc:setVar(g$storeInfo.userInfo.nickname, 'string') + '正在向您收取纹身相关服务费' + obj.data.amount + '元'
+                    });
                 }
                 else {
                     layer.msg(obj.msg);
