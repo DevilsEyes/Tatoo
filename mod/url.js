@@ -129,13 +129,11 @@ define(["mmRouter",
             var code = this.query.code;
             var page = this.query.page;
             g$params.code=null;
-
             var str = location.origin + location.pathname + '?' + g$params.toStr() + '#!/' + page + '/';
 
             if(typeof(code)!='undefined'){
                 str += '?code=' + code;
             }
-
             location.href = str;
         });
 

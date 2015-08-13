@@ -21,7 +21,7 @@ g$params = {
         var str = '';
 
         for(var i in g$params){
-            if(g$params[i]!==null&&i>0&&typeof(g$params[i])!='function'){
+            if(g$params[i]!==null&&i.length>0&&typeof(g$params[i])!='function'){
                 if(str.length>0){
                     str += '&';
                 }
