@@ -51,7 +51,6 @@ check = {
 //g$baseUrl = 'http://123.57.42.13/WenShen/V1.0.0';     //外网测试
 g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
 
-
 (function () {
 
     //是否移动端判断
