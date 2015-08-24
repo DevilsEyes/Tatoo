@@ -1,8 +1,7 @@
 g$params = {
 
     //获取页面上的参数
-    get:function() {
-        var args = window.location.search.substring(1);
+    get:function(args) {
         var str = '';
         args = args.split("&");
 
@@ -13,7 +12,6 @@ g$params = {
             if (arg.length == 1) g$params[arg[0]] = true;
             else g$params[arg[0]] = arg[1];
         }
-        g$id = g$params.storeId;
     },
 
     //拼接为字符串
@@ -30,11 +28,21 @@ g$params = {
         }
 
         return str;
+    },
+
+    //置空,参数是保留列表
+    clear:function(args){
+        var arr = args.join('#');
+
+        for(var i in g$params){
+            if(g$params[i]!==null&&i.length>0&&typeof(g$params[i])!='function'&&arr.match(i)==null){
+                g$params[i]=null;
+            }
+        }
     }
 };
 
 g$id = '';
-g$isMobile = false;
 g$isWX = false;
 g$code = '';
 g$openId = '';
@@ -53,17 +61,6 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
 
 (function () {
 
-    //是否移动端判断
-    g$isMobile = navigator.userAgent.match(/mobile/i) != null;
-
-    //移动端显示设置
-    if (g$isMobile) {
-        var m = document.createElement("META");
-        m.setAttribute("name", "viewport");
-        m.setAttribute("content", "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no");
-        document.head.appendChild(m);
-    }
-
     //是否微信判断
     g$isWX = navigator.userAgent.match(/MicroMessenger/i) != null;
 
@@ -75,13 +72,12 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
         return nstr.replace(/\*0/g, '#').replace(/\*1/g, '!').replace(/\*2/g, '?').replace(/\*3/g, '=').replace(/\*4/g, '&').replace(/\*5/g, '/');
     };
 
-
     //微信中获取code
-    if (g$isWX||location.hash.match(/invite/i)||location.hash.match(/bill/i)) {
-    //if(isWX||location.href.match(/page_invite/i)){
+    if (location.hash.match(/invite/i)||location.hash.match(/bill/i)||location.href.match(/\*5invite\*5/i)||location.href.match(/\*5bill\*5/i)) {
+    //if(false){
+        g$params.get(window.location.search.substring(1));
 
-        g$params.get();
-        if (typeof(g$params.state) == 'undefined' && typeof(g$params.code) == 'undefined') {
+        if (typeof(g$params.state) == 'undefined' || typeof(g$params.code) == 'undefined') {
             //1st
             var appId = 'wx57c7040dfd0ba925';
             var REURI = encodeURI(location.origin + location.pathname);
@@ -89,20 +85,18 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?'
                 + 'appid=' + appId + '&redirect_uri=' + REURI + '&response_type=code&scope=snsapi_base&state=' + state + '#wechat_redirect';
         }
-        else if(typeof(g$params.state) == 'undefined' &&g$params.code){
-            g$params.get();
-        }
         else if (g$params.state&&g$params.code) {
             //2nd
             var newurl = deCodeUni(g$params.state).split('#');
-            var newsrc = location.origin + location.pathname + newurl[0] + '&code=' + g$params.code + '#' + newurl[1];
-
-            location.href = newsrc;
-            //history.pushState(null, document.title, newsrc);
+            g$params.get(newurl[0].substring(1) + '&code=' + g$params.code);
+            g$params.clear(['storeId', 'code']);
+            history.pushState(null, document.title, location.origin + location.pathname + '?' + g$params.toStr() + '#' + newurl[1]);
         }
     }
     else {
-        g$params.get();
+        g$params.get(window.location.search.substring(1));
+        g$params.clear(['storeId']);
+        history.pushState(null, document.title, location.origin + location.pathname + '?' + g$params.toStr() + location.hash);
     }
 
 })(window);

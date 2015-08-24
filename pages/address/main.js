@@ -5,7 +5,7 @@ define(["mmRouter",
     "css!./address.css"
 ], function () {
 
-    avalon.router.get("/address/", init);
+    avalon.router.get("/address/",init);
 
     //定义vm_address
     var vm_address = avalon.define({

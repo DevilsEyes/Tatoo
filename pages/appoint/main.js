@@ -215,15 +215,15 @@ define(["mmRouter",
             avalon.scan(document.body);
 
         }
-        $(document).attr("title", "纹身大咖");
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
 
-        g$WX.set({
-            title:setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
-            imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
-            desc:'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身'
-        });
+        $(document).attr("title",'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身');
+        //g$WX.set({
+        //    title:setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
+        //    imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+        //    desc:'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身'
+        //});
     }
 
 });

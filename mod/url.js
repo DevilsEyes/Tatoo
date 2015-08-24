@@ -11,6 +11,7 @@ define(["mmRouter",
         "pages/nf404/main"
     ],
     function () {
+        window.g$id = g$params.storeId;
 
         window.to404 = function(msg,code){
             vm$root.isLoading = false;
@@ -126,13 +127,15 @@ define(["mmRouter",
 
 
         avalon.router.get("/refresh/",function(){
-            var code = this.query.code;
-            var page = this.query.page;
-            g$params.code=null;
-            var str = location.origin + location.pathname + '?' + g$params.toStr() + '#!/' + page + '/';
+            var avalonCode = this.query.code;
+            var avalonPage = this.query.page;
 
-            if(typeof(code)!='undefined'){
-                str += '?code=' + code;
+            g$params.clear(['storeId']);
+
+            var str = location.origin + location.pathname + '?' + g$params.toStr() + '#!/' + avalonPage + '/';
+
+            if(typeof(avalonCode)!='undefined'){
+                str += '?code=' + avalonCode;
             }
             location.href = str;
         });
@@ -209,17 +212,15 @@ define(["mmRouter",
 
         check.timer = setInterval(function(){
 
-            if(check.openId&&check.storeInfo&&check.wx){
+            if(check.openId&&check.storeInfo){
                 avalon.history.start({
                     basepath: "/avalon"
                 });
+                $('#preloading').prop("outerHTML",'');
                 clearInterval(check.timer);
             }
 
         },50);
-
-
-
 
     }
 );

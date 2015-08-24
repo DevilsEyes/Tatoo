@@ -55,12 +55,12 @@
             <div class="row address">
                 <img src="./imgs/icon_address.png">
 
-                <div ms-if="address!=''">
+                <div ms-if="companyName!=null">
                     <a href="#!/address" class="f24">查看</a>
 
-                    <p class="p-a f28">{{address}}</p>
+                    <p class="p-a f28">{{companyName}}</p>
                 </div>
-                <div ms-if="address==''">
+                <div ms-if="companyName==null">
                     <p class="f28">无</p>
                 </div>
             </div>

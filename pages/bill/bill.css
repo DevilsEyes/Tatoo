@@ -13,12 +13,15 @@
     margin-top: 10px;
 }
 
+#page_bill .rbbox:first-child{
+    min-height: 90px;
+}
+
 #page_bill .rbbox {
     background-color: white;
     border-radius: 4px;
     border: solid 1px #e4e4e4;
     margin: 10px;
-    width: calc(100% - 20px);
 }
 
 #page_bill .rbbox#phHave{
@@ -55,11 +58,12 @@
     width: 70px;
     height: 70px;
     margin: 10px;
+    position: absolute;
 }
 
 #page_bill .rbbox .info {
     vertical-align: top;
-    margin-top: 10px;
+    margin: 10px 0 0 90px;
     display: inline-block;
 }
 
@@ -142,8 +146,9 @@
 
 #page_bill .nmbox .info {
     vertical-align: top;
-    margin-top: 10px;
-    display: inline-block;
+    margin: 10px 0 0 90px;
+    display:block;
+    min-height:80px;
 }
 
 #page_bill .nmbox .info > h1 {

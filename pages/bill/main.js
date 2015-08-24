@@ -27,7 +27,6 @@ define(["mmRouter",
             $('#page_bill #i-phonenum').prop('value', '');
 
             avalon.scan(document.body);
-
         },
 
         vec: '',
@@ -191,7 +190,7 @@ define(["mmRouter",
 
         var vm = vm_bill;
 
-        //当店铺id与订单不符时的跳转。
+        ////当店铺id与订单不符时的跳转。
         var sid = code.substr(0, code.length - 13);
         if (sid != g$id) {
             location.href = location.origin + location.pathname + '?storeId=' + sid + '#!/bill/?code=' + code;
@@ -234,11 +233,12 @@ define(["mmRouter",
                         vm.phonenum = '';
                     }
 
-                    g$WX.set({
-                        title:setVar(g$storeInfo.userInfo.nickname, 'string') + '向您发起收款',
-                        imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
-                        desc:setVar(g$storeInfo.userInfo.nickname, 'string') + '正在向您收取纹身相关服务费' + obj.data.amount + '元'
-                    });
+                    //g$WX.set({
+                    //    title:setVar(g$storeInfo.userInfo.nickname, 'string') + '向您发起收款',
+                    //    imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+                    //    desc:setVar(g$storeInfo.userInfo.nickname, 'string') + '正在向您收取纹身相关服务费' + obj.data.amount + '元',
+                    //    link:location.origin + location.pathname + '?storeId=' + g$id + '#!/bill/?code=' + code
+                    //});
                 }
                 else {
                     layer.msg(obj.msg);

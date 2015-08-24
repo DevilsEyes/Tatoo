@@ -17,7 +17,7 @@ define(["mmRouter",
         strSector: '',
         visitCount: '',
         wxNum: '',
-        address: '',
+        companyName: '',
         rank: 0,
 
         likeCount: 1000,
@@ -249,11 +249,13 @@ define(["mmRouter",
             }
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
-                vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
+                vm.companyName = setVar(g$storeInfo.userInfo.company.name, 'string');
+            }
+            else{
+                vm.companyName = null;
             }
 
-
-            avalon.scan(document.body);
+            avalon.scan(document.getElementById('page_home'));
 
 
             //延迟调用，设置参数
@@ -274,11 +276,12 @@ define(["mmRouter",
         window.scrollTo(0,vm.offSetY);
         vm$root.isLoading = false;
 
-        g$WX.set({
-            title : setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
-            imgUrl : setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
-            desc : '我的作品都在里面，进来看看吧'
-        });
+        $(document).attr("title", setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片');
+        //g$WX.set({
+        //    title : setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
+        //    imgUrl : setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
+        //    desc : '我的作品都在里面，进来看看吧'
+        //});
 
     }
 
