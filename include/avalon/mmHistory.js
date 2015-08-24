@@ -42,9 +42,9 @@ define(["avalon"], function(avalon) {
             // ie6 => location.hash = #stream/xxxxx
             // 其他浏览器 => location.hash = #stream/xxxxx?lang=zh_c
             // firefox 会自作多情对hash进行decodeURIComponent
-            // 又比如 http://www.cnblogs.com/rubylouvre/#!/home/q={%22thedate%22:%2220121010~20121010%22}
-            // firefox 15 => #!/home/q={"thedate":"20121010~20121010"}
-            // 其他浏览器 => #!/home/q={%22thedate%22:%2220121010~20121010%22}
+            // 又比如 http://www.cnblogs.com/rubylouvre/#!/card/q={%22thedate%22:%2220121010~20121010%22}
+            // firefox 15 => #!/card/q={"thedate":"20121010~20121010"}
+            // 其他浏览器 => #!/card/q={%22thedate%22:%2220121010~20121010%22}
             var path = (window || this).location.href
             return this._getHash(path.slice(path.indexOf("#")))
         },

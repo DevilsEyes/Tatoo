@@ -1,13 +1,9 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'Wookman',
-    "css!./home.css"
+define([
+    'Wookman'
 ], function () {
-    avalon.router.get("/home/", init);
 
-    var vm_home = avalon.define({
-        $id: 'home',
+    var vm = avalon.define({
+        $id: 'card',
 
         offSetY: 0,
 
@@ -23,7 +19,6 @@ define(["mmRouter",
         likeCount: 1000,
         like$bool: false,
         like$click: function () {
-            var vm = vm_home;
             if (vm.like$bool) {
                 return;
             }
@@ -39,9 +34,9 @@ define(["mmRouter",
                         obj = $.parseJSON(obj);
                         if (obj.code == 0) {
                             vm.likeCount++;
-                            $('#page_home #addOne').show();
+                            $('#page_card #addOne').show();
                             setTimeout(function () {
-                                $('#page_home #addOne').css({
+                                $('#page_card #addOne').css({
                                     top: '70px',
                                     opacity: '0',
                                     color: '#322f2c'
@@ -66,13 +61,13 @@ define(["mmRouter",
         faith$bool: false,
         faith$mH: 50,
         faith$toggle: function () {
-            vm_home.faith$bool = !vm_home.faith$bool;
-            if (vm_home.faith$bool) {
-                $('#page_home .faith').height($('#page_home .faith>p').height());
-                $('#page_home .faith + a').text('收起');
+            vm.faith$bool = !vm.faith$bool;
+            if (vm.faith$bool) {
+                $('#page_card .faith').height($('#page_card .faith>p').height());
+                $('#page_card .faith + a').text('收起');
             } else {
-                $('#page_home .faith').height(50);
-                $('#page_home .faith + a').text('查看全文');
+                $('#page_card .faith').height(50);
+                $('#page_card .faith + a').text('查看全文');
             }
         },
 
@@ -95,7 +90,7 @@ define(["mmRouter",
             url: g$baseUrl + "/Product/list/?_method=GET",
             data: {
                 storeId: g$storeInfo.storeId,
-                latestIndex: vm_home.productList.length != 0 ? vm_home.productList.length : null,
+                latestIndex: vm.productList.length != 0 ? vm.productList.length : null,
                 limit: limit,
                 count: true
             },
@@ -104,26 +99,20 @@ define(["mmRouter",
                 obj = $.parseJSON(obj);
                 if (obj.code == 0) {
                     if (obj.data.list.length == 0) {
-                        vm_home.pro$over = true;
-                        vm_home.pro$loading = true;
+                        vm.pro$over = true;
+                        vm.pro$loading = true;
                     }
-                    else{
-                        //旧版
-                        //vm_home.productList = vm_home.productList.concat(obj.data.list);
-                        //avalon.scan(document.body);
-                        //pbl.Set();
-
-                        //jQuery重写
+                    else {
                         var nodeStr = '';
                         var node = {};
-                        var $pbl = $('#page_home #pbl');
+                        var $pbl = $('#page_card #pbl');
 
-                        var Lo = vm_home.productList.length;
-                        vm_home.productList = vm_home.productList.concat(obj.data.list);
-                        var Ln = vm_home.productList.length - 1;
+                        var Lo = vm.productList.length;
+                        vm.productList = vm.productList.concat(obj.data.list);
+                        var Ln = vm.productList.length - 1;
 
                         for (var i = Lo; i <= Ln; i++) {
-                            node = vm_home.productList[i];
+                            node = vm.productList[i];
                             nodeStr = "<li>"
                                 + "<a href='#!/pdetail?code=" + node._id + "'>"
                                 + "<img src='" + node.images[0] + "?imageView2/0/w/320'/>"
@@ -140,28 +129,25 @@ define(["mmRouter",
                         }
                     }
                 }
-                console.log(obj.data.count, vm_home.productList.length);
-                console.dir(vm_home.productList);
-                vm_home.pro$loading = false;
-                if (obj.data.count <= vm_home.productList.length) {
-                    vm_home.pro$over = true;
+                vm.pro$loading = false;
+                if (obj.data.count <= vm.productList.length) {
+                    vm.pro$over = true;
                     clearInterval(timerLoadMore);
                     if (obj.data.count == 0) {
-                        vm_home.pro$msg = '掌柜的太忙了！还没有上传作品！';
-                        vm_home.pro$loading = true;
-                        $('#page_home .do').css('background-color', '#383431');
-                        $('#page_home .do').css('padding-top', '20px');
+                        vm.pro$msg = '掌柜的太忙了！还没有上传作品！';
+                        vm.pro$loading = true;
+                        $('#page_card .do').css('background-color', '#383431');
+                        $('#page_card .do').css('padding-top', '20px');
                     }
                 } else {
                     //下拉继续加载
                     window.timerLoadMore = setInterval(function () {
-                        if (vm$root.nowPage == 'home' && vm_home.pro$over == false && vm_home.pro$loading == false) {
+                        if (vm$root.nowPage == 'card' && vm.pro$over == false && vm.pro$loading == false) {
                             var h = $(document).height();
                             var r = $(window).height();
                             var y = window.pageYOffset;
-                            //console.log(h-r,y);
                             if (y > h - 300 - r) {
-                                vm_home.pro$loading = true;
+                                vm.pro$loading = true;
                                 loadProduct();
                             }
                         }
@@ -176,12 +162,6 @@ define(["mmRouter",
         ex: null,
         Set: function () {
 
-            // Destroy the old handler
-            //$('#pbl li').css('opacity', 0);
-            //if (pbl.ex) {
-            //    pbl.ex.wookmarkInstance.clear();
-            //}
-
             pbl.ex = $('#pbl li').wookmark({
                 container: $('#pbl'),
                 offset: 10,
@@ -189,26 +169,16 @@ define(["mmRouter",
                 itemWidth: '48%',
                 flexibleWidth: '48%',
                 align: 'left'
-                //resizeDelay: 100,
-                //autoResize: true
             });
 
             var imgLoad = imagesLoaded('#pbl');
-
             imgLoad.on('always', function (instance) {
                 pbl.Refresh();
                 $('#pbl li').css('opacity', 1);
             });
-
             imgLoad.on('progress', function (instance, image) {
-                var $li = $(image.img.parentNode.parentNode);
                 $(image.img).width($(image.img).width());
                 $(image.img).height($(image.img).height());
-                //$li.css('opacity', 1);
-
-                //    //$li.show();
-                //    //$li.removeClass('isload');
-                //    image.img.parentNode.className = image.isLoaded ? '' : 'broken';
             });
         },
         Refresh: function () {
@@ -219,18 +189,17 @@ define(["mmRouter",
     };
 
     //记录拉动距离
-    var timerHomeOSY = setInterval(function () {
-        if (vm$root.nowPage == 'home') {
-            vm_home.offSetY = window.pageYOffset;
+    var timercardOSY = setInterval(function () {
+        if (vm$root.nowPage == 'card') {
+            vm.offSetY = window.pageYOffset;
         }
     }, 100);
 
 
     //初始化
     function init() {
-        var vm = vm_home;
 
-        if (vm$root.checkPage('home')) {
+        if (vm$root.checkPage('card')) {
 
             vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
@@ -251,21 +220,20 @@ define(["mmRouter",
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm.companyName = setVar(g$storeInfo.userInfo.company.name, 'string');
             }
-            else{
+            else {
                 vm.companyName = null;
             }
 
-            avalon.scan(document.getElementById('page_home'));
-
+            avalon.scan(document.getElementById('page_card'));
 
             //延迟调用，设置参数
             setTimeout(function () {
-                var h = $('#page_home .faith>p').height();
-                $('#page_home .faith').height(50);
+                var h = $('#page_card .faith>p').height();
+                $('#page_card .faith').height(50);
                 if (h < 50) {
-                    $('#page_home .faith').height(h);
+                    $('#page_card .faith').height(h);
                 }
-                avalon.vmodels.home.faith$mH = h;
+                avalon.vmodels.card.faith$mH = h;
 
                 loadProduct();
 
@@ -273,7 +241,7 @@ define(["mmRouter",
 
         }
         pbl.Refresh();
-        window.scrollTo(0,vm.offSetY);
+        window.scrollTo(0, vm.offSetY);
         vm$root.isLoading = false;
 
         $(document).attr("title", setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片');
@@ -282,9 +250,7 @@ define(["mmRouter",
         //    imgUrl : setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
         //    desc : '我的作品都在里面，进来看看吧'
         //});
-
     }
 
-
-
+    return {init:init};
 });

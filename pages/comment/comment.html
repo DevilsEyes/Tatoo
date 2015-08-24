@@ -1,9 +1,121 @@
 <div ms-controller="comment" id="page_comment" ms-visible="nowPage=='comment'">
 
+    <style>
+        #page_comment header {
+            background-color: #383431;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 45px;
+            color: white;
+            text-align: center;
+        }
+
+        #page_comment header > b {
+            display: block;
+            margin-top: 10px;
+        }
+
+        #page_comment #step1 .hImg {
+            margin: 10px 0 0 0;
+            padding-bottom: 60px;
+            width: 100%;
+            height: 150px;
+            background: url(imgs/img_paysuccess.png) no-repeat center;
+            background-size: 50%;
+            border-bottom: solid 1px #e2e2e2;
+        }
+
+        #page_comment .wbox {
+            padding: 15px 0 50px 0;
+            width: 100%;
+            background-color: white;
+            text-align: center;
+        }
+
+        #page_comment #step1 .tip {
+            width: 100%;
+            text-align: center;
+            color: #797979;
+        }
+
+        #page_comment .avatar {
+            border: solid 1px #b3b3b3;
+            width: 70px;
+            height: 70px;
+            margin: 20px 0 0 0;
+        }
+
+        #page_comment .starAr {
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        #page_comment .starAr > span {
+            vertical-align: top;
+        }
+
+        #page_comment .star {
+            display: inline-block;
+            margin: 0 3px 0 3px;
+            width: 20px;
+            height: 20px;
+            background: url("imgs/star_dark.png") no-repeat;
+            background-size: contain;
+        }
+
+        #page_comment .star.light {
+            background-image: url("imgs/star_light.png");
+        }
+
+        #page_comment textarea {
+            width: calc(100% - 50px);
+            padding: 5px;
+            resize: none;
+            height: 100px;
+            margin: 20px auto 0 auto;
+            background-color: #f3f3f3;
+            border: solid 1px #d8d8d8;
+            border-radius: 4px;
+        }
+
+        #page_comment .btn-normal {
+            border-radius: 999px;
+            border: solid 2px #ffbb77;
+            background-color: transparent;
+            color: #1a1a1a;
+            text-align: center;
+            margin: 40px 20px;
+            padding: 10px;
+            width: calc(100% - 64px);
+        }
+
+        #page_comment .btn-normal:active {
+            border: solid 2px #ffbb77;
+            background-color: #ffbb77;
+            color: white;
+        }
+
+        #page_comment #step2 .hImg {
+            margin: 10px 20px 0 20px;
+            padding-bottom: 60px;
+            width: calc(100% - 40px);
+            height: 150px;
+            background: url(imgs/img_commentsuccess.png) no-repeat center;
+            background-size: 50%;
+            border-bottom: solid 1px #d8d8d8;
+        }
+
+        #page_comment #step2 img {
+            width: 80%;
+            padding: 30px 0;
+        }
+    </style>
+
     <div id="step1" ms-visible="step=='step1'">
 
         <!--<header>-->
-            <!--<b class="f36">纹身大咖</b>-->
+        <!--<b class="f36">纹身大咖</b>-->
         <!--</header>-->
         <!--<div class="blank" style="height:45px;"></div>-->
 

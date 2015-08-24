@@ -1,15 +1,9 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    "iScroll",
-    "css!./pdetail.css"
+define([
+    "iScroll"
 ], function () {
 
-    avalon.router.get("/pdetail/", init);
-
-
-    //定义vm_pdetail
-    var vm_pdetail = avalon.define({
+    //定义vm
+    var vm = avalon.define({
         $id: 'pdetail',
 
         avatar: '',
@@ -29,9 +23,6 @@ define(["mmRouter",
                 success: function (obj) {
                     obj = $.parseJSON(obj);
 
-                    console.log('productInfo:');
-                    console.dir(obj);
-
                     if (obj.code == 0) {
                         var productInfo = obj.data.productInfo;
 
@@ -45,18 +36,14 @@ define(["mmRouter",
                             iscroll: null
                         };
 
-                        vm_pdetail.proList.push(newPro);
-
-                        console.log('proList:');
-                        console.dir(vm_pdetail.proList);
+                        vm.proList.push(newPro);
 
                         avalon.scan(document.body);
                         $('.pdetail').css('min-height', $(window).height());
-                        console.dir(newPro.tag);
                         if(newPro.tag.length>1){
                             setTimeout(function () {
 
-                                var pd = vm_pdetail.proList[vm_pdetail.proList.length - 1];
+                                var pd = vm.proList[vm.proList.length - 1];
 
                                 var id = pd._id;
 
@@ -79,20 +66,29 @@ define(["mmRouter",
     });
 
     //初始化
-    function init() {
+    function init(router) {
 
-        var code = this.query.code;
+        if(typeof(router.query.code)!='undefined'){
+            var code = router.query.code;
+        }
+        //else{
+        //    var code = router.params.id;
+        //}
+        //console.log(code);
 
         if (vm$root.checkPage('pdetail', code)) {
 
-            vm_pdetail.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm_pdetail.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
-            vm_pdetail.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
+            vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
+            vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
+            vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
 
-            vm_pdetail.getProInfo(code);
+            vm.getProInfo(code);
         }
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
+
+
     }
 
+    return {init:init};
 });

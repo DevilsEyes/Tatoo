@@ -1,12 +1,8 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'icheck',
-    "css!./appoint.css"
+define([
+    'icheck'
 ], function () {
-    avalon.router.get("/appoint/", init);
 
-    var vm_appoint = avalon.define({
+    var vm = avalon.define({
         $id: 'appoint',
 
         nickname: '',
@@ -21,10 +17,13 @@ define(["mmRouter",
         date: 0,
         time: 0,
 
+        op$time: [],
+        op$date: [],
+
         vec: '',
         vec$rem: 0,
         vec$get: function () {
-            var vm = vm_appoint;
+
             if (vm.phonenum.length != 11) {//||vm_bill.vec$sended){
                 return;
             }
@@ -65,7 +64,7 @@ define(["mmRouter",
         },
 
         postOrder: function () {
-            var vm = vm_appoint;
+
             if (vm.name.length < 1) {
                 layer.msg('请填写姓名');
                 return;
@@ -91,31 +90,31 @@ define(["mmRouter",
             $.jsonp({
                 url: g$baseUrl + '/Order/info/?_method=PUT',
                 data: {
-                    storeId:g$id,
-                    remark:vm.remark,
-                    orderTime:Date.parse(new Date(vm.date + ' ' + vm.time)),
-                    servicePlace:10,
-                    orderAddress: vm.serv?null:vm.orderAddress,
-                    orderFrom:g$isWX?21:22,
-                    customerInfo:{
+                    storeId: g$id,
+                    remark: vm.remark,
+                    orderTime: Date.parse(new Date(vm.date + ' ' + vm.time)),
+                    servicePlace: 10,
+                    orderAddress: vm.serv ? null : vm.orderAddress,
+                    orderFrom: g$isWX ? 21 : 22,
+                    customerInfo: {
                         phonenum: vm.phonenum,
-                        name:vm.name
+                        name: vm.name
                     },
-                    captcha:vm.vec
+                    captcha: vm.vec
                 },
                 callbackParameter: "callback",
                 success: function (obj) {
                     obj = $.parseJSON(obj);
                     vm$root.isLoading = false;
-                    if(obj.code==0){
+                    if (obj.code == 0) {
                         layer.msg('预约成功！');
-                        location.hash = '#!/home/';
+                        location.hash = '#!/card/';
                     }
-                    else{
+                    else {
                         layer.msg(obj.msg);
                     }
                 },
-                error:function(){
+                error: function () {
                     vm$root.isLoading = false;
                     layer.msg('您的网络状况不太好哦！');
                 }
@@ -126,6 +125,8 @@ define(["mmRouter",
 
     //初始化时间选择控件
     var initTime = function () {
+        vm.op$date = [];
+        vm.op$time = [];
         var GetDateStr = function (AddDayCount) {
             var dd = new Date();
             dd.setDate(dd.getDate() + AddDayCount);
@@ -134,65 +135,43 @@ define(["mmRouter",
             var d = dd.getDate();
             return y + "年" + m + "月" + d + "日";
         };
-        var addDateOption = function () {
-            $('#page_appoint #date').html();
-            for (var i = 0; i <= 10; i++) {
-                var d = '';
-                if (i == 0) {
-                    d = '（今天）';
-                }
-                var option = '<option value=' + GetDateStr(i).replace('年', "/").replace("月", "/").replace("日", "") + '>' + GetDateStr(i) + d + '</option>';
-                $('#page_appoint #date').append(option);
+        for (var i = 0; i <= 10; i++) {
+            var d = '';
+            if (i == 0) {
+                d = '（今天）';
             }
-        };
-        addDateOption();
-
-        var addTimeOption = function () {
-            $('#page_appoint #time').html();
-            for (var i = 0; i <= 14; i++) {
-                var t1 = (8 + i) + ':00',
-                    t2 = (8 + i) + ':30';
-
-                var op1 = '<option  date-h="' + (8 + i) + '">' + t1 + '</option>',
-                    op2 = '<option  date-h="' + (8 + i) + '">' + t2 + '</option>';
-                $('#page_appoint #time').append(op1);
-                if (i != 14) {
-                    $('#page_appoint #time').append(op2);
-                }
-
-            }
-        };
-        addTimeOption();
-        // 期望时间,若是当天 则要判断时间前后
-        $('#page_appoint #date').change(function () {
-            addTimeOption();
-            var v = $(this).val();
-            // 当天
-            if (v == 1) {
-                checkTime();
-            }
-        });
-
-        var checkTime = function () {
-            var dd = new Date();
-            var h = dd.getHours();
-
-            var m = dd.getMinutes();
-            $('#apTime option').each(function () {
-                var date_h = $(this).attr('date-h');
-                if (h > date_h) {
-                    $(this).remove();
-                } else if (h == date_h) {
-                    var _m = $(this).html().split(':')[1];
-                    if (parseInt(_m) < m) {
-                        $(this).remove();
-                    }
-
-                }
+            vm.op$date.push({
+                value: GetDateStr(i).replace('年', "/").replace("月", "/").replace("日", ""),
+                str: GetDateStr(i) + d
             });
-        };
+        }
 
+        avalon.scan(document.getElementById('apdate'));
     };
+
+    //监视date变化
+    vm.$watch("date", function (value) {
+        vm.op$time = [];
+        var dd = new Date();
+        var checkTime = function (timeStr) {
+
+            var h = dd.getHours(),
+                m = dd.getMinutes(),
+                _h = parseInt(timeStr.split(':')[0]),
+                _m = parseInt(timeStr.split(':')[1]);
+            return (h < _h || (h == _h && m > _m));
+        };
+        var isToday = (dd.getDate() == parseInt(vm.date.split('/')[2]));
+        for (var i = 0; i <= 14; i++) {
+            var t1 = (8 + i) + ':00',
+                t2 = (8 + i) + ':30';
+
+            checkTime(t1) || !isToday ? vm.op$time.push({value: t1, str: t1}) : null;
+            checkTime(t2) || !isToday ? vm.op$time.push({value: t2, str: t2}) : null;
+        }
+        console.log(vm.op$time.length);
+        avalon.scan(document.getElementById('aptime'));
+    });
 
 
     //初始化
@@ -200,30 +179,29 @@ define(["mmRouter",
 
         if (vm$root.checkPage('appoint')) {
 
-            vm_appoint.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
-            vm_appoint.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm_appoint.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>');
+            vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
+            vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
+            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g, '&nbsp;').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br/>');
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
-                vm_appoint.address = setVar(g$storeInfo.userInfo.company.address, 'string');
+                vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
             }
-
-            setTimeout(function () {
-                initTime();
-            }, 100);
 
             avalon.scan(document.body);
 
         }
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
+        initTime();
 
-        $(document).attr("title",'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身');
+        $(document).attr("title", '预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身');
         //g$WX.set({
         //    title:setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
         //    imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
         //    desc:'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身'
         //});
     }
+
+    return {init: init};
 
 });

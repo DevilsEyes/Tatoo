@@ -1,17 +1,13 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'icheck',
-    "css!./invite.css"
+define([
+    'icheck'
 ], function () {
-    avalon.router.get("/invite/", init);
 
-    var vm_invite = avalon.define({
+    var vm = avalon.define({
         $id: 'invite',
-        orderId:'',
-        step:'',
-        charge:{},
-        channel:'wx_pub',
+        orderId: '',
+        step: '',
+        charge: {},
+        channel: 'wx_pub',
 
         nickname: '',
         avatar: '',
@@ -19,20 +15,23 @@ define(["mmRouter",
         faith: '',
 
         phonenum: '',
-        ph$old:'nothing',//随便一个非数字字符串
+        ph$old: 'nothing',//随便一个非数字字符串
 
         name: '',
         remark: '',
-        deposit:0,
+        deposit: 0,
 
         date: 0,
         time: 0,
 
+        op$time: [],
+        op$date: [],
+
         vec: '',
         vec$rem: 0,
         vec$get: function () {
-            var vm = vm_invite;
-            if (vm.phonenum.length != 11) {//||vm_invite.vec$sended){
+
+            if (vm.phonenum.length != 11) {//||vm.vec$sended){
                 return;
             }
             vm$root.isLoading = true;
@@ -71,8 +70,7 @@ define(["mmRouter",
         },
 
         tab: function ($event, str) {
-            console.log(str);
-            var vm = vm_invite;
+
             switch (str) {
                 case 'step1':
                     (function () {
@@ -89,7 +87,7 @@ define(["mmRouter",
                             layer.msg('请填写正确的手机号');
                             return;
                         }
-                        if (!(vm.ph$old==vm.phonenum) && vm.vec.length != 6) {
+                        if (!(vm.ph$old == vm.phonenum) && vm.vec.length != 6) {
                             layer.msg('请填写验证码');
                             return;
                         }
@@ -110,7 +108,7 @@ define(["mmRouter",
         },
 
         postOrder: function () {
-            var vm = vm_invite;
+
             if (vm.name.length < 1) {
                 layer.msg('请填写姓名');
                 return;
@@ -135,45 +133,43 @@ define(["mmRouter",
             vm$root.isLoading = true;
 
             console.log({
-                storeId:g$id,
-                _id:vm.orderId,
-                remark:vm.remark,
-                orderTime:Date.parse(new Date(vm.date + ' ' + vm.time)),
-                servicePlace:10,
-                orderFrom:g$isWX?21:22,
-                customerInfo:{
+                storeId: g$id,
+                _id: vm.orderId,
+                remark: vm.remark,
+                orderTime: Date.parse(new Date(vm.date + ' ' + vm.time)),
+                servicePlace: 10,
+                orderFrom: g$isWX ? 21 : 22,
+                customerInfo: {
                     phonenum: vm.phonenum,
-                    name:vm.name
+                    name: vm.name
                 },
-                captcha:vm.ph$old==vm.phonenum? null:vm.vec,
-                pingChannel:vm.deposit>0?vm.channel:null,
-                pingExtra:
-                    vm.deposit>0||vm.channel=='wx_pub'?
-                    {
-                        open_id: g$openId
-                    }:null
+                captcha: vm.ph$old == vm.phonenum ? null : vm.vec,
+                pingChannel: vm.deposit > 0 ? vm.channel : null,
+                pingExtra: vm.deposit > 0 || vm.channel == 'wx_pub' ?
+                {
+                    open_id: g$openId
+                } : null
             });
 
             $.jsonp({
                 url: g$baseUrl + '/Order/info/?_method=POST',
                 data: {
-                    storeId:g$id,
-                    _id:vm.orderId,
-                    remark:vm.remark,
-                    orderTime:Date.parse(new Date(vm.date + ' ' + vm.time)),
-                    servicePlace:10,
-                    orderFrom:g$isWX?21:22,
-                    customerInfo:{
+                    storeId: g$id,
+                    _id: vm.orderId,
+                    remark: vm.remark,
+                    orderTime: Date.parse(new Date(vm.date + ' ' + vm.time)),
+                    servicePlace: 10,
+                    orderFrom: g$isWX ? 21 : 22,
+                    customerInfo: {
                         phonenum: vm.phonenum,
-                        name:vm.name
+                        name: vm.name
                     },
-                    captcha:vm.ph$old==vm.phonenum? null:vm.vec,
-                    pingChannel:vm.deposit>0?vm.channel:null,
-                    pingExtra:
-                        vm.deposit>0||vm.channel=='wx_pub'?
-                        {
-                            open_id: g$openId
-                        }:null
+                    captcha: vm.ph$old == vm.phonenum ? null : vm.vec,
+                    pingChannel: vm.deposit > 0 ? vm.channel : null,
+                    pingExtra: vm.deposit > 0 || vm.channel == 'wx_pub' ?
+                    {
+                        open_id: g$openId
+                    } : null
                 },
                 callbackParameter: "callback",
                 success: function (obj) {
@@ -181,22 +177,22 @@ define(["mmRouter",
                     obj = $.parseJSON(obj);
                     console.log(obj);
                     vm$root.isLoading = false;
-                    if(obj.code==0){
+                    if (obj.code == 0) {
 
-                        if(vm.deposit>0){
+                        if (vm.deposit > 0) {
                             window.pay$charge = obj.data.charge;
                             vm.payOrder();
-                        }else{
+                        } else {
                             layer.msg('预约成功！');
-                            location.hash = '#!/home/';
+                            location.hash = '#!/card/';
                         }
                     }
-                    else{
+                    else {
                         layer.msg(obj.msg);
                     }
 
                 },
-                error:function(){
+                error: function () {
                     vm$root.isLoading = false;
                     layer.msg('您的网络状况不太好哦！');
                 }
@@ -205,7 +201,6 @@ define(["mmRouter",
 
         payOrder: function ($event) {
 
-            var vm = vm_invite;
             var charge = pay$charge;
             vm$root.isLoading = false;
 
@@ -220,7 +215,6 @@ define(["mmRouter",
                 } else if (result == "fail") {
                     vm$root.isLoading = false;
                     layer.msg("支付失败");
-                    //alert(error.extra + '请截图联系客服');
                     vm.step = 'stepFail';
 
                 } else if (result == "cancel") {
@@ -235,8 +229,6 @@ define(["mmRouter",
 
     //加载invite信息
     function loadInvite(code) {
-
-        var vm = vm_invite;
 
         //当店铺id与订单不符时的跳转。
         var sid = code.substr(0, code.length - 13);
@@ -255,22 +247,19 @@ define(["mmRouter",
                 obj = $.parseJSON(obj);
                 console.dir(obj);
 
-                //vm.obj = $print(obj);
-                //avalon.scan(document.body);
-
                 if (obj.code == 0) {
 
                     vm.orderId = code;
-                    vm.deposit = setVar(obj.data.orderInfo.deposit,'int');
+                    vm.deposit = setVar(obj.data.orderInfo.deposit, 'int');
 
                     //设置订单时间
-                    if(obj.data.orderInfo.orderTime>0){
+                    if (obj.data.orderInfo.orderTime > 0) {
                         var d = new Date(obj.data.orderInfo.orderTime);
-                        vm.date = d.getFullYear() +'/' +(d.getMonth() + 1) +'/'+d.getDate();
+                        vm.date = d.getFullYear() + '/' + (d.getMonth() + 1) + '/' + d.getDate();
                         vm.time = d.getHours() + ':' + d.getMinutes();
                     }
 
-                    vm.remark = setVar(obj.data.orderInfo.remark,'string');
+                    vm.remark = setVar(obj.data.orderInfo.remark, 'string');
 
                     ////判定订单是否需要支付，是否已经评价
                     //if (obj.data.isComment == true) {
@@ -308,6 +297,8 @@ define(["mmRouter",
 
     //初始化时间选择控件
     var initTime = function () {
+        vm.op$date = [];
+        vm.op$time = [];
         var GetDateStr = function (AddDayCount) {
             var dd = new Date();
             dd.setDate(dd.getDate() + AddDayCount);
@@ -316,79 +307,54 @@ define(["mmRouter",
             var d = dd.getDate();
             return y + "年" + m + "月" + d + "日";
         };
-        var addDateOption = function () {
-            $('#page_invite #date').html();
-            for (var i = 0; i <= 10; i++) {
-                var d = '';
-                if (i == 0) {
-                    d = '（今天）';
-                }
-                var option = '<option value=' + GetDateStr(i).replace('年', "/").replace("月", "/").replace("日", "") + '>' + GetDateStr(i) + d + '</option>';
-                $('#page_invite #date').append(option);
+        for (var i = 0; i <= 10; i++) {
+            var d = '';
+            if (i == 0) {
+                d = '（今天）';
             }
-        };
-        addDateOption();
-
-        var addTimeOption = function () {
-            $('#page_invite #time').html();
-            for (var i = 0; i <= 14; i++) {
-                var t1 = (8 + i) + ':00',
-                    t2 = (8 + i) + ':30';
-
-                var op1 = '<option  date-h="' + (8 + i) + '">' + t1 + '</option>',
-                    op2 = '<option  date-h="' + (8 + i) + ':30' +'">' + t2 + '</option>';
-                $('#page_invite #time').append(op1);
-                if (i != 14) {
-                    $('#page_invite #time').append(op2);
-                }
-
-            }
-        };
-        addTimeOption();
-        // 期望时间,若是当天 则要判断时间前后
-        $('#page_invite #date').change(function () {
-            addTimeOption();
-            var v = $(this).val();
-            // 当天
-            if (v == 1) {
-                checkTime();
-            }
-        });
-
-        var checkTime = function () {
-            var dd = new Date();
-            var h = dd.getHours();
-
-            var m = dd.getMinutes();
-            $('#apTime option').each(function () {
-                var date_h = $(this).attr('date-h');
-                if (h > date_h) {
-                    $(this).remove();
-                } else if (h == date_h) {
-                    var _m = $(this).html().split(':')[1];
-                    if (parseInt(_m) < m) {
-                        $(this).remove();
-                    }
-
-                }
+            vm.op$date.push({
+                value: GetDateStr(i).replace('年', "/").replace("月", "/").replace("日", ""),
+                str: GetDateStr(i) + d
             });
-        };
+        }
 
+        avalon.scan(document.getElementById('indate'));
     };
 
+    //监视date变化
+    vm.$watch("date", function (value) {
+        vm.op$time = [];
+        var dd = new Date();
+        var checkTime = function (timeStr) {
+
+            var h = dd.getHours(),
+                m = dd.getMinutes(),
+                _h = parseInt(timeStr.split(':')[0]),
+                _m = parseInt(timeStr.split(':')[1]);
+            return (h < _h || (h == _h && m > _m));
+        };
+        var isToday = (dd.getDate() == parseInt(vm.date.split('/')[2]));
+        for (var i = 0; i <= 14; i++) {
+            var t1 = (8 + i) + ':00',
+                t2 = (8 + i) + ':30';
+
+            checkTime(t1) || !isToday ? vm.op$time.push({value: t1, str: t1}) : null;
+            checkTime(t2) || !isToday ? vm.op$time.push({value: t2, str: t2}) : null;
+        }
+        console.log(vm.op$time.length);
+        avalon.scan(document.getElementById('intime'));
+    });
+
     //初始化
-    function init() {
+    function init(router) {
 
-        //to404('纹身大咖邀约页面施工中，给我2个小时！');
-
-        var code = this.query.code;
-        var vm = vm_invite;
+        var code = router.query.code;
 
         if (vm$root.checkPage('invite')) {
 
             vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
             vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
-            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g,'&nbsp;').replace(/</g,'&lt').replace(/>/g,'&gt').replace(/\n/g,'<br/>');
+            vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g, '&nbsp;').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br/>');
 
             if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
                 vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
@@ -397,15 +363,14 @@ define(["mmRouter",
             loadInvite(code);
 
             setTimeout(function () {
-                initTime();
                 checkBoxInit();
             }, 100);
 
             vm.step = 'step1';
 
             avalon.scan(document.body);
-
         }
+        initTime();
         $(document).attr("title", "纹身大咖 - 邀约");
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
@@ -417,5 +382,7 @@ define(["mmRouter",
         //    link:location.origin + location.pathname + '?storeId=' + g$id + '#!/invite/?code=' + code
         //});
     }
+
+    return {init: init};
 
 });

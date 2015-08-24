@@ -1,13 +1,8 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'icheck',
-    "css!./comment.css"
+define([
+    'icheck'
 ], function () {
 
-    avalon.router.get("/comment/", init);
-
-    var vm_comment = avalon.define({
+    var vm = avalon.define({
         $id: 'comment',
         billId: '',
         nickname:'',
@@ -17,14 +12,12 @@ define(["mmRouter",
 
         stars:0,
         star$click:function($event,num){
-            vm_comment.stars = num;
+            vm.stars = num;
         },
 
         textComment:'',
 
         putComment:function(){
-
-            var vm = vm_comment;
 
             if(vm.stars==0){
                 layer.msg('给手艺人打个分嘛！');
@@ -54,7 +47,7 @@ define(["mmRouter",
                         layer.msg('评价成功！');
                         window.scrollTo(0, 0);
                         vm$root.isLoading = false;
-                        vm_comment.step = 'step2';
+                        vm.step = 'step2';
 
                     }
                     else {
@@ -73,7 +66,7 @@ define(["mmRouter",
 
     //加载bill信息
     function loadBill(code) {
-        var vm = vm_comment;
+        
         vm$root.isLoading = true;
 
         //当店铺id与订单不符时的跳转。
@@ -103,7 +96,7 @@ define(["mmRouter",
                     }
                     else if(obj.data.isComment==true){
                         layer.msg('订单已评价');
-                        vm_comment.step = 'step2';
+                        vm.step = 'step2';
                     }
 
                     vm.billId = code;
@@ -121,16 +114,16 @@ define(["mmRouter",
     }
 
     //初始化
-    function init() {
+    function init(router) {
 
-        var code = this.query.code;
+        var code = router.query.code;
 
         if (vm$root.checkPage('comment')) {
 
-            vm_comment.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
-            vm_comment.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
+            vm.nickname = setVar(g$storeInfo.userInfo.nickname, 'string');
+            vm.avatar = setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg');
 
-            vm_comment.step = 'step1';
+            vm.step = 'step1';
             loadBill(code);
 
             avalon.scan(document.body);
@@ -138,5 +131,7 @@ define(["mmRouter",
         window.scrollTo(0, 0);
         vm$root.isLoading = false;
     }
+    
+    return{init:init};
 
 });

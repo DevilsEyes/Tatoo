@@ -1,14 +1,9 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'Wookman',
-    "css!./address.css"
+define([
+    'Wookman'
 ], function () {
 
-    avalon.router.get("/address/",init);
-
-    //定义vm_address
-    var vm_address = avalon.define({
+    //定义vm
+    var vm = avalon.define({
         $id:'address',
         name:'',
         address:'',
@@ -21,18 +16,19 @@ define(["mmRouter",
         if(vm$root.checkPage('address')){
 
             if (g$storeInfo.userInfo.company!=null&&g$storeInfo.userInfo.company!=0) {
-                vm_address.name = setVar(g$storeInfo.userInfo.company.name, 'string');
-                vm_address.address = setVar(g$storeInfo.userInfo.company.address, 'string');
-                vm_address.time = setVar(g$storeInfo.openTime, 'string');
+                vm.name = setVar(g$storeInfo.userInfo.company.name, 'string');
+                vm.address = setVar(g$storeInfo.userInfo.company.address, 'string');
+                vm.time = setVar(g$storeInfo.openTime, 'string');
                 avalon.scan(document.body);
             }
             else{
-                location.hash = '#!/home';
+                location.hash = '#!/card';
                 return;
             }
-
         }
         vm$root.isLoading = false;
     }
+
+    return {init:init};
 
 });

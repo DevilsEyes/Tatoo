@@ -1,12 +1,8 @@
-define(["mmRouter",
-    "jQjsonp",
-    "Layer",
-    'icheck',
-    "css!./bill.css"
+define([
+    'icheck'
 ], function () {
-    avalon.router.get("/bill/", init);
 
-    var vm_bill = avalon.define({
+    var vm = avalon.define({
         $id: 'bill',
         billId: '',
         step: '',
@@ -20,7 +16,7 @@ define(["mmRouter",
         ph$have: false,
         ph$old: '',
         ph$change: function () {
-            var vm = vm_bill;
+            
 
             vm.ph$have = false;
             vm.phonenum = '';
@@ -32,7 +28,7 @@ define(["mmRouter",
         vec: '',
         vec$rem: 0,
         vec$get: function () {
-            var vm = vm_bill;
+            
             if (vm.phonenum.length != 11 || vm.vec$rem > 0) {//||vm.vec$sended){
                 return;
             }
@@ -76,7 +72,7 @@ define(["mmRouter",
         obj: '',
 
         tab: function ($event, str) {
-            var vm = vm_bill;
+            
             switch (str) {
                 case 'step1':
                     (function () {
@@ -100,7 +96,7 @@ define(["mmRouter",
         },
 
         putBill: function ($event) {
-            var vm = vm_bill;
+            
 
             vm$root.isLoading = true;
             $.jsonp({
@@ -140,7 +136,7 @@ define(["mmRouter",
 
         payBill: function ($event) {
 
-            var vm = vm_bill;
+            
             var charge = pay$charge;
             vm$root.isLoading = false;
 
@@ -169,8 +165,8 @@ define(["mmRouter",
         }
     });
 
-    vm_bill.$watch('phonenum', function (v) {
-        vm_bill.vec$sended = (v == vm_bill.ph$old);
+    vm.$watch('phonenum', function (v) {
+        vm.vec$sended = (v == vm.ph$old);
     });
 
     //初始化CheckBox
@@ -188,7 +184,7 @@ define(["mmRouter",
     //加载bill信息
     function loadBill(code) {
 
-        var vm = vm_bill;
+        
 
         ////当店铺id与订单不符时的跳转。
         var sid = code.substr(0, code.length - 13);
@@ -253,10 +249,9 @@ define(["mmRouter",
     }
 
     //初始化
-    function init() {
+    function init(router) {
 
-        var vm = vm_bill;
-        var code = this.query.code;
+        var code = router.query.code;
 
         if (vm$root.checkPage('bill')) {
 
@@ -273,5 +268,7 @@ define(["mmRouter",
         window.scrollTo(0, 0);
 
     }
+
+    return{init:init};
 
 });

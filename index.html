@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html>
 <head lang="en">
-
-    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-    <meta http-equiv="Pragma" content="no-cache" />
-    <meta http-equiv="Expires" content="0" />
+    <script src="Config.js"></script>
+    <script src="urlCheck.js"></script>
     <style>
-        *{
+        * {
             padding: 0;
-            margin:0;
+            margin: 0;
         }
     </style>
-    <script src="Config.js"></script>
     <script>
         //是否移动端判断
         g$isMobile = navigator.userAgent.match(/mobile/i) != null;
@@ -23,15 +20,16 @@
             m.setAttribute("content", "width=device-width,initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no");
             document.head.appendChild(m);
         }
+        document.write('<div id="preloading" style="width:100%;height:100%;top:0;background:white;text-align:center;position:fixed;z-index:9999;"><span><img src="imgs/loading.gif" style="margin-top:200px;"/></span></div>');
 
-        document.write('<div id="preloading" style="opacity:0.8;width:100%;height:100%;top:0;background:white;text-align:center;position:fixed;z-index:9999;"><span><img src="imgs/loading.gif" style="margin-top:200px;"/></span></div>');
     </script>
-
-    <meta charset="UTF-8">
-    <meta name="format-detection" content="telephone=no" />
-    <script src="init.js"></script>
+    <script src="include/jQuery/jquery-1.9.1.min.js"></script>
     <script src="include/imagesLoaded/imagesloaded.pkgd.min.js"></script>
-    <script id="ava" src="include/avalon/avalon.modern.js" data-main="LoaderMap.js"></script>
+    <script>
+        $('body').append("<script src='include/avalon/avalon.modern.js' data-main='LoaderMap.js?"+new Date().getTime()+"'/>");
+    </script>
+    <meta charset="UTF-8">
+    <meta name="format-detection" content="telephone=no"/>
     <title>纹身大咖</title>
 </head>
 <body ms-controller="root">

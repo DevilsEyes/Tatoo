@@ -1,8 +1,148 @@
 <div ms-controller="pdetail" id="page_pdetail">
 
+    <style>
+        #page_pdetail{
+            color: #f0e9dc;
+        }
+
+        .pdetail{
+            background-color: #383431;
+            padding-bottom: 30px;
+        }
+
+        #page_pdetail header{
+            position: fixed;
+            top:0;
+            width: 100%;
+            height:45px;
+            text-align: center;
+            background: url(imgs/header_gra.png) repeat-y;
+            background-size: contain;
+        }
+
+        #page_pdetail header>.icon-back{
+            left:7px;
+            margin-top: 7px;
+            float: left;
+            vertical-align: middle;
+        }
+
+        #page_pdetail .wimg{
+            width: 100%;
+        }
+
+        #page_pdetail .up{
+            background-color: #49413e;
+            padding-bottom: 15px;
+        }
+
+        #page_pdetail h2{
+            width: calc( 100% - 30px );
+            padding: 15px;
+        }
+
+        #page_pdetail p{
+            width: calc( 100% - 30px );
+            padding: 15px;
+        }
+
+        #page_pdetail .up>div>img{
+            margin:0 15px;
+            width: 20px;
+            vertical-align: top;
+        }
+
+        #page_pdetail #tagAr{
+            display: inline-block;
+            white-space: nowrap;
+            overflow: hidden;
+            width: calc( 100% - 65px );
+        }
+
+        #page_pdetail #tagAr>div{
+            width: auto;
+            white-space: nowrap;
+            display: inline-block;
+        }
+
+        #page_pdetail #tagAr>div>span{
+            display: inline-block;
+            background-color: #825d5b;
+            border-radius: 4px;
+            margin: 2px 6px 0 0;
+            padding: 2px 8px 2px 10px;
+            text-align: center;
+            min-width: 34px;
+        }
+
+        #page_pdetail .card{
+            display: block;
+            color: #f0e9dc;
+            margin:20px 0;
+            border-radius:0 999px 999px 0;
+            background-color: #49413e;
+            height:80px;
+            width:95%;
+        }
+
+        #page_pdetail .avatar{
+            vertical-align: top;
+            display: inline-block;
+            margin:10px 15px;
+            width: 55px;
+            height:55px;
+            border-radius: 50%;
+            border:solid 3px rgba(240,178,112,0.6);
+            overflow: hidden;
+        }
+        #page_pdetail .avatar>img{
+            width: 55px;
+            height:55px;
+        }
+
+        #page_pdetail .card>div.info{
+            display: inline-block;
+            vertical-align: top;
+            margin:20px 0;
+            height:60px;
+        }
+
+        #page_pdetail .card>.icon-back{
+            display: block;
+            margin:-75px 0 0 0;
+            width: 12px;
+            float: right;
+            right: 50px;
+            background-size: 12px;
+            transform:rotate(180deg);
+            -moz-transform:rotate(180deg);
+            -webkit-transform:rotate(180deg);
+            -o-transform:rotate(180deg);
+        }
+
+
+        #page_pdetail .btn-normal {
+            display: block;
+            border-radius: 999px;
+            border: solid 2px #ffbb77;
+            background-color: #ffbb77;
+            color: white;
+            text-align: center;
+            margin: 40px 20px;
+            padding: 10px;
+            width: calc(100% - 64px);
+        }
+
+        #page_pdetail .btn-normal:active{
+            border: solid 2px #f0e9dc;
+            background-color: #6f5f5c;
+            color: white;
+        }
+    </style>
+
     <div ms-repeat="proList" ms-visible="nowPage=='pdetail'+el._id" class="pdetail" ms-class="pdt{{el._id}}">
         <header>
-            <a href="#!/home" class="icon-back p-a"></a>
+            <a href="#!/card" class="icon-back p-a"></a>
         </header>
         <div class="up">
             <img class="wimg" ms-src="{{el.imgs[0]}}?imageView2/0/w/640"/>
@@ -18,7 +158,7 @@
             </div>
         </div>
 
-        <a href="#!/home" class="card">
+        <a href="#!/card" class="card">
             <div class="avatar">
                 <img ms-src="avatar">
             </div>

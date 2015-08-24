@@ -1,6 +1,54 @@
 <div ms-controller="address" id="page_address" ms-visible="nowPage=='address'">
+
+    <style>
+        #page_address header{
+            background-color: #383431;
+            position: fixed;
+            top:0;
+            width: 100%;
+            height:45px;
+            color: white;
+            text-align: center;
+        }
+
+        #page_address header>b{
+            display: block;
+            margin-top: 10px;
+        }
+
+        #page_address .icon-back{
+            left:7px;
+            margin-top: 7px;
+            float: left;
+            vertical-align: middle;
+        }
+
+        #page_address .f-line{
+            background-color: white;
+            border-bottom: solid 1px #d8d8d8;
+            width:100%;
+        }
+
+        #page_address .f-label{
+            vertical-align: top;
+            display: inline-block;
+            width:80px;
+            color:#797979;
+            padding:10px 5px 10px 20px;
+        }
+
+        #page_address .f-text{
+            width: calc( 100% - 120px );
+            vertical-align: top;
+            padding:10px 5px 10px 0;
+            display: inline-block;
+            color:#1a1a1a;
+        }
+
+    </style>
+
     <header>
-        <a href="#!/home" class="icon-back p-a"></a>
+        <a href="#!/card" class="icon-back p-a"></a>
         <b class="f36">机构</b>
     </header>
 

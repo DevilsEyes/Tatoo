@@ -77,11 +77,11 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
     //if(false){
         g$params.get(window.location.search.substring(1));
 
-        if (typeof(g$params.state) == 'undefined' || typeof(g$params.code) == 'undefined') {
+        if (typeof(g$params.state) == 'undefined' && typeof(g$params.code) == 'undefined') {
             //1st
             var appId = 'wx57c7040dfd0ba925';
             var REURI = encodeURI(location.origin + location.pathname);
-            var state = enCodeUni(location.search + location.hash);
+            var state = enCodeUni('?' + g$params.toStr() + location.hash);
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?'
                 + 'appid=' + appId + '&redirect_uri=' + REURI + '&response_type=code&scope=snsapi_base&state=' + state + '#wechat_redirect';
         }
@@ -90,7 +90,12 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V1.0.0';      //正式服务器
             var newurl = deCodeUni(g$params.state).split('#');
             g$params.get(newurl[0].substring(1) + '&code=' + g$params.code);
             g$params.clear(['storeId', 'code']);
-            history.pushState(null, document.title, location.origin + location.pathname + '?' + g$params.toStr() + '#' + newurl[1]);
+            g$params.showwxpaytitle = 1;
+            //history.pushState(null, document.title, location.origin + location.pathname + '?' + g$params.toStr() + '#' + newurl[1]);
+            location.href = location.origin + location.pathname + '?' + g$params.toStr() + '#' + newurl[1];
+        }
+        else if (g$params.showwxpaytitle == 1){
+            //啥都不干
         }
     }
     else {
