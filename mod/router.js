@@ -1,7 +1,7 @@
 define(["mmRouter"],
     function () {
         var VersionList = {
-            page_card:'?v=20150826-1145',
+            page_card:'?v=20150826-1252',
             page_address:'?v=20150826-1132',
             page_pdetail:'?v=20150826-1132',
             page_bill:'?v=20150826-1132',

@@ -77,6 +77,13 @@ define([
         pro$over: false
     });
 
+    //生成随机色
+    var getRandomColor = function() {
+        var color = getRandomColor.ColorList[Math.floor(Math.random()*12)];
+        return '#' + color;
+    };
+    getRandomColor.ColorList = ['cbb7a6','bddecc','ffffff','689c57','637b7b','7a201f','8c946b','f2e6bc','a56452','c2c2c2','837467','e5bbbc'];
+
     //加载作品
     function loadProduct() {
 
@@ -122,6 +129,7 @@ define([
                                     + "</a>"
                                     + "</li>";
                             $pbl.append(nodeStr);
+                            $('li',$pbl).last().css('background-color',getRandomColor());
                         }
                         pbl.Set();
                     }
@@ -184,6 +192,9 @@ define([
                 flexibleWidth: pbl.cal().w,
                 align: 'left'
             });
+            setTimeout(function(){
+                $('#pbl li').css('opacity', 1);
+            },300);
 
             var imgLoad = imagesLoaded('#pbl');
             imgLoad.on('always', function (instance) {
@@ -191,7 +202,7 @@ define([
                 vm.pro$loading = false;
             });
             imgLoad.on('progress', function (instance, image) {
-                $(image.img.parentNode.parentNode).css('opacity', 1);
+                $(image.img).css('opacity', 1);
             });
         },
         Refresh: function () {
