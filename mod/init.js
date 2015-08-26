@@ -1,7 +1,6 @@
 define(["mmRouter",
         "jQjsonp",
-        "Layer",
-        "router"
+        "Layer"
     ],
     function () {
         window.g$id = g$params.storeId;
@@ -239,7 +238,6 @@ define(["mmRouter",
             allPage:[],
             checkPage:function(page,icode){
                 //code用于给详情页判断缓存
-                vm$root.isLoading = true;
                 var code = typeof(icode)=='undefined'?'':icode;
 
                 var search = '';

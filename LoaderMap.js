@@ -43,13 +43,16 @@ require.config({
 
         Wookman:["jquery"],
         iScroll:["jquery"],
-        icheck:["jquery"]
+        icheck:["jquery"],
+
+        init:["router"]
     }
 });
 
 require(["jquery", "avalon","Layer",'jQjsonp'], function($, avalon) {
     require([
-        "init",
+        "router?v=20150826-1145",
+        "init?v=20150826-1132",
         "css!./include/Layer/skin/layer.css",
         "css!./include/Layer/skin/layer.ex.css",
         "css!./include/icheck/red.css",
@@ -57,6 +60,4 @@ require(["jquery", "avalon","Layer",'jQjsonp'], function($, avalon) {
         "pingpp",
         "fastclick"
     ]);
-
-
 });

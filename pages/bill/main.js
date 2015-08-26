@@ -251,7 +251,7 @@ define([
     //初始化
     function init(router) {
 
-        var code = router.query.code;
+        var code = router.params.id?router.params.id:router.query.code;
 
         if (vm$root.checkPage('bill')) {
 

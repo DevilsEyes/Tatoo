@@ -56,6 +56,7 @@ define([
 
                             }, 1000);
                         }
+                        vm$root.isLoading = false;
                     }
                     else {
                         layer.msg(obj.msg);
@@ -68,13 +69,8 @@ define([
     //初始化
     function init(router) {
 
-        if(typeof(router.query.code)!='undefined'){
-            var code = router.query.code;
-        }
-        //else{
-        //    var code = router.params.id;
-        //}
-        //console.log(code);
+        //兼容/pdetail/?code=XXX 和 /pdetail/XXX
+        var code = router.params.id?router.params.id:router.query.code;
 
         if (vm$root.checkPage('pdetail', code)) {
 
@@ -84,10 +80,10 @@ define([
 
             vm.getProInfo(code);
         }
+        else{
+            vm$root.isLoading = false;
+        }
         window.scrollTo(0, 0);
-        vm$root.isLoading = false;
-
-
     }
 
     return {init:init};

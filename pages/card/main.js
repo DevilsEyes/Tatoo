@@ -103,8 +103,6 @@ define([
                         vm.pro$loading = true;
                     }
                     else {
-                        var nodeStr = '';
-                        var node = {};
                         var $pbl = $('#page_card #pbl');
 
                         var Lo = vm.productList.length;
@@ -112,24 +110,22 @@ define([
                         var Ln = vm.productList.length - 1;
 
                         for (var i = Lo; i <= Ln; i++) {
-                            node = vm.productList[i];
-                            nodeStr = "<li>"
-                                + "<a href='#!/pdetail?code=" + node._id + "'>"
-                                + "<img src='" + node.images[0] + "?imageView2/0/w/320'/>"
-                                + "<div>"
-                                + "<span class='f28'>" + node.images.length + "张</span>"
-                                + "<p class='f28'>" + node.title + "</p>"
-                                + "</div>"
-                                + "</a>"
-                                + "</li>";
-
+                            var node = vm.productList[i],
+                                img = pbl.cal(node.images[0]),
+                                nodeStr = "<li>"
+                                    + "<a href='#!/pdetail?code=" + node._id + "'>"
+                                    + "<img src='" + img.url + "' width=" + img.w + " height=" + img.h + "/>"
+                                    + "<div>"
+                                    + "<span class='f28'>" + node.images.length + "张</span>"
+                                    + "<p class='f28'>" + node.title + "</p>"
+                                    + "</div>"
+                                    + "</a>"
+                                    + "</li>";
                             $pbl.append(nodeStr);
-                            pbl.Set();
-
                         }
+                        pbl.Set();
                     }
                 }
-                vm.pro$loading = false;
                 if (obj.data.count <= vm.productList.length) {
                     vm.pro$over = true;
                     clearInterval(timerLoadMore);
@@ -158,33 +154,48 @@ define([
     }
 
     //瀑布流
-    var pbl = {
-        ex: null,
+    window.pbl = {
+        cal: function (str) {
+            var w = $(window).width();
+            var width = (w - 45) / 2;
+
+            if (!str) {
+                return {w: width};
+            } else {
+                var t = str.split('_W_')[1];
+                if(t){
+                    var wO = t.split('X')[0];
+                    var hO = t.split('X')[1];
+                    return {w: width, h: hO / wO * width,url:str+'?imageView2/0/w/320'}
+                }
+                else{
+                    return {w: width, h: width,url:str+'?imageView2/1/w/320/h/320'}
+                }
+
+            }
+        },
         Set: function () {
 
             pbl.ex = $('#pbl li').wookmark({
                 container: $('#pbl'),
                 offset: 10,
                 outerOffset: 15,
-                itemWidth: '48%',
-                flexibleWidth: '48%',
+                itemWidth: pbl.cal().w,
+                flexibleWidth: pbl.cal().w,
                 align: 'left'
             });
 
             var imgLoad = imagesLoaded('#pbl');
             imgLoad.on('always', function (instance) {
                 pbl.Refresh();
-                $('#pbl li').css('opacity', 1);
+                vm.pro$loading = false;
             });
             imgLoad.on('progress', function (instance, image) {
-                $(image.img).width($(image.img).width());
-                $(image.img).height($(image.img).height());
+                $(image.img.parentNode.parentNode).css('opacity', 1);
             });
         },
         Refresh: function () {
-            setTimeout(function () {
-                $('#pbl').trigger('refreshWookmark');
-            }, 300);
+            $('#pbl').trigger('refreshWookmark');
         }
     };
 
@@ -217,7 +228,7 @@ define([
                 vm.banner += '?imageView2/1/w/320/h/200';
             }
 
-            if (g$storeInfo.userInfo.company != null && g$storeInfo.userInfo.company != 0) {
+            if (g$storeInfo.userInfo.company) {
                 vm.companyName = setVar(g$storeInfo.userInfo.company.name, 'string');
             }
             else {
@@ -252,5 +263,5 @@ define([
         //});
     }
 
-    return {init:init};
+    return {init: init};
 });
