@@ -78,11 +78,11 @@ define([
     });
 
     //生成随机色
-    var getRandomColor = function() {
-        var color = getRandomColor.ColorList[Math.floor(Math.random()*12)];
-        return '#' + color;
-    };
-    getRandomColor.ColorList = ['cbb7a6','bddecc','ffffff','689c57','637b7b','7a201f','8c946b','f2e6bc','a56452','c2c2c2','837467','e5bbbc'];
+    //var getRandomColor = function() {
+    //    var color = getRandomColor.ColorList[Math.floor(Math.random()*12)];
+    //    return '#' + color;
+    //};
+    //getRandomColor.ColorList = ['cbb7a6','bddecc','ffffff','689c57','637b7b','7a201f','8c946b','f2e6bc','a56452','c2c2c2','837467','e5bbbc'];
 
     //加载作品
     function loadProduct() {
@@ -129,7 +129,16 @@ define([
                                     + "</a>"
                                     + "</li>";
                             $pbl.append(nodeStr);
-                            $('li',$pbl).last().css('background-color',getRandomColor());
+                            $.ajax({
+                                url:node.images[0] + '?imageAve',
+                                index:i,
+                                success: function (obj) {
+                                    if(obj.RGB){
+                                        $('li:eq('+this.index+')',$pbl).css('background-color','#'+obj.RGB.substr(2));
+                                    }
+                                }
+                            });
+                            //$('li',$pbl).last().css('background-color',getRandomColor());
                         }
                         pbl.Set();
                     }
