@@ -1,34 +1,81 @@
-body .tatoo.layui-layer{
+.tatoo.layui-layer {
     border-radius: 10px;
     padding: 0;
 }
 
-body .tatoo .layui-layer-title {
+.tatoo .layui-layer-title {
     border-radius: 4px 4px 0 0;
     background-color: #6f5f5c;
-    color:#f0e9dc;
+    color: #f0e9dc;
     width: 100%;
     padding: 0;
     text-align: center;
     border: none;
 }
 
-body .tatoo .layui-layer-content{
+.tatoo .layui-layer-content {
     text-align: center;
     padding: 30px;
     background-color: #f0e9dc;
     border-radius: 0 0 4px 4px;
 }
 
-body .tatoo .layui-layer-content h2{
+.tatoo .layui-layer-content h2 {
     padding: 10px;
 }
 
-body .tatoo .layui-layer-content p{
+.tatoo .layui-layer-content p {
     color: #aaa;
 }
 
-body .tatoo .layui-layer-btn{
-    margin:0;
+.tatoo .layui-layer-btn {
+    margin: 0;
     padding: 0;
+}
+
+.like.layui-layer {
+    background-color: transparent;
+}
+
+.like .layui-layer-content {
+    border-radius: 4px;
+    padding: 5px 15px 15px 15px !important;
+    text-align: center;
+    background-color: white;
+}
+
+.like .layui-layer-content h1 {
+    font-size: 28rem;
+    width: 100%;
+    padding:5px 0 7px 0;
+    border-bottom: solid 1px #dddddd;
+    font-family: 黑体;
+}
+
+.like .layui-layer-content h2{
+    padding: 10px;
+}
+
+.like .layui-layer-content h2>*{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.like .layui-layer-content img{
+    margin-right: 5px;
+}
+
+.like .layui-layer-content p{
+    text-align: left;
+    font-size: 24rem;
+    color: #919191;
+}
+
+.like .layui-layer-content .btn{
+    border-radius: 4px;
+    padding: 5px 10px;
+    color: white;
+    font-size: 24rem;
+    margin: 5px;
+    background-color: rgb(240, 178, 112);
 }

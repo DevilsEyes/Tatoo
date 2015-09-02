@@ -20,7 +20,7 @@ define([
         like$bool: false,
         like$click: function () {
             if (vm.like$bool) {
-                return;
+                openLikeWindow('只能赞一次哦!');
             }
             else {
                 vm.like$bool = true;
@@ -42,9 +42,14 @@ define([
                                     color: '#322f2c'
                                 })
                             }, 0);
+                            openLikeWindow('点赞成功')
                         }
                         else {
-                            layer.msg(obj.msg)
+                            if(obj.msg=='只能赞一次。'){
+                                openLikeWindow('只能赞一次哦!')
+                            }else{
+                                openLikeWindow(obj.msg)
+                            }
                         }
                     },
                     error: function () {
@@ -77,12 +82,20 @@ define([
         pro$over: false
     });
 
-    //生成随机色
-    //var getRandomColor = function() {
-    //    var color = getRandomColor.ColorList[Math.floor(Math.random()*12)];
-    //    return '#' + color;
-    //};
-    //getRandomColor.ColorList = ['cbb7a6','bddecc','ffffff','689c57','637b7b','7a201f','8c946b','f2e6bc','a56452','c2c2c2','837467','e5bbbc'];
+    var openLikeWindow = function(str){
+        layer.open({
+            skin: 'like',
+            title: '',
+            content: '<h1>' + str + '</h1><h2><img src="./imgs/favicon.png"/><p>下载纹身大咖<br>关注他的实时动态</p></h2><div class="btn">立即下载</div>',
+            shade: 0.3,
+            shadeClose: true,
+            closeBtn: false,
+            btn: false
+        });
+        $('.like .layui-layer-content').click(function(){
+            location.href='http://www.wenshendaka.com';
+        })
+    };
 
     //加载作品
     function loadProduct() {
