@@ -51,7 +51,7 @@ require.config({
 
 require(["jquery", "avalon","Layer",'jQjsonp'], function($, avalon) {
     require([
-        "router?v=20150826-1317",
+        "router?v=20150827-1029",
         "init?v=20150826-1132",
         "css!./include/Layer/skin/layer.css",
         "css!./include/Layer/skin/layer.ex.css",

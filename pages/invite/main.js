@@ -138,7 +138,6 @@ define([
                 remark: vm.remark,
                 orderTime: Date.parse(new Date(vm.date + ' ' + vm.time)),
                 servicePlace: 10,
-                orderFrom: g$isWX ? 21 : 22,
                 customerInfo: {
                     phonenum: vm.phonenum,
                     name: vm.name
@@ -159,7 +158,7 @@ define([
                     remark: vm.remark,
                     orderTime: Date.parse(new Date(vm.date + ' ' + vm.time)),
                     servicePlace: 10,
-                    orderFrom: g$isWX ? 21 : 22,
+                    orderFrom: 11,
                     customerInfo: {
                         phonenum: vm.phonenum,
                         name: vm.name

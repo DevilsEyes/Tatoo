@@ -1,13 +1,13 @@
 define(["mmRouter"],
     function () {
         var VersionList = {
-            page_card:'?v=20150826-1252',
+            page_card:'?v=20150902-1029',
             page_address:'?v=20150826-1132',
             page_pdetail:'?v=20150826-1132',
             page_bill:'?v=20150826-1132',
             page_comment:'?v=20150826-1132',
             page_appoint:'?v=20150826-1132',
-            page_invite:'?v=20150826-1132',
+            page_invite:'?v=20150902-1132',
             page_nf404:'?v=20150826-1132'
         };
 
@@ -38,7 +38,6 @@ define(["mmRouter"],
 
         avalon.router.get("/comment/", initModel('page_comment'));
         avalon.router.get("/comment/{id:intStr19}", initModel('page_comment'));
-
 
     }
 );
