@@ -79,7 +79,7 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V2.0.0';      //正式服务器
 
         if (typeof(g$params.state) == 'undefined' && typeof(g$params.code) == 'undefined') {
             //1st
-            var appId = 'wx57c7040dfd0ba925';
+            var appId = 'wx744789961108d6b7';
             var REURI = encodeURI(location.origin + location.pathname);
             var state = enCodeUni('?' + g$params.toStr() + location.hash);
             location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?'
