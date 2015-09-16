@@ -72,7 +72,7 @@ g$baseUrl = 'http://123.57.42.13/WenShen/V2.0.0';     //外网测试
         return nstr.replace(/\*0/g, '#').replace(/\*1/g, '!').replace(/\*2/g, '?').replace(/\*3/g, '=').replace(/\*4/g, '&').replace(/\*5/g, '/');
     };
 
-    t$.alert(location.href);
+    //t$.alert(location.href);
     //微信中获取code
     if (location.hash.match(/invite/i)||location.hash.match(/bill/i)||location.href.match(/\*5invite\*5/i)||location.href.match(/\*5bill\*5/i)) {
     //if(false){

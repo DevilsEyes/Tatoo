@@ -1,4 +1,4 @@
-define(["mmRouter"],
+define(["mmRouter","page_nf404"],
     function () {
         var VersionList = {
             page_card:'?v=20150902-1029',
