@@ -44,6 +44,7 @@ g$params = {
 
 g$id = '';
 g$isWX = false;
+g$mobile = false;
 g$code = '';
 g$openId = '';
 g$storeInfo = {};
@@ -63,6 +64,7 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V2.0.0';      //正式服务器
 
     //是否微信判断
     g$isWX = navigator.userAgent.match(/MicroMessenger/i) != null;
+    g$mobile = navigator.userAgent.match(/mobile/i) != null;
 
     //URL编码解码算法
     var enCodeUni = function (str) {

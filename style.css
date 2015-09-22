@@ -84,6 +84,9 @@ footer{
     background-color: #282624;
     height:50px;
     width: 100%;
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 footer>a{
@@ -118,4 +121,10 @@ footer>a:nth-child(2)>div{
 
 footer>a:nth-child(2)>div:active{
     background-color: #8d6151;
+}
+
+#page_card,#page_address,#page_appoint,#page_nf404,#page_pdetail{
+    max-width: 640px;
+    margin-left: auto;
+    margin-right: auto;
 }

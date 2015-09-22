@@ -14,6 +14,7 @@
             width: 100%;
             overflow: hidden;
             position: absolute;
+            max-width: 640px;
         }
 
         #page_card .gra {
@@ -30,7 +31,7 @@
         #page_card .info {
             z-index: 1;
             padding: 90px 0 0 20px;
-            width: calc(100% - 20px);
+
         }
 
         #page_card .like {
@@ -95,8 +96,16 @@
 
         #page_card .vc {
             z-index: 2;
-            right: 10px;
-            top: 191px;
+            width: 100%;
+            max-width: 640px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+
+        #page_card .vc>h2{
+            float: right;
+            margin-top:200px;
+            margin-right:10px;
         }
 
         #page_card .Iu {
@@ -319,6 +328,9 @@
     </style>
 
     <div class="up">
+        <div class="p-a vc">
+            <h2 class="f24">访问量：{{visitCount}}</h2>
+        </div>
         <div class="header">
             <div id="addOne" class="f32">+1</div>
             <div class="banner">
@@ -326,7 +338,6 @@
 
                 <div class="gra"></div>
             </div>
-            <h2 class="f24 p-a vc">访问量：{{visitCount}}</h2>
 
             <div class="info">
                 <div class="like" ms-class-av="!like$bool" ms-click="like$click">
@@ -387,17 +398,6 @@
 
     <div class="do">
         <ul id="pbl">
-            <!--用于avalon-->
-            <!--<li ms-repeat="productList" class="isload">-->
-            <!--<a ms-href="#!/pdetail?code={{el._id}}">-->
-            <!--<img ms-src="{{el.images[0]}}?imageView2/0/w/320" onerror="imgError(this,'pbl')"/>-->
-
-            <!--<div>-->
-            <!--<p class="f28">{{el.title}}</p>-->
-            <!--<span class="f28">{{el.images.length}}张</span>-->
-            <!--</div>-->
-            <!--</a>-->
-            <!--</li>-->
         </ul>
         <h4 class="f24" ms-if="pro$loading">{{pro$msg}}</h4>
         <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要加入纹身大咖</a>

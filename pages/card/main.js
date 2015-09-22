@@ -186,7 +186,7 @@ define([
     //瀑布流
     window.pbl = {
         cal: function (str) {
-            var w = $(window).width();
+            var w = g$mobile?$(window).width():640;
             var width = (w - 45) / 2;
 
             if (!str) {
@@ -257,8 +257,10 @@ define([
             if (vm.banner == '') {
                 vm.banner = './imgs/def_banner.jpg';
             }
-            else {
+            else if(g$mobile){
                 vm.banner += '?imageView2/1/w/320/h/200';
+            }else{
+                vm.banner += '?imageView2/1/w/320/h/100';
             }
 
             if (g$storeInfo.userInfo.company) {

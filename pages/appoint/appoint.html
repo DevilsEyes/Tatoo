@@ -10,6 +10,9 @@
             color: white;
             text-align: center;
             z-index: 999;
+            max-width: 640px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         #page_appoint header > b {
@@ -119,6 +122,14 @@
             right: 9px;
         }
 
+        #page_appoint .preNodegetVec {
+            position: absolute;
+            margin-left: auto;
+            margin-right: auto;
+            width: 100%;
+            max-width: 640px;
+        }
+
         #page_appoint .btn-getVec.un {
             background-color: #dddddd;
             color: #aaaaaa;
@@ -169,12 +180,15 @@
             <input class="f28 f-text" type="tel" ms-duplex="phonenum" placeholder="填写手机号" maxlength="11">
         </div>
         <div class="f-line">
-            <div class="f28 btn-getVec" ms-click="vec$get" ms-class-un="phonenum.length!=11||vec$rem>0"
-                 ms-visible="vec$rem==0">获取验证码
+            <div class="preNodegetVec">
+                <div class="f28 btn-getVec" ms-click="vec$get" ms-class-un="phonenum.length!=11||vec$rem>0"
+                     ms-visible="vec$rem==0">获取验证码
+                </div>
+                <div class="f28 btn-getVec" ms-class-un="phonenum.length!=11||vec$rem>0" ms-visible="vec$rem!=0">
+                    剩余{{vec$rem}}秒
+                </div>
             </div>
-            <div class="f28 btn-getVec" ms-class-un="phonenum.length!=11||vec$rem>0" ms-visible="vec$rem!=0">
-                剩余{{vec$rem}}秒
-            </div>
+
             <div class="f28 f-label">验证码</div>
             <input class="f28 f-text" type="tel" ms-duplex="vec" placeholder="填写验证码" maxlength="6">
         </div>
