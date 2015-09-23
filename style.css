@@ -10,6 +10,7 @@ ul{
 input,select,textarea{
     -webkit-appearance: none;
     outline: none;
+    resize:none;
     border:0;
     font-size: 3.2%;
     font-family: "方正兰亭黑", "微软雅黑", sans-serif;

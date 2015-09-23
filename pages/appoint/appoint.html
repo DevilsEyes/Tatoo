@@ -153,12 +153,12 @@
         }
     </style>
 
-    <header>
+    <header ms-if="!fromapp">
         <a href="#!/card" class="icon-back p-a"></a>
         <b class="f36">预约</b>
     </header>
 
-    <div class="blank" style="height:45px;"></div>
+    <div class="blank" style="height:45px;" ms-if="!fromapp"></div>
     <div class="oneBox">
         <div class="avatar p-a">
             <img ms-src="avatar"/>

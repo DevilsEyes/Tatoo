@@ -103,7 +103,7 @@ g$baseUrl = 'http://api.meizhanggui.cc/WenShen/V2.0.0';      //正式服务器
     }
     else {
         g$params.get(window.location.search.substring(1));
-        g$params.clear(['storeId']);
+        g$params.clear(['storeId','fromapp']);
         history.pushState(null, document.title, location.origin + location.pathname + '?' + g$params.toStr() + location.hash);
     }
 

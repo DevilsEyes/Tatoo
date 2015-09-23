@@ -236,6 +236,7 @@ define(["mmRouter",
             $id: "root",
             nowPage:'',
             allPage:[],
+            fromapp:g$params.fromapp,
             checkPage:function(page,icode){
                 //code用于给详情页判断缓存
                 var code = typeof(icode)=='undefined'?'':icode;
