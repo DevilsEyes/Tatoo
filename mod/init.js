@@ -96,10 +96,10 @@ define(["mmRouter",
         window.imgError = function(obj,type){
             switch (type){
                 case 'banner':
-                    avalon.vmodels.home.banner = './imgs/def_banner.jpg';
+                    avalon.vmodels.card.banner = './imgs/def_banner.jpg';
                     break;
                 case 'avatar':
-                    avalon.vmodels.home.avatar = './imgs/def_avatar.jpg';
+                    avalon.vmodels.card.avatar = './imgs/def_avatar.jpg';
                     break;
             }
         };
