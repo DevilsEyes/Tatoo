@@ -35,7 +35,6 @@ window.$print = function(obj){
             }
         }
     }
-
     return str;
 };
 

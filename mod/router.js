@@ -1,14 +1,14 @@
 define(["mmRouter","page_nf404"],
     function () {
         var VersionList = {
-            page_card:'?v=20150902-1029',
-            page_address:'?v=20150826-1132',
-            page_pdetail:'?v=20150826-1132',
-            page_bill:'?v=20150826-1132',
-            page_comment:'?v=20150826-1132',
-            page_appoint:'?v=20150826-1135',
-            page_invite:'?v=20150902-1132',
-            page_nf404:'?v=20150826-1132'
+            page_card:'?v=20151014-1029',
+            page_address:'?v=20151014-1132',
+            page_pdetail:'?v=20151014-1132',
+            page_bill:'?v=20151014-1132',
+            page_comment:'?v=20151014-1132',
+            page_appoint:'?v=20151014-1135',
+            page_invite:'?v=20151014-1132',
+            page_nf404:'?v=20151014-1132'
         };
 
         var initModel = function (modName) {
