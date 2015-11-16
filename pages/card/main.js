@@ -290,9 +290,9 @@ define([
         window.scrollTo(0, vm.offSetY);
         vm$root.isLoading = false;
 
-        $(document).attr("title", setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片');
+        $(document).attr("title", setVar(g$storeInfo.userInfo.nickname, 'string') + '的作品集');
         //g$WX.set({
-        //    title : setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
+        //    title : setVar(g$storeInfo.userInfo.nickname, 'string') + '的作品集',
         //    imgUrl : setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
         //    desc : '我的作品都在里面，进来看看吧'
         //});

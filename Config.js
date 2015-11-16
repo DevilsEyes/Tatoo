@@ -6,13 +6,13 @@
 
 window.t$ = {
     alert:function(str){
-        alert(str);
+        //alert(str);
     },
     log:function(str){
-        console.log(str);
+        //console.log(str);
     },
     dir:function(obj){
-        console.dir(obj);
+        //console.dir(obj);
     }
 };
 

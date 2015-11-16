@@ -195,11 +195,6 @@ define([
         initTime();
 
         $(document).attr("title", '预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身');
-        //g$WX.set({
-        //    title:setVar(g$storeInfo.userInfo.nickname, 'string') + '的微名片',
-        //    imgUrl:setVar(g$storeInfo.userInfo.avatar, 'string', './imgs/def_avatar.jpg'),
-        //    desc:'预约' + setVar(g$storeInfo.userInfo.nickname, 'string') + '的纹身'
-        //});
     }
 
     return {init: init};
