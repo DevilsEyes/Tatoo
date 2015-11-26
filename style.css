@@ -82,42 +82,40 @@ body{
 footer{
     position: fixed;
     bottom: 0;
-    background-color: #282624;
     height:50px;
     width: 100%;
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
+    z-index: 100;
 }
 
 footer>a{
-    display: inline-block;
-    width: 49%;
+    height:50px;
+    display: block;
     text-align: center;
-    vertical-align: middle;
-    padding-top:10px;
 }
 
 footer>a:nth-child(1){
-    color: white;
+    float: left;
+    width: 40%;
+    color: #67d2ca;
+    background: url("imgs/btn-gra.png") repeat-x;
+    background-size:  contain;
+}
+
+footer>a:nth-child(2){
+    float: right;
+    width: 60%;
+    background-color: #67d2ca;
 }
 
 footer>a:nth-child(1)>img{
     width:30px;
 }
 
-footer>a:nth-child(1)>span{
-    vertical-align: top;
-    display: inline-block;
-    padding-bottom:3px;
-}
-
 footer>a:nth-child(2)>div{
-    margin:0 20px;
-    padding:5px 0;
-    background-color: #e38f71;
-    border-radius: 4px;
-    color: #282624;
+    color: white;
 }
 
 footer>a:nth-child(2)>div:active{
@@ -128,4 +126,23 @@ footer>a:nth-child(2)>div:active{
     max-width: 640px;
     margin-left: auto;
     margin-right: auto;
+}
+
+.inahoo-vam::after{
+    content: '';
+    display: inline-block;
+    height: 100%;
+    width: 0;
+    vertical-align: middle;
+}
+
+.inahoo-vam>*{
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.inahoo-clf::after{
+    content: '';
+    display: block;
+    clear:both;
 }

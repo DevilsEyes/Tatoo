@@ -56,7 +56,7 @@ require(["jquery", "avalon","Layer",'jQjsonp'], function($, avalon) {
         "css!./include/Layer/skin/layer.css",
         "css!./include/Layer/skin/layer.ex.css",
         "css!./include/icheck/red.css",
-        "css!./style.css",
+        "css!./style.css?12",
         "pingpp",
         "fastclick"
     ]);

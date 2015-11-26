@@ -33,6 +33,7 @@ define([
                             tag: setVar(productInfo.tag, 'string').split('#'),
                             imgs: productInfo.images,
                             length: productInfo.images.length,
+                            timeCosts:productInfo.timeCosts,
                             iscroll: null
                         };
 
@@ -63,6 +64,18 @@ define([
                     }
                 }
             })
+        },
+        filter:function(str,type){
+            switch (type){
+                case 'timeCosts':{
+                    console.log('timeCosts:'+str);
+                    str = +(str||0);
+                    if(str==0)return '';
+                    else{
+                        return ''+str;
+                    }
+                }
+            }
         }
     });
 

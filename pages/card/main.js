@@ -15,6 +15,7 @@ define([
         wxNum: '',
         companyName: '',
         rank: 0,
+        price:'',
 
         likeCount: 1000,
         like$bool: false,
@@ -64,15 +65,15 @@ define([
 
         faith: '',
         faith$bool: false,
-        faith$mH: 50,
+        faith$mH: 60,
         faith$toggle: function () {
             vm.faith$bool = !vm.faith$bool;
             if (vm.faith$bool) {
-                $('#page_card .faith').height($('#page_card .faith>p').height());
-                $('#page_card .faith + a').text('收起');
+                $('#page_card .faith p').height(vm.faith$mH);
+                $('#page_card .faith a').text('收起');
             } else {
-                $('#page_card .faith').height(50);
-                $('#page_card .faith + a').text('查看全文');
+                $('#page_card .faith p').height(60);
+                $('#page_card .faith a').text('查看全文');
             }
         },
 
@@ -162,8 +163,8 @@ define([
                     if (obj.data.count == 0) {
                         vm.pro$msg = '掌柜的太忙了！还没有上传作品！';
                         vm.pro$loading = true;
-                        $('#page_card .do').css('background-color', '#383431');
                         $('#page_card .do').css('padding-top', '20px');
+                        $('#page_card .up').css('padding-bottom', '20px');
                     }
                 } else {
                     //下拉继续加载
@@ -251,6 +252,7 @@ define([
             vm.strSector = setVar(g$storeInfo.strSector, 'string');
             vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
             vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
+            vm.price = setVar(g$storeInfo.userInfo.price, 'string','');
             vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g, '&nbsp;').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br/>');
             vm.likeCount = setVar(g$storeInfo.like, 'int', '0');
             vm.rank = setVar(g$storeInfo.hotRankCountry, 'string');
@@ -274,12 +276,12 @@ define([
 
             //延迟调用，设置参数
             setTimeout(function () {
-                var h = $('#page_card .faith>p').height();
-                $('#page_card .faith').height(50);
-                if (h < 50) {
-                    $('#page_card .faith').height(h);
+                var h = $('#page_card .faith p').height();
+                $('#page_card .faith p').height(60);
+                if (h < 60) {
+                    $('#page_card .faith p').height(h);
                 }
-                avalon.vmodels.card.faith$mH = h;
+                vm.faith$mH = h;
 
                 loadProduct();
 

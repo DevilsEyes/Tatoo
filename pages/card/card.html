@@ -3,11 +3,7 @@
     <style>
         #page_card .up {
             color: #f0e9dc;
-            background-color: #383431;
-        }
-
-        #page_card .header > div {
-            position: absolute;
+            background-color: #1b1b1b;
         }
 
         #page_card .banner {
@@ -17,14 +13,14 @@
             max-width: 640px;
         }
 
-        #page_card .banner>div{
+        #page_card .banner > div {
             width: 100%;
             max-height: 200px;
             overflow: hidden;
             max-width: 640px;
         }
 
-        #page_card .banner>div>img{
+        #page_card .banner > div > img {
             width: 100%;
         }
 
@@ -32,7 +28,7 @@
             width: 100%;
             height: 77px;
             margin-top: -77px;
-            background-image: url("./imgs/bg_gra.png");
+            background-image: url("./imgs/bg_gra2.png");
             background-repeat: repeat-x;
             background-size: contain;
             position: absolute;
@@ -40,16 +36,17 @@
 
         #page_card .info {
             z-index: 1;
-            padding: 90px 0 0 20px;
 
+            padding-top: 100px;
+            position: relative;
         }
 
         #page_card .like {
-            margin-left: 10px;
+            margin-left: 20px;
             display: inline-block;
             color: #322f2c;
             padding: 5px 15px 5px 40px;
-            background-color: #f0b270;
+            background-color: #67d2ca;
             border-radius: 999px;
         }
 
@@ -83,65 +80,78 @@
             background-image: url("./imgs/icon_liked_active.png");
         }
 
-        #page_card .row {
-            border-left: 1px solid #6f5f5c;
-            margin-left: 33px;
+        #page_card .infoPart {
+            margin-top: 65px;
+            padding-left: 105px;
+        }
+
+        #page_card .avatarbox {
+            margin-left: 20px;
         }
 
         #page_card .Sy {
             margin: 15px 29px;
             width: 10px;
             height: 10px;
-            background-color: #f0b270;
+            background-color: #67d2ca;
             border-radius: 5px;
-            box-shadow: 0 0 10px 1px rgb(240, 178, 112);
+            box-shadow: 0 0 10px 1px rgba(112, 240, 235, 0.75);
         }
 
         #page_card .Ly {
             margin: -18px 33px;
             width: 1px;
             height: 60px;
-            background-color: #f0b270;
+            background-color: #67d2ca;
         }
 
-        #page_card .vc {
-            z-index: 1;
-            width: 100%;
-            max-width: 640px;
-            margin-right: auto;
-            margin-left: auto;
+        #page_card .user {
+            padding: 6px 0;
         }
 
-        #page_card .vc>h2{
-            float: right;
-            margin-top:200px;
-            margin-right:10px;
+        #page_card .row {
+            padding: 6px 0;
+            color: #bddecd;
         }
 
-        #page_card .Iu {
-            height: 93px;
-            margin: 10px 80px 0 -33px;
-            padding: 0 0 18px 59px;
-            z-index: -1;
+        #page_card .row2 {
+            padding: 6px 0;
+            color: #67d2ca;
         }
 
-        #page_card .Iu > h1 {
-            margin-top: -2px;
+        #page_card .user > h1 {
+            vertical-align: bottom;
+            padding-right: 5px;
         }
 
-        #page_card .Iu > p {
-            margin-top: 5px;
+        #page_card .user > p {
+            padding-left: 10px;
+            border-left: solid 1px rgb(169, 169, 169);
+            vertical-align: bottom;
         }
 
-        #page_card .Iu > span {
-            display: block;
-            margin-top: 5px;
-            white-space: nowrap;
-        }
-
-        #page_card .Iu > span > img {
+        #page_card .icon {
+            display: inline-block;
             width: 14px;
-            margin-right: 6px;
+            height: 14px;
+            background: center no-repeat;
+            background-size: contain;
+        }
+
+        #page_card .icon-price {
+            background-image: url("imgs/icon_price.png");
+        }
+
+        #page_card .icon-vc {
+            background-image: url("imgs/icon_vc.png");
+        }
+
+        #page_card .icon-follow {
+            background-image: url("imgs/icon_follower.png");
+        }
+
+        #page_card .icon-fans {
+            background-image: url("imgs/icon_fans.png");
         }
 
         #page_card .banner > img {
@@ -149,118 +159,108 @@
         }
 
         #page_card .avatar {
-            vertical-align: top;
-            display: inline-block;
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            border: solid 3px rgba(240, 178, 112, 0.6);
-            overflow: hidden;
+            padding: 3px;
+            background: url("imgs/avatar-border.png") no-repeat center;
+            background-size: contain;
         }
 
         #page_card .avatar > img {
             width: 60px;
             height: 60px;
+            border-radius: 50%;
+            overflow: hidden;
         }
 
-        #page_card .Lg {
-            margin-left: 33px;
-            width: 1px;
-            background-color: #6f5f5c;
+        #page_card .style {
+            padding: 10px 30px;
+            width: 70px;
+            color: #888888;
         }
 
-        #page_card .other {
-            padding: 300px 0 20px 20px;
+        #page_card .style + div {
+            padding: 10px 20px 0 105px;
         }
 
-        #page_card .other img {
-            width: 38px;
-            margin: 0 38px 0 -20px;
-            vertical-align: bottom;
-            position: absolute;
+        #page_card .styleTag {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 10px 0;
+            background-color: #f2f2f2;
+            color: #1a1a1a;
         }
 
-        #page_card .other .wx > div > p {
-            vertical-align: top;
-            margin: 10px 0 20px 60px;
+        #page_card .faith {
+            padding: 10px 20px;
         }
 
-        #page_card .Sg {
-            position: absolute;
-            margin: 15px -4px;
-            width: 7px;
-            height: 7px;
-            background-color: #6f5f5c;
-            border-radius: 5px;
+        #page_card .faith > div {
+            border-radius: 4px;
+            padding: 10px;
+            border: solid 1px #545454;
+            transition: height 0.5s;
         }
 
         /*这里强制使用像素作为单位，以确保分割位置为整行*/
-        #page_card .faith {
-            background-color: #49413e;
-            border-radius: 4px;
-            padding: 10px;
-            margin: 0 20px 0 32px;
-            width: calc(100% - 75px);
+        #page_card .faith p {
             font-size: 14px;
             line-height: 20px;
             overflow: hidden;
             transition: height 0.5s;
         }
 
-        #page_card .faith + a {
+        #page_card .faith a {
             display: block;
-            margin: 0 20px 0 32px;
-            padding: 10px;
+            padding: 10px 0 0 0;
             color: #6ba0bb;
-            background-color: #49413e;
-            border-radius: 0 0 4px 4px;
-            width: calc(100% - 75px);
         }
 
-        #page_card .address {
-            padding-top: 10px;
+        #page_card .companyName {
+            padding: 10px 20px;
         }
 
-        #page_card .address > div {
-            background-color: #49413e;
+        #page_card .companyName > div {
             border-radius: 4px;
-            padding: 8px 10px 6px 10px;
-            margin: 2px 20px 0 32px;
-            height: 22px;
-            width: calc(100% - 75px);
+            padding: 10px;
+            border: solid 1px #545454;
+            transition: height 0.5s;
         }
 
-        #page_card .address > div > p {
+        #page_card .companyName span{
+            width: 20px;
+            height: 20px;
             display: block;
+            background: url(imgs/icon_address.png) center no-repeat;
+            background-size: contain;
+        }
+
+        #page_card .companyName p{
+            padding: 0 60px 0 30px;
+            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
-            white-space: nowrap;
-            color: #f0b270;
-            vertical-align: middle;
-            margin-top: 2px;
-            width: 40%;
+            color: #67d2ca;
         }
 
-        #page_card .address > div > a {
-            display: inline-block;
-            color: #f0e9dc;
-            background-color: #a26b61;
-            border-radius: 4px;
-            margin-top: -2px;
-            padding: 4px;
-            width: 60px;
-            text-align: center;
-            vertical-align: middle;
+        #page_card .companyName a{
+            display: block;
             float: right;
-        }
-
-        #page_card .up .bg {
-            width: 100%;
-            height: 100%;
+            position: relative;
+            top:-33px;
+            right:5px;
+            border-radius: 4px;
+            background-color: #67d2ca;
+            color: #1a1a1a;
+            width: 60px;
+            height: 16px;
+            padding: 5px 0;
+            text-align: center;
         }
 
         #page_card .do {
-            background-color: #f0e9dc;
+            background-color: #f0f0f0;
             padding-bottom: 80px;
         }
 
@@ -269,7 +269,7 @@
         }
 
         #page_card #pbl li {
-            background-color: #e0c9bc;
+            background-color: #f1f3f3;
             border-radius: 6px;
             -webkit-transition: opacity 0.2s;
             -moz-transition: opacity 0.2s;
@@ -291,9 +291,9 @@
         #page_card #pbl div {
             margin: -3px 0 0 0;
             width: 100%;
-            color: #f0e9dc;
+            color: #888888;
             border-radius: 0 0 4px 4px;
-            background-color: #6f5f5c;
+            background-color: white;
         }
 
         #page_card #pbl p {
@@ -321,8 +321,8 @@
         #page_card .btn-normal {
             display: block;
             border-radius: 999px;
-            border: solid 2px #ffbb77;
-            background-color: #ffbb77;
+            border: solid 2px #67d2ca;
+            background-color: #67d2ca;
             color: white;
             text-align: center;
             margin: 40px 20px;
@@ -338,16 +338,12 @@
     </style>
 
     <div class="up">
-        <div class="p-a vc">
-            <h2 class="f24">访问量：{{visitCount}}</h2>
-        </div>
         <div class="header">
-            <div id="addOne" class="f32">+1</div>
-            <div class="banner">
+            <div id="addOne" class="f32 p-a">+1</div>
+            <div class="banner p-a">
                 <div>
                     <img ms-src="banner" onerror="imgError(this,'banner')"/>
                 </div>
-
                 <div class="gra"></div>
             </div>
 
@@ -356,56 +352,65 @@
                     <div></div>
                     <span class="f24">赞 {{likeCount}}</span>
                 </div>
-                <div class="Sy"></div>
-                <div class="Ly"></div>
-                <div>
+                <div class="p-a avatarbox">
+                    <div class="Sy"></div>
+                    <div class="Ly"></div>
                     <div class="avatar">
                         <img ms-src="avatar" onerror="imgError(this,'avatar')"/>
                     </div>
+                </div>
+                <div class="infoPart">
+                    <div class="user">
+                        <h1 class="f32 i-b">{{nickname}}</h1>
 
-                    <div class="p-a i-b Iu row">
+                        <p class="f28 i-b">{{strSector}}</p>
+                    </div>
+                    <div class="row f24">
+                        <div class="i-b inahoo-vam" ms-if="price">
+                            <span class="icon icon-price"></span>
+                            <span>收费标准: {{price}} 元/时</span>
+                        </div>
 
-                        <h1 class="f32">{{nickname}}</h1>
+                        <div class="i-b inahoo-vam">
+                            <span class="icon icon-vc"></span>
+                            <span>访问量: {{visitCount}}</span>
+                        </div>
+                    </div>
+                    <!--<div class="row2 f24">-->
+                        <!--<div class="i-b inahoo-vam">-->
+                            <!--<span class="icon icon-follow"></span>-->
+                            <!--<span>关注: {{'1000'}}</span>-->
+                        <!--</div>-->
 
-                        <p class="f28">{{strSector}}</p>
-
-                        <span class="f28"><img src="./imgs/icon_renqi.png">排名:{{rank}}</span>
+                        <!--<div class="i-b inahoo-vam">-->
+                            <!--<span class="icon icon-fans"></span>-->
+                            <!--<span>粉丝: {{'1000'}}</span>-->
+                        <!--</div>-->
+                    <!--</div>-->
+                </div>
+                <div>
+                    <div class="style f28 p-a">风格</div>
+                    <div>
+                        <span class="f24 styleTag">{{'手稿肖像'}}</span>
+                        <span class="f24 styleTag">{{'手稿肖像'}}</span>
                     </div>
                 </div>
-                <div class="Lg" style="margin-top:-40px;height:58px;"></div>
-            </div>
-        </div>
-
-        <div class="other">
-            <div class="row wx">
-                <img src="./imgs/icon_wechat.png">
-
-                <div class="i-b">
-                    <p class="f28">{{wxNum|f$null}}</p>
+                <div ms-if="faith!=''" class="faith">
+                    <div>
+                        <p class="f28">{{faith|html}}</p>
+                        <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
+                    </div>
                 </div>
-            </div>
-
-            <div ms-if="faith!=''" class="row">
-                <div class="Sg"></div>
-                <div class="faith">
-                    <p>{{faith|html}}</p>
-                </div>
-                <a class="f24" ms-if="faith$mH>=68" ms-click="faith$toggle">查看全文</a>
-            </div>
-
-            <div class="row address">
-                <img src="./imgs/icon_address.png">
-
-                <div ms-if="companyName!=null">
+                <div ms-if="companyName!=null" class="companyName">
+                    <div style="height: 20px">
+                        <span class="p-a"></span>
+                        <p class="f28">{{companyName}}</p>
+                    </div>
                     <a href="#!/address" class="f24">查看</a>
-
-                    <p class="p-a f28">{{companyName}}</p>
-                </div>
-                <div ms-if="companyName==null">
-                    <p class="f28">无</p>
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="do">
@@ -415,15 +420,15 @@
         <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要加入纹身大咖</a>
     </div>
 
-    <footer>
+    <footer class="inahoo-clf">
 
-        <a ms-click="wx$zx">
+        <a ms-click="wx$zx" class="inahoo-vam">
             <img src="./imgs/icon_footer_wechat.png">
-            <span class="f36">微信咨询</span>
+            <div class="f32">微信咨询</div>
         </a>
 
-        <a href="#!/appoint/">
-            <div class="f36">预约TA</div>
+        <a href="#!/appoint/" class="inahoo-vam">
+            <div class="f32">预约</div>
         </a>
 
     </footer>
