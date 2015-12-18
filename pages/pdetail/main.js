@@ -15,16 +15,17 @@ define([
         //获取作品信息
         getProInfo: function (code) {
             $.jsonp({
-                url: g$baseUrl + "/Product/info/?_method=GET",
+                url: g$baseUrl.slice(0,-6) + "new/products/detail?_method=GET",
                 data: {
                     _id: code
                 },
                 callbackParameter: "callback",
                 success: function (obj) {
                     obj = $.parseJSON(obj);
+                    console.dir(obj);
 
                     if (obj.code == 0) {
-                        var productInfo = obj.data.productInfo;
+                        var productInfo = obj.data;
 
                         var newPro = {
                             _id: productInfo._id,

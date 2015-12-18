@@ -14,6 +14,7 @@
             position: fixed;
             top: 0;
             width: 100%;
+            max-width: 640px;
             height: 45px;
             text-align: center;
             background: url(imgs/header_gra.png) repeat-y;
@@ -25,6 +26,15 @@
             margin-top: 7px;
             float: left;
             vertical-align: middle;
+        }
+
+        #page_pdetail header .download{
+            margin:8px;
+            float: right;
+        }
+
+        #page_pdetail header img{
+            height: 32px;
         }
 
         #page_pdetail .wimg {
@@ -156,6 +166,9 @@
     <div ms-repeat="proList" ms-visible="nowPage=='pdetail'+el._id" class="pdetail" ms-class="pdt{{el._id}}">
         <header>
             <a href="#!/card" class="icon-back p-a"></a>
+            <a ms-click="downloadApp" class="download" ms-if="!fromapp">
+                <img src="imgs/download.png">
+            </a>
         </header>
         <div class="up">
             <img class="wimg" ms-src="{{el.imgs[0]}}?imageView2/0/w/640"/>
@@ -193,7 +206,7 @@
             <img class="wimg" ms-if="!$first" ms-src="{{el}}?imageView2/0/w/640"/>
         </div>
 
-        <a class="f32 btn-normal" href="http://www.wenshendaka.com/m_index.html">我也要加入纹身大咖</a>
+        <a class="f32 btn-normal" ms-click="downloadApp" ms-if="!fromapp">我也要加入纹身大咖</a>
 
         <footer class="inahoo-clf">
 

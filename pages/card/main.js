@@ -2,6 +2,8 @@ define([
     'Wookman'
 ], function () {
 
+    var updated = null;
+
     var vm = avalon.define({
         $id: 'card',
 
@@ -15,7 +17,7 @@ define([
         wxNum: '',
         companyName: '',
         rank: 0,
-        price:'',
+        price: '',
 
         likeCount: 1000,
         like$bool: false,
@@ -46,9 +48,9 @@ define([
                             openLikeWindow('点赞成功')
                         }
                         else {
-                            if(obj.msg=='只能赞一次。'){
+                            if (obj.msg == '只能赞一次。') {
                                 openLikeWindow('只能赞一次哦!')
-                            }else{
+                            } else {
                                 openLikeWindow(obj.msg)
                             }
                         }
@@ -83,19 +85,17 @@ define([
         pro$over: false
     });
 
-    var openLikeWindow = function(str){
+    var openLikeWindow = function (str) {
         layer.open({
             skin: 'like',
             title: '',
-            content: '<h1>' + str + '</h1><h2><img src="./imgs/favicon.png"/><p>下载纹身大咖<br>关注他的实时动态</p></h2><div class="btn">立即下载</div>',
+            content: '<h1>' + str + '</h1><h2><img src="./imgs/favicon.png"/><p>下载纹身大咖<br>了解更多纹身资讯</p></h2><div class="btn">立即下载</div>',
             shade: 0.3,
             shadeClose: true,
             closeBtn: false,
             btn: false
         });
-        $('.like .layui-layer-content').click(function(){
-            location.href='http://www.wenshendaka.com';
-        })
+        $('.like .layui-layer-content').click(vm$root.downloadApp)
     };
 
     //加载作品
@@ -106,29 +106,38 @@ define([
             clearInterval(timerLoadMore);
         }
         var limit = 6;//一次加载6个
+        var data = {
+            userId: g$storeInfo.storeId,
+            limit: limit
+        };
+        if (updated != null)data.updated = updated;
 
         $.jsonp({
-            url: g$baseUrl + "/Product/list/?_method=GET",
-            data: {
-                storeId: g$storeInfo.storeId,
-                latestIndex: vm.productList.length != 0 ? vm.productList.length : null,
-                limit: limit,
-                count: true
-            },
+            url: g$baseUrl.slice(0, -6) + "new/products?_method=GET",
+            data: data,
             callbackParameter: "callback",
             success: function (obj) {
                 obj = $.parseJSON(obj);
                 if (obj.code == 0) {
-                    if (obj.data.list.length == 0) {
+                    if (!obj.data) {
                         vm.pro$over = true;
-                        vm.pro$loading = true;
+                        vm.pro$loading = false;
+                        clearInterval(timerLoadMore);
+                        if (vm.productList.length == 0) {
+                            vm.pro$over = true;
+                            vm.pro$msg = '掌柜的太忙了！还没有上传作品！';
+                            vm.pro$loading = true;
+                            $('#page_card .do').css('padding-top', '20px');
+                            $('#page_card .up').css('padding-bottom', '20px');
+                        }
                     }
                     else {
                         var $pbl = $('#page_card #pbl');
 
                         var Lo = vm.productList.length;
-                        vm.productList = vm.productList.concat(obj.data.list);
+                        vm.productList = vm.productList.concat(obj.data);
                         var Ln = vm.productList.length - 1;
+                        updated = obj.data[obj.data.length - 1].updated;
 
                         for (var i = Lo; i <= Ln; i++) {
                             var node = vm.productList[i],
@@ -143,64 +152,55 @@ define([
                                     + "</a>"
                                     + "</li>";
                             $pbl.append(nodeStr);
-                            $.ajax({
-                                url:node.images[0] + '?imageAve',
-                                index:i,
-                                success: function (obj) {
-                                    if(obj.RGB){
-                                        $('li:eq('+this.index+')',$pbl).css('background-color','#'+obj.RGB.substr(2));
-                                    }
-                                }
-                            });
+                            $('li:eq(' + i + ')', $pbl).css('background-color', '#eeeeee');
+                            //$.ajax({
+                            //    url: node.images[0] + '?imageAve',
+                            //    index: i,
+                            //    success: function (obj) {
+                            //        if (obj.RGB) {
+                            //            $('li:eq(' + this.index + ')', $pbl).css('background-color', '#' + obj.RGB.substr(2));
+                            //        }
+                            //    }
+                            //});
                             //$('li',$pbl).last().css('background-color',getRandomColor());
                         }
                         pbl.Set();
-                    }
-                }
-                if (obj.data.count <= vm.productList.length) {
-                    vm.pro$over = true;
-                    clearInterval(timerLoadMore);
-                    if (obj.data.count == 0) {
-                        vm.pro$msg = '掌柜的太忙了！还没有上传作品！';
-                        vm.pro$loading = true;
-                        $('#page_card .do').css('padding-top', '20px');
-                        $('#page_card .up').css('padding-bottom', '20px');
-                    }
-                } else {
-                    //下拉继续加载
-                    window.timerLoadMore = setInterval(function () {
-                        if (vm$root.nowPage == 'card' && vm.pro$over == false && vm.pro$loading == false) {
-                            var h = $(document).height();
-                            var r = $(window).height();
-                            var y = window.pageYOffset;
-                            if (y > h - 300 - r) {
-                                vm.pro$loading = true;
-                                loadProduct();
+                        //下拉继续加载
+                        window.timerLoadMore = setInterval(function () {
+                            if (vm$root.nowPage == 'card' && vm.pro$over == false && vm.pro$loading == false) {
+                                var h = $(document).height();
+                                var r = $(window).height();
+                                var y = window.pageYOffset;
+                                if (y > h - 300 - r) {
+                                    vm.pro$loading = true;
+                                    loadProduct();
+                                }
                             }
-                        }
-                    }, 100);
+                        }, 100);
+                    }
+
                 }
             }
         })
     }
 
-    //瀑布流
+//瀑布流
     window.pbl = {
         cal: function (str) {
-            var w = g$mobile?$(window).width():640;
+            var w = g$mobile ? $(window).width() : 640;
             var width = (w - 45) / 2;
 
             if (!str) {
                 return {w: width};
             } else {
                 var t = str.split('_W_')[1];
-                if(t){
+                if (t) {
                     var wO = t.split('X')[0];
                     var hO = t.split('X')[1];
-                    return {w: width, h: hO / wO * width,url:str+'?imageView2/0/w/320'}
+                    return {w: width, h: hO / wO * width, url: str + '?imageView2/0/w/320'}
                 }
-                else{
-                    return {w: width, h: width,url:str+'?imageView2/1/w/320/h/320'}
+                else {
+                    return {w: width, h: width, url: str + '?imageView2/1/w/320/h/320'}
                 }
 
             }
@@ -215,9 +215,9 @@ define([
                 flexibleWidth: pbl.cal().w,
                 align: 'left'
             });
-            setTimeout(function(){
+            setTimeout(function () {
                 $('#pbl li').css('opacity', 1);
-            },300);
+            }, 300);
 
             var imgLoad = imagesLoaded('#pbl');
             imgLoad.on('always', function (instance) {
@@ -233,7 +233,7 @@ define([
         }
     };
 
-    //记录拉动距离
+//记录拉动距离
     var timercardOSY = setInterval(function () {
         if (vm$root.nowPage == 'card') {
             vm.offSetY = window.pageYOffset;
@@ -241,7 +241,7 @@ define([
     }, 100);
 
 
-    //初始化
+//初始化
     function init() {
 
         if (vm$root.checkPage('card')) {
@@ -252,16 +252,16 @@ define([
             vm.strSector = setVar(g$storeInfo.strSector, 'string');
             vm.visitCount = setVar(g$storeInfo.visitCount, 'int');
             vm.wxNum = setVar(g$storeInfo.userInfo.wxNum, 'string');
-            vm.price = setVar(g$storeInfo.userInfo.price, 'string','');
+            vm.price = setVar(g$storeInfo.userInfo.price, 'string', '');
             vm.faith = setVar(g$storeInfo.userInfo.faith, 'string').replace(/ /g, '&nbsp;').replace(/</g, '&lt').replace(/>/g, '&gt').replace(/\n/g, '<br/>');
             vm.likeCount = setVar(g$storeInfo.like, 'int', '0');
             vm.rank = setVar(g$storeInfo.hotRankCountry, 'string');
             if (vm.banner == '') {
                 vm.banner = './imgs/def_banner.jpg';
             }
-            else if(g$mobile){
+            else if (g$mobile) {
                 vm.banner += '?imageView2/1/w/320/h/200';
-            }else{
+            } else {
                 vm.banner += '?imageView2/1/w/320/h/100';
             }
 

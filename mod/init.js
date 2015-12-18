@@ -236,7 +236,7 @@ define(["mmRouter",
             $id: "root",
             nowPage:'',
             allPage:[],
-            fromapp:g$params.fromapp,
+            fromapp:g$params.fromapp||0,
             checkPage:function(page,icode){
                 //code用于给详情页判断缓存
                 var code = typeof(icode)=='undefined'?'':icode;
@@ -283,6 +283,32 @@ define(["mmRouter",
                     closeBtn: false,
                     btn: []
                 });
+            },
+            downloadApp:function () {
+
+                var isWX = navigator.userAgent.match(/MicroMessenger/i) != null;
+                var isIOS = navigator.userAgent.match(/iPhone/i) || navigator.userAgent.match(/iPad/i) != null;
+                var isPC = !g$isMobile;
+
+                var HREF = {
+                    wx: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.weimi.mzg.ws',
+                    ios: 'https://itunes.apple.com/cn/app/wen-shen-da-ka-zui-hao-wen/id1022212399?mt=8',
+                    adr: 'http://a.app.qq.com/o/simple.jsp?pkgname=com.weimi.mzg.ws',
+                    pc: 'http://www.wenshendaka.com/'
+                };
+
+                if (isWX) {
+                    location.href = HREF.wx;
+                }
+                else if (isIOS) {
+                    location.href = HREF.ios;
+                }
+                else if (isPC) {
+                    location.href = HREF.pc;
+                }
+                else {
+                    location.href = HREF.adr;
+                }
             }
         });
 
